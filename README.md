@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Decision Intelligence Framework App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Decision Intelligence Framework App! This app provides a user interface for managing decisions.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Follow these steps to install and run the app on your local machine:
 
-### `npm start`
+### Clone the repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+git clone https://github.com/juliannetan/scio.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Navigate to the project directory
 
-### `npm test`
+```
+cd scio
+```
+   
+### Install Dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+### Start the React development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ensure you are in the scio folder
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app will be accessible at http://localhost:3000/.
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node.js: Ensure that you have Node.js installed. You can download it from [https://nodejs.org/](https://nodejs.org/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Folder Structure
+src/: Contains the source code for the React application.
+public/: Contains static assets and the HTML template.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Getting the Latest Changes
 
-## Learn More
+Before starting your work, make sure you have the latest changes from the main repository:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Ensure you are on the main branch
+git checkout main
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Fetch the latest changes
+git pull origin main
+```
 
-### Code Splitting
+### Creating a New Branch
+Create a new branch for your feature or bug fix:
+```bash
+# Create a new branch
+git checkout -b feature/your-feature
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Making Changes
+Make your changes and commit them:
+```bash
+# Add your changes
+git add .
 
-### Analyzing the Bundle Size
+# Commit your changes
+git commit -m 'Add some feature'
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Fetching Updates
+If there were changes in the main repository while you were working, fetch them to keep your branch up to date:
+```bash
+# Fetch updates from the main repository
+git fetch origin main
+```
 
-### Making a Progressive Web App
+### Handling Merge Conflicts
+If there are conflicting changes, Git will inform you. Resolve the conflicts in your code and commit the changes:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# Resolve conflicts in your code
+# (Edit the conflicted files to resolve conflicts)
 
-### Advanced Configuration
+# Add the resolved changes
+git add .
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Commit the resolved changes
+git commit -m 'Resolve merge conflicts'
+```
 
-### Deployment
+### Pushing Changes
+Push your changes to the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+# Push changes to your branch
+git push origin feature/your-feature
+```
 
-### `npm run build` fails to minify
+## Opening a Pull Request
+Open a pull request on GitHub:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1) Navigate to the repository on GitHub.
+2) Switch to the branch containing your changes.
+3) Click on "Pull Request" and follow the instructions.
+Other developers will review your changes, and once approved, your contribution will be merged into the main repository.
+
+Thank you for contributing to Garden Loft Smart Home App!
+
+## License
+This project is licensed under the MIT License.
