@@ -49,11 +49,11 @@ public/: Contains static assets and the HTML template.
 Before starting your work, make sure you have the latest changes from the main repository:
 
 ```bash
-# Ensure you are on the main branch
-git checkout main
+# Ensure you are on the master branch
+git checkout master
 
 # Fetch the latest changes
-git pull origin main
+git pull origin master
 ```
 
 ### Creating a New Branch
