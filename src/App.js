@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import PersistentDrawerLeft from './components/PersistentDrawerLeft'
+import theme from './theme'
 
-function App() {
+const AppContainer = styled.div`
+  background-color: ${({ theme }) => theme.white};
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <AppContainer>
+        <PersistentDrawerLeft />
+      </AppContainer>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
