@@ -76,7 +76,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: `-${drawerWidth}px`,
       top: theme.spacing(9), // Adjust top property instead of marginTop
       position: 'relative', 
       ...(open && {
