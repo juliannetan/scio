@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import theme from '../theme';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient('https://eyxirpucxpgzloxoqtjj.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5eGlycHVjeHBnemxveG9xdGpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQ4Mzg3NDUsImV4cCI6MjAyMDQxNDc0NX0.dRupM9AJsqal6KLOML7E5kMfjrMEfR16_pwughoNZls');
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -26,12 +29,21 @@ const WidgetTitle = styled.h2`
 `;
 
 const OsdPage = () => {
-  const items = [
-    { title: 'Strategic Organizational Goals'},
-    { title: 'Key Operations Objectives', content: 'lorem ipsum' },
-    { title: 'Key Operations Strategies', content: 'Content for Key Operations Strategies' },
-    { title: 'Strategic Asset Management Plan', content: 'Content for Strategic Asset Management Plan' },
-  ];
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from Supabase
+    const fetchData = async () => {
+      const { data, error } = await supabase.from('items').select('*');
+      if (error) {
+        console.error('Error fetching data:', error.message);
+      } else {
+        setItems(data);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs once on mount
 
   return (
     <DashboardContainer>
