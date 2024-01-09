@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { alpha, styled, useTheme } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import { Box, Badge, CssBaseline, Toolbar, Typography, IconButton, InputBase } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,7 +10,7 @@ import Drawer from './Drawer';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: '20px',
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -55,14 +55,15 @@ const drawerWidth = 350;
 const MuiAppBarStyled = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   backgroundColor: '#004F71',
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
+    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -71,7 +72,6 @@ const MuiAppBarStyled = styled(MuiAppBar, {
 }));
 
 const AppBar = () => {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -93,7 +93,9 @@ const AppBar = () => {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            sx={{ mr: 2 }}
+            sx={{ mr: 2,
+              ...(open && { display: 'none' }),
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -103,7 +105,7 @@ const AppBar = () => {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            {/* Decision Intelligence Framework */}
+            {/* Mission */}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Search>

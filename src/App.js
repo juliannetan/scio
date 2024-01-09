@@ -15,7 +15,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
-        <AppBar />
+          <AppBar />
       </AppContainer>
     </ThemeProvider>
   )
