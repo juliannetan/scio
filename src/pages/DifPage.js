@@ -1,4 +1,3 @@
-// src/components/Dashboard.js
 import React from 'react'
 import styled from 'styled-components'
 import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer'
@@ -11,7 +10,6 @@ import { PiePlot } from '@mui/x-charts/PieChart'
 import theme from '../theme'
 
 const DashboardContainer = styled.div`
-  background-color: ${theme.primary};
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -33,18 +31,7 @@ const WidgetTitle = styled.h2`
   margin-bottom: 15px;
 `
 
-const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490]
-const xLabels = [
-  'Page A',
-  'Page B',
-  'Page C',
-  'Page D',
-  'Page E',
-  'Page F',
-  'Page G',
-]
-
-const Dashboard = () => {
+const DifPage = () => {
   return (
     <DashboardContainer>
       <WidgetContainer>
@@ -114,4 +101,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default DifPage
