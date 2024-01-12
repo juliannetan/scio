@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Drawer from './Drawer';
+import { useNavigate } from 'react-router-dom'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -71,8 +72,14 @@ const MuiAppBarStyled = styled(MuiAppBar, {
   }),
 }));
 
-const AppBar = () => {
+const AppBar = ({ token }) => {
   const [open, setOpen] = React.useState(false);
+  let navigate = useNavigate()
+
+  function handleLogout() {
+    sessionStorage.removeItem('token')
+    navigate('/')
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -139,7 +146,12 @@ const AppBar = () => {
           </Box>
         </Toolbar>
       </MuiAppBarStyled>
+      {/* <div>
+      <h3>Welcome back, {token.user.user_metadata.full_name}</h3>
+      <button onClick={handleLogout}>Logout</button>
+    </div> */}
       <Drawer open={open} handleDrawerClose={handleDrawerClose} />
+
     </Box>
   );
 }
