@@ -20,6 +20,9 @@ const App = () => {
     sessionStorage.setItem('token', JSON.stringify(token))
   }
 
+
+  
+
   useEffect(() => {
     if (sessionStorage.getItem('token')) {
       let data = JSON.parse(sessionStorage.getItem('token'))
@@ -35,7 +38,7 @@ const App = () => {
           <Route path="/scio/signup" element={<SignUp />} />
           <Route path="/scio/" element={<SignIn setToken={setToken} />} />
           {/* <Route path="/scio/home" element={<AppBar token={token} />} />  */}
-        {token ? <Route path="/scio/home" element={<AppBar token={token} />} /> : NavigateToSignIn }
+        {token ? <Route path='/scio/MissionPage' element={<AppBar token={token} />} /> : 'NavigateToSignIn' }
         </Routes>
       </Router>
       </AppContainer>

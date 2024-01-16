@@ -15,6 +15,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url(scio_logo2017_dark-blue.png);
+  background-color: #004F71;
+  background-size: 57vw 57vw;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const Content = styled.div`
@@ -23,34 +28,40 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const Logo = styled.img`
-  width: 80px;
-  margin-bottom: 20px;
-`;
+// const Logo = styled.img`
+//   width: 80px;
+//   margin-bottom: 20px;
+// `;
 
 const Title = styled.h2`
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
+  color: white;
 `;
-
 const Input = styled.input`
+  background: none;
   width: 100%;
   padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: none;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
   font-size: 16px;
+  color: white;
 `;
 
 const Button = styled.button`
-  background-color: #0070c9;
-  color: #fff;
+  background: grey;
+  width: 27.5vw;
+  margin-bottom: 20px;
+  color: white;
   padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  opacity: .5;
 `;
+
 
 const SignUpPage = () => {
   const history = useNavigate();
@@ -88,7 +99,7 @@ const SignUpPage = () => {
   return (
     <Container>
       <Content>
-        <Logo src="/scio/metal_logo.png" alt="SCIO Logo" />
+        {/* <Logo src="/scio/metal_logo.png" alt="SCIO Logo" /> */}
         <Title>Sign Up</Title>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Input

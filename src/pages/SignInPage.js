@@ -3,14 +3,18 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
-import { Typography } from '@mui/material';
+import { Typography} from '@mui/material';
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-//   background-color: #004F71;
+  background-image: url(scio_logo2017_dark-blue.png);
+  background-color: #004F71;
+  background-size: 57vw 57vw;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const Content = styled.div`
@@ -19,14 +23,16 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const Logo = styled.img`
-  width: 80px;
-  margin-bottom: 20px;
-`;
+// const Logo = styled.img`
+//   width: 80px;
+//   margin-bottom: 20px;
+  
+// `;
 
 const Title = styled.h2`
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
+  color: white;
 `;
 
 const ErrorMessage = styled.div`
@@ -35,31 +41,37 @@ const ErrorMessage = styled.div`
 `;
 
 const Input = styled.input`
+  background: none;
   width: 100%;
   padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: none;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
   font-size: 16px;
+  color: white;
 `;
 
 const Button = styled.button`
-  background-color: #0070c9;
-  color: #fff;
+  background: grey;
+  width: 27.5vw;
+  margin-bottom: 20px;
+  color: white;
   padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  opacity: .5;
 `;
 
 const LinkStyled = styled(Link)`
-  color: #0070c9;
+  color: white;
   text-decoration: none;
   font-size: 14px;
   margin-top: 10px;
   display: block;
 `;
+
 
 const SignInPage = ({ setToken }) => {
     const navigate = useNavigate();
@@ -69,9 +81,9 @@ const SignInPage = ({ setToken }) => {
   
     const handleSignIn = async () => {
       try {
-        const { user, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: username,
-          password,
+          password: password,
         });
   
         if (error) {
@@ -79,9 +91,9 @@ const SignInPage = ({ setToken }) => {
           return;
         }
   
-        console.log('User:', user);
-        setToken(user);
-        navigate('/scio/home');
+        console.log(data);
+        setToken(data);
+        navigate('/scio/MissionPage');
       } catch (error) {
         console.error('Error signing in:', error.message);
       }
@@ -90,7 +102,7 @@ const SignInPage = ({ setToken }) => {
     return (
       <Container>
         <Content>
-          <Logo src="/scio/metal_logo.png" alt="SCIO Logo" />
+          {/* <Logo src="/scio/scio_logo2017_clear-gray.png" alt="SCIO Logo" /> */}
           <Title>Sign In</Title>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <Input
