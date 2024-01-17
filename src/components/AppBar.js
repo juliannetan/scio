@@ -5,9 +5,11 @@ import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import Drawer from './Drawer';
 import { useNavigate } from 'react-router-dom'
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
+import MenuItem from '@mui/material/MenuItem';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,7 +76,9 @@ const MuiAppBarStyled = styled(MuiAppBar, {
 
 const AppBar = ({ token }) => {
   const [open, setOpen] = React.useState(false);
-  let navigate = useNavigate()
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const settings = ['Profile', 'Logout'];
+  let navigate = useNavigate();
 
   function handleLogout() {
     sessionStorage.removeItem('token')
@@ -87,6 +91,14 @@ const AppBar = ({ token }) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   return (
@@ -112,7 +124,6 @@ const AppBar = ({ token }) => {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            {/* Mission */}
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Search>
@@ -134,22 +145,36 @@ const AppBar = ({ token }) => {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              color="inherit"
+            <Box sx={{ flexGrow: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Jane Doe" />
+              </IconButton>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              <AccountCircle />
-            </IconButton>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
           </Box>
         </Toolbar>
       </MuiAppBarStyled>
-      {/* <div>
-      <h3>Welcome back, {token.user.user_metadata.full_name}</h3>
-      <button onClick={handleLogout}>Logout</button>
-    </div> */}
       <Drawer open={open} handleDrawerClose={handleDrawerClose} />
 
     </Box>
