@@ -51,7 +51,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   background: grey;
-  width: 27.5vw;
+  width: 425px;
   margin-bottom: 20px;
   color: white;
   padding: 12px;
