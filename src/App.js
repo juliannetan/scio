@@ -37,29 +37,29 @@ const App = () => {
   //   }
   // }, []);
 
+  // const handleEmailPasswordSignIn = async (email, password) => {
+  //   try {
+  //     const { user, error } = await supabase.auth.signInWithPassword({
+  //       email,
+  //       password,
+  //     });
+
+  //     if (error) {
+  //       console.error('Error signing in:', error.message);
+  //       return;
+  //     }
+
+  //     setToken(user);
+  //     sessionStorage.setItem('token', JSON.stringify(user));
+  //   } catch (error) {
+  //     console.error('Error signing in:', error.message);
+  //   }
+  // };
+
   const handleMagicLinkSignIn = async (tokenData) => {
     setToken(tokenData);
     sessionStorage.setItem('token', JSON.stringify(tokenData));
     return <Navigate to="/scio/home" />;
-  };
-
-  const handleEmailPasswordSignIn = async (email, password) => {
-    try {
-      const { user, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        console.error('Error signing in:', error.message);
-        return;
-      }
-
-      setToken(user);
-      sessionStorage.setItem('token', JSON.stringify(user));
-    } catch (error) {
-      console.error('Error signing in:', error.message);
-    }
   };
 
   const handleSignOut = async () => {

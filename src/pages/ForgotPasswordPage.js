@@ -74,7 +74,7 @@ const ForgotPasswordPage = () => {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
-    async function signInWithEmail() {
+    const signInWithEmail = async () => {
       try {
         if (!username) {
           setError('Please enter your email.');
@@ -89,22 +89,29 @@ const ForgotPasswordPage = () => {
           return;
         }
     
-        await supabase.auth.signInWithOtp({
+        const {user, error } = await supabase.auth.signInWithOtp({
           email: username,
           options: {
             shouldCreateUser: false,
             emailRedirectTo: window.location.origin + '/scio/home',
           },
         });
+
+        if (error) {
+          setError(error.message);
+          setSuccessMessage('');
+          console.error('Error sending magic link: ', error.message);
+          return;
+        }
         setSuccessMessage('A Magic Link has been sent to your email.');
         setError('');
       } catch (error) {
         setSuccessMessage('');
-        setError('Error sending magic link. Please check your email and try again.');
+        setError(error.message);
+        console.error('Error sending magic link:', error.message);
       }
     }
   
-    
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
         signInWithEmail();

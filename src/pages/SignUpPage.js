@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
@@ -56,14 +56,17 @@ const Button = styled.button`
   opacity: .5;
 `;
 
+const SuccessMessage = styled.div`
+  color: white;
+  margin-bottom: 10px;
+`;
 
 const SignUpPage = () => {
-  const history = useNavigate();
-  const location = useLocation();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSignUp = async () => {
     try {
@@ -71,23 +74,33 @@ const SignUpPage = () => {
         email,
         password,
         options: {
-            data: {
-                full_name: fullName,
-            },
-            emailRedirectTo: `https://juliannetan.github.io/scio/MissionPage`
-        }
+          data: {
+            full_name: fullName,
+          },
+          emailRedirectTo: `${window.location.origin}/scio`,
+        },
       });
 
       if (error) {
         setError(error.message);
+        setSuccessMessage('');
         console.error('Error signing up:', error.message);
         return;
       }
 
-      history('/home');
+      setSuccessMessage('Check your email to confirm sign-up.');
+      setError('');
     } catch (error) {
       setError(error.message);
+      setSuccessMessage('');
       console.error('Error signing up:', error.message);
+    }
+  };
+
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSignUp();
     }
   };
 
@@ -96,6 +109,7 @@ const SignUpPage = () => {
       <Content>
         <Title>Sign Up</Title>
         {error && <ErrorMessage>{error}</ErrorMessage>}
+        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
         <Input
           type="text"
           placeholder="Full Name"
@@ -113,6 +127,7 @@ const SignUpPage = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
         <Button onClick={handleSignUp}>Sign Up</Button>
         <Typography>      
