@@ -74,7 +74,7 @@ const SignUpPage = () => {
             data: {
                 full_name: fullName,
             },
-            emailRedirectTo: `${location.pathname}/scio/MissionPage`
+            emailRedirectTo: `https://juliannetan.github.io/scio/MissionPage`
         }
       });
 
