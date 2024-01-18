@@ -1,6 +1,9 @@
 import React from 'react'
 
+
+
 const MissionPage = () => {
+
   return (
     <main className="App-main">
     <section>

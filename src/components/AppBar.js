@@ -82,7 +82,7 @@ const AppBar = ({ token }) => {
 
   function handleLogout() {
     sessionStorage.removeItem('token')
-    navigate('/')
+    navigate('/scio')
   }
 
   const handleDrawerOpen = () => {
@@ -117,7 +117,9 @@ const AppBar = ({ token }) => {
             }}
           >
             <MenuIcon />
+
           </IconButton>
+
           <Typography
             variant="h6"
             noWrap
@@ -125,6 +127,8 @@ const AppBar = ({ token }) => {
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
           </Typography>
+
+
           <Box sx={{ flexGrow: 1 }} />
           <Search>
             <SearchIconWrapper>
@@ -135,6 +139,8 @@ const AppBar = ({ token }) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
@@ -145,10 +151,12 @@ const AppBar = ({ token }) => {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+
             <Box sx={{ flexGrow: 0 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Jane Doe" />
               </IconButton>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -166,7 +174,8 @@ const AppBar = ({ token }) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                // <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu }>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
