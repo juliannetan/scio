@@ -1,4 +1,3 @@
-// components/SignUp.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
@@ -27,11 +26,6 @@ const Content = styled.div`
   max-width: 400px; /* Adjust the width as needed */
   width: 100%;
 `;
-
-// const Logo = styled.img`
-//   width: 80px;
-//   margin-bottom: 20px;
-// `;
 
 const Title = styled.h2`
   font-size: 24px;
@@ -88,7 +82,6 @@ const SignUpPage = () => {
         return;
       }
 
-      console.log('User:', user);
       history.push('/home');
     } catch (error) {
       setError(error.message);
@@ -99,7 +92,6 @@ const SignUpPage = () => {
   return (
     <Container>
       <Content>
-        {/* <Logo src="/scio/metal_logo.png" alt="SCIO Logo" /> */}
         <Title>Sign Up</Title>
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Input
@@ -122,7 +114,7 @@ const SignUpPage = () => {
         />
         <Button onClick={handleSignUp}>Sign Up</Button>
         <Typography>      
-            Already have an account? <Link to='/scio/'>Login</Link>
+            Already have an account? <Link to='/scio/' style={{color: 'white'}}>Login</Link>
         </Typography>
       </Content>
     </Container>

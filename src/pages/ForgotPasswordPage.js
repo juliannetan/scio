@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
 import { Typography} from '@mui/material';
@@ -30,6 +30,11 @@ const Title = styled.h2`
 
 const ErrorMessage = styled.div`
   color: red;
+  margin-bottom: 10px;
+`;
+
+const SuccessMessage = styled.div`
+  color: white;
   margin-bottom: 10px;
 `;
 
@@ -64,58 +69,54 @@ const LinkStyled = styled(Link)`
 `;
 
 
-const SignInPage = ({ setToken }) => {
-    const navigate = useNavigate();
+const ForgotPasswordPage = () => {
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSignIn = async () => {
+    async function signInWithEmail() {
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: username,
-          password: password,
-        });
-  
-        if (error) {
-          setError('Invalid email or password.');
+        if (!username) {
+          setError('Please enter your email.');
+          setSuccessMessage('');
           return;
         }
-  
-        console.log(data);
-        setToken(data);
-        navigate('/scio/home');
-      } catch (error) {
-        console.error('Error signing in:', error.message);
-      }
-    };
 
-    const handleForgotPassword = async () => {
-      try {
-        const { error } = await supabase.auth.api.resetPasswordForEmail(username);
-  
-        if (error) {
-          setError('Error sending reset email.');
-          console.error('Error sending reset email:', error.message);
-        } else {
-          setError('Reset email sent. Check your inbox.');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(username)) {
+          setError('Please enter a valid email address.');
+          setSuccessMessage('');
+          return;
         }
+    
+        await supabase.auth.signInWithOtp({
+          email: username,
+          options: {
+            shouldCreateUser: false,
+            emailRedirectTo: window.location.origin + '/scio/home',
+          },
+        });
+        setSuccessMessage('A Magic Link has been sent to your email.');
+        setError('');
       } catch (error) {
-        console.error('Error sending reset email:', error.message);
+        setSuccessMessage('');
+        setError('Error sending magic link. Please check your email and try again.');
       }
-    };
-
+    }
+  
+    
     const handleKeyPress = (event) => {
       if (event.key === 'Enter') {
-        handleSignIn();
+        signInWithEmail();
       }
     };
   
     return (
       <Container>
         <Content>
-          <Title>Sign In</Title>
+          <Title>Password Recovery</Title>
           {error && <ErrorMessage>{error}</ErrorMessage>}
+          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
           <Input
             type="text"
             placeholder="Email"
@@ -123,23 +124,13 @@ const SignInPage = ({ setToken }) => {
             onChange={(e) => setUsername(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <Button onClick={handleSignIn}>Sign In</Button>
-          <Typography>
-            Don't have an account? <LinkStyled to='/scio/signup'>Sign Up</LinkStyled>
-          </Typography>
-          <Typography>
-            <LinkStyled to="/scio/forgot-password" onClick={handleForgotPassword}>Forgot password?</LinkStyled>
-          </Typography>
+          <Button onClick={signInWithEmail}>Continue</Button>
+          <Typography>      
+            Already have an account? <LinkStyled to='/scio/' style={{color: 'white'}}>Login</LinkStyled>
+        </Typography>
         </Content>
       </Container>
     );
 };
 
-export default SignInPage;
+export default ForgotPasswordPage;
