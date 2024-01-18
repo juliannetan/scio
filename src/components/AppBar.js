@@ -75,7 +75,7 @@ const MuiAppBarStyled = styled(MuiAppBar, {
 }));
 
 const AppBar = ({ token, onSignOut }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userData, setUserData] = React.useState(null);
   const [isMagicLinkRedirect, setIsMagicLinkRedirect] = React.useState(false);
