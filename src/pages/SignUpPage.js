@@ -64,7 +64,8 @@ const Button = styled.button`
 
 
 const SignUpPage = () => {
-  const history = useNavigate();
+  const history = useHistory();
+  const location = useLocation();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,7 +79,8 @@ const SignUpPage = () => {
         options: {
             data: {
                 full_name: fullName,
-            }
+            },
+            emailRedirectTo: `${location.pathname}/scio/MissionPage`
         }
       });
 
