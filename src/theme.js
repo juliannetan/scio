@@ -1,4 +1,3 @@
-// src/theme.js
 const theme = {
   primary: '#004F71',
   secondary: '#BBBCBC',
