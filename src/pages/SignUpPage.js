@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useNavigate } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
@@ -58,7 +58,7 @@ const Button = styled.button`
 
 
 const SignUpPage = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -84,7 +84,7 @@ const SignUpPage = () => {
         return;
       }
 
-      history.push('/home');
+      history('/home');
     } catch (error) {
       setError(error.message);
       console.error('Error signing up:', error.message);
