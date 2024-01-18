@@ -1,5 +1,5 @@
-import React, { useState, useNavigate } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
 import { Typography } from '@mui/material';
