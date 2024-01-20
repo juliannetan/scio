@@ -16,7 +16,7 @@ const Container = styled.div`
   height: 100vh;
   background-image: url(scio_logo2017_dark-blue.png);
   background-color: #004F71;
-  background-size: 57vw 57vw;
+  background-size: 800px 800px;
   background-position: center;
   background-repeat: no-repeat;
 `;
