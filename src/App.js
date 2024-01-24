@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from './theme'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import SignIn from './pages/SignInPage';
 import SignUp from './pages/SignUpPage';
 import AppBar from './components/AppBar';
@@ -19,13 +19,27 @@ const App = () => {
     sessionStorage.setItem('token', JSON.stringify(token))
   }
 
-  useEffect(() => {
-    if (sessionStorage.getItem('token')) {
-      let data = JSON.parse(sessionStorage.getItem('token'))
-      setToken(data)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (sessionStorage.getItem('token')) {
+  //     let data = JSON.parse(sessionStorage.getItem('token'))
+  //     setToken(data)
+  //   }
+  // }, [])
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const magicLinkToken = urlParams.get('token');
+
+    if (magicLinkToken) {
+      handleMagicLinkSignIn({ token: magicLinkToken });
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const storedToken = sessionStorage.getItem('token');
+      if (storedToken) {
+        setToken(JSON.parse(storedToken));
+      }
+    }
+  }, []);
 
   // const [token, setToken] = useState(null);
 
@@ -56,11 +70,23 @@ const App = () => {
   //   }
   // };
 
+  // const navigate = useNavigate(); // Move this inside the App component
+
   const handleMagicLinkSignIn = async (tokenData) => {
     setToken(tokenData);
     sessionStorage.setItem('token', JSON.stringify(tokenData));
-    return <Navigate to="/scio/home" />;
+    // navigate(`${window.location.origin}/scio`);
+        return <Navigate to="/scio/home" />;
+
   };
+
+  // const handleMagicLinkSignIn = async (tokenData) => {
+  //   setToken(tokenData);
+  //   sessionStorage.setItem('token', JSON.stringify(tokenData));
+  //   return <Navigate to="/scio/home" />;
+  // };
+
+  
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
