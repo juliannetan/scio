@@ -17,6 +17,7 @@ import OsdPage from '../pages/OsdPage';
 import DifPage from '../pages/DifPage';
 import MountainIcon from '../icons/MountainIcon';
 import DifIcon from '../icons/DifIcon';
+import TitleBlockPage from '../pages/TitleBlockPage';
 
 const drawerWidth = 350;
 
@@ -99,7 +100,7 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
   const renderPage = () => {
     switch (selectedItem) {
       case 'Mission':
-        return <MissionPage />;
+        return <TitleBlockPage />;
       case 'Operations Strategy Deployment':
         return <OsdPage />;
       case 'Decision Intelligence Framework':
