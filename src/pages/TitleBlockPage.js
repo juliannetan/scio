@@ -302,17 +302,15 @@ const TitleblockPage = () => {
       console.log(Titleblocks)
      
     }
-
-
-    function handleChange(event){
-    
-      setTitleblock(prevFormData=>{
-        return{
+    function handleChange(event) {
+      setTitleblock(prevFormData => {
+        return {
           ...prevFormData,
-          [event.target.any]:event.target.value
-        }
-      })
+          [event.target.name]: event.target.value
+        };
+      });
     }
+    
    
     console.log(Titleblocks)
 
@@ -328,6 +326,7 @@ const TitleblockPage = () => {
   
 
   }
+  
 
   return (
     /*Form Titleblock*/

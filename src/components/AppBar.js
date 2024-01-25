@@ -74,49 +74,49 @@ const MuiAppBarStyled = styled(MuiAppBar, {
   }),
 }));
 
-const AppBar = ({ token, onSignOut }) => {
+const AppBar = () => {
   const [open, setOpen] = React.useState(true);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userData, setUserData] = React.useState(null);
   const [isMagicLinkRedirect, setIsMagicLinkRedirect] = React.useState(false);
   const settings = ['Profile', 'Logout'];
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
-  React.useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const redirectToParam = queryParams.get('redirect_to');
+  // React.useEffect(() => {
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const redirectToParam = queryParams.get('redirect_to');
 
-    if (!token && redirectToParam) {
-      setIsMagicLinkRedirect(true);
-    }
+  //   if (!token && redirectToParam) {
+  //     setIsMagicLinkRedirect(true);
+  //   }
 
-    if (!token && !isMagicLinkRedirect) {
-      navigate('/scio');
-    } else 
-    if (!userData && token) {
-      fetchUserData();
-    }
-  }, [token, navigate, userData, isMagicLinkRedirect]);
+  //   if (!token && !isMagicLinkRedirect) {
+  //     navigate('/scio');
+  //   } else 
+  //   if (!userData && token) {
+  //     fetchUserData();
+  //   }
+  // }, [token, navigate, userData, isMagicLinkRedirect]);
 
-  const fetchUserData = async () => {
-    try {
-      const { user, error } = await supabase.auth.api.getUser(token.access_token);
+  // const fetchUserData = async () => {
+  //   try {
+  //     const { user, error } = await supabase.auth.api.getUser(token.access_token);
 
-      if (error) {
-        console.error('Error fetching user data:', error.message);
-      } else {
-        setUserData(user);
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error.message);
-    }
-  };
+  //     if (error) {
+  //       console.error('Error fetching user data:', error.message);
+  //     } else {
+  //       setUserData(user);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error.message);
+  //   }
+  // };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('token');
-    onSignOut();
-    navigate('/scio');
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.removeItem('token');
+  //   onSignOut();
+  //   navigate('/scio');
+  // };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -142,7 +142,7 @@ const AppBar = ({ token, onSignOut }) => {
 
   return (
     <>
-    {(token || isMagicLinkRedirect) && (
+    {/* {(token || isMagicLinkRedirect) && ( */}
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <MuiAppBarStyled position="fixed" open={open}>
@@ -215,7 +215,7 @@ const AppBar = ({ token, onSignOut }) => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu }>
+                  <MenuItem key={setting} >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
@@ -227,7 +227,7 @@ const AppBar = ({ token, onSignOut }) => {
         <Drawer open={open} handleDrawerClose={handleDrawerClose} />
 
       </Box>
-    )}
+    {/* )} */}
     </>
   );
 }
