@@ -1,7 +1,7 @@
 
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
-import { supabase } from '../components/supabase';
+import { supabase } from '../components/supabase.js';
 
 
 const Div = styled.div`
@@ -295,13 +295,15 @@ const TitleblockPage = () => {
 
   async function fetchTitleblocks(){
     const {data} = await supabase
-      .from('TitleBlock')
+      .from('Titlecontent')
       .select('*')
       setTitleblocks(data)
 
       console.log(Titleblocks)
      
     }
+
+
     function handleChange(event){
     
       setTitleblock(prevFormData=>{
@@ -316,8 +318,8 @@ const TitleblockPage = () => {
 
   async function createTitleblock(){
     await supabase
-    .from('TitleBlock')
-    .insert({ ID:Titleblocks.ID, Description:Titleblock.Description, ProblemSolvers:Titleblock.ProblemSolvers, DecisionMakers:Titleblock.DecisionMakers, Implementation:Titleblock.Implementation, Assurance:Titleblock.Assurance, Delivery:Titleblock.Delivery,Organization:Titleblock.Organization, Assets:Titleblock.Assets, Practice:Titleblock.Practice, Value:Titleblock.Value, Status:Titleblock.Status, TQ1: Titleblock.TQ1,TQ2: Titleblock.TQ2,TQ3: Titleblock.TQ3,TQ4: Titleblock.TQ4,TQ5:Titleblock.TQ5 ,TQ6: Titleblock.TQ6,TQ7: Titleblock.TQ7,TQ8: Titleblock.TQ8 })
+    .from('Titlecontent')
+    .insert({ ID:Titleblock.ID, Description:Titleblock.Description, ProblemSolvers:Titleblock.ProblemSolvers, DecisionMakers:Titleblock.DecisionMakers, Implementation:Titleblock.Implementation, Assurance:Titleblock.Assurance, Delivery:Titleblock.Delivery,Organization:Titleblock.Organization, Assets:Titleblock.Assets, Practice:Titleblock.Practice, Value:Titleblock.Value, Status:Titleblock.Status, TQ1: Titleblock.TQ1,TQ2: Titleblock.TQ2,TQ3: Titleblock.TQ3,TQ4: Titleblock.TQ4,TQ5:Titleblock.TQ5 ,TQ6: Titleblock.TQ6,TQ7: Titleblock.TQ7,TQ8: Titleblock.TQ8 })
 
     
 
@@ -410,7 +412,7 @@ const TitleblockPage = () => {
     </Div>
 
         <button type='submit'>Create</button>
-        <button onClick={()=>{}}>Next Page</button>
+       
 
     </form>
   );
