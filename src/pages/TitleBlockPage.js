@@ -277,15 +277,15 @@ const Div27 = styled.div`
 
 const TitleblockPage = () => {
 
-  const [Titleblocks,setTitleblocks]=useState([])
-  
+
+  const [titleblocks,setTitleblocks]=useState([])  
 
 
-  const [Titleblock,setTitleblock]=useState({
+  const [titleblock,setTitleblock]=useState({
     ID:'', Description:'', ProblemSolvers:'',DecisionMakers:'', Implementation:'', Assurance:'', Delivery:'',Organization:'', Assets:'', Practice:'', Value:'', Status:'', TQ1: '',TQ2: '',TQ3: '',TQ4: '',TQ5: '',TQ6: '',TQ7: '',TQ8: ''
   })
 
-  console.log(Titleblock)
+  console.log(titleblock)
 
 
   useEffect(() => {
@@ -299,12 +299,15 @@ const TitleblockPage = () => {
       .select('*')
       setTitleblocks(data)
 
-      console.log(Titleblocks)
+      console.log(titleblocks)
      
     }
-    function handleChange(event) {
-      setTitleblock(prevFormData => {
-        return {
+
+
+    function handleChange(event){
+    
+      setTitleblock(prevFormData=>{
+        return{
           ...prevFormData,
           [event.target.name]: event.target.value
         };
@@ -312,31 +315,32 @@ const TitleblockPage = () => {
     }
     
    
-    console.log(Titleblocks)
+    console.log(titleblock)
 
-  async function createTitleblock(){
+  async function createTitleblock(e){
+    e.preventDefault();
+    console.log('insidesafe')
+
     await supabase
-    .from('Titlecontent')
-    .insert({ ID:Titleblock.ID, Description:Titleblock.Description, ProblemSolvers:Titleblock.ProblemSolvers, DecisionMakers:Titleblock.DecisionMakers, Implementation:Titleblock.Implementation, Assurance:Titleblock.Assurance, Delivery:Titleblock.Delivery,Organization:Titleblock.Organization, Assets:Titleblock.Assets, Practice:Titleblock.Practice, Value:Titleblock.Value, Status:Titleblock.Status, TQ1: Titleblock.TQ1,TQ2: Titleblock.TQ2,TQ3: Titleblock.TQ3,TQ4: Titleblock.TQ4,TQ5:Titleblock.TQ5 ,TQ6: Titleblock.TQ6,TQ7: Titleblock.TQ7,TQ8: Titleblock.TQ8 })
-
     
+    .from('Titlecontent')
+
+    .insert([{ ID:titleblock.ID, Description:titleblock.Description, ProblemSolvers:titleblock.ProblemSolvers, DecisionMakers:titleblock.DecisionMakers, Implementation:titleblock.Implementation, Assurance:titleblock.Assurance, Delivery:titleblock.Delivery,Organization:titleblock.Organization, Assets:titleblock.Assets, Practice:titleblock.Practice, Value:titleblock.Value, Status:titleblock.Status, TQ1: titleblock.TQ1,TQ2: titleblock.TQ2,TQ3: titleblock.TQ3,TQ4: titleblock.TQ4,TQ5:titleblock.TQ5 ,TQ6: titleblock.TQ6,TQ7: titleblock.TQ7,TQ8: titleblock.TQ8 }])
+
+    .select()
 
   fetchTitleblocks()    
 
-  
 
   }
-  
+  console.log(titleblocks)
 
   return (
     /*Form Titleblock*/
     <form onSubmit={createTitleblock}> 
 
     <Div>
-      <Img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d65dede142a2e20790c785ce9f84360ca2cc229206bc4295aab870f69bdbfce4?apiKey=7f3fe52e2237409fbd2eb132b8f91eef&"
-      />
+     
       <Div2>
 
         <Div3>ID: Unique Identification Reference</Div3>
@@ -410,8 +414,7 @@ const TitleblockPage = () => {
       
     </Div>
 
-        <button type='submit'>Create</button>
-       
+        <button type='submit'>Save </button>
 
     </form>
   );
