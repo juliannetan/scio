@@ -101,8 +101,8 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
     switch (selectedItem) {
       case 'Mission':
         return <TitleBlockPage />;
-      case 'Operations Strategy Deployment':
-        return <OsdPage />;
+      case 'Strategy Deployment':
+        return <><MissionPage /><OsdPage /></>;
       case 'Decision Intelligence Framework':
         return <DifPage />; 
       default:
@@ -134,7 +134,7 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Mission', 'Operations Strategy Deployment', 'Decision Intelligence Framework'].map((text, index) => (
+          {['Mission', 'Strategy Deployment', 'Decision Intelligence Framework'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton 
                 selected={selectedItem === text}
