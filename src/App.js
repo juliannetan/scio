@@ -112,14 +112,14 @@ const App = () => {
               path="/scio/"
               element={<SignIn setToken={handleMagicLinkSignIn} onEmailPasswordSignIn={handleEmailPasswordSignIn} />}
             /> */}
-            {/* <Route path="/scio/signup" element={<SignUp />} />
+            <Route path="/scio/signup" element={<SignUp />} />
             <Route
               path="/scio/home"
               element={token ? <AppBar token={token} onSignOut={handleSignOut} /> : <Navigate to="/scio/" />}
             />
             <Route path="/scio/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} /> */}
-          <Route path="/scio/" element={<AppBar />} /> 
+          <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} />
+          {/* <Route path="/scio/" element={<AppBar />} />  */}
           <Route path="/scio/problem-statement" element={<ProblemblockPage />} /> 
           <Route path="/scio/current-state" element={<CurrentblockPage />} /> 
           <Route path="/scio/future-state" element={<FutureblockPage />} /> 
