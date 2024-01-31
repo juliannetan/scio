@@ -16,4 +16,4 @@ const MissionIcon = ({ size = 36 }) => {
 
 export default MissionIcon;
 
-1
+12
