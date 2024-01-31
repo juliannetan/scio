@@ -17,6 +17,7 @@ import OsdPage from '../pages/OsdPage';
 import DifPage from '../pages/DifPage';
 import MountainIcon from '../icons/MountainIcon';
 import DifIcon from '../icons/DifIcon';
+import TitleBlockPage from '../pages/TitleBlockPage';
 
 const drawerWidth = 350;
 
@@ -44,7 +45,7 @@ const closedMixin = (theme) => ({
 export const DrawerHeader = styled('div')(({ theme }) => ({
     background: '#004F71',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center', 
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -98,8 +99,6 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
 
   const renderPage = () => {
     switch (selectedItem) {
-      case 'Mission':
-        return <MissionPage />;
       case 'Strategy Deployment':
         return <><MissionPage /><OsdPage /></>;
       case 'Decision Intelligence Framework':
@@ -112,10 +111,8 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
   const renderIcon = (index) => {
     switch (index) {
       case 0:
-        return <MissionIcon />;
-      case 1:
         return <MountainIcon />;
-      case 2:
+      case 1:
         return <DifIcon />;
       default:
         return null;
@@ -133,7 +130,7 @@ const Drawer = ({ open, handleDrawerClose }) =>  {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Mission', 'Strategy Deployment', 'Decision Intelligence Framework'].map((text, index) => (
+          {['Strategy Deployment', 'Decision Intelligence Framework'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton 
                 selected={selectedItem === text}
