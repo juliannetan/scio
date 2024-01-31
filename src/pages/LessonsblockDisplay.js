@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
-import { supabase } from './createClient';
+import { supabase } from '../components/supabase.js';
 
 
 

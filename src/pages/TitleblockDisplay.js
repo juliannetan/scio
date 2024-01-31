@@ -1,8 +1,8 @@
 
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
-import { supabase } from './createClient';
-
+import { supabase } from '../components/supabase.js';
+import { Button } from "@mui/material";
 
 const Div = styled.div`
   display: flex;
@@ -468,7 +468,7 @@ const TitleblockDisplay = () => {
       </Div15>
      
     <button type='submit'>Save Changes</button>
-         
+         <Button >Next</Button>
 </form>
           
 

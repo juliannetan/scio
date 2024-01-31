@@ -1,8 +1,9 @@
 
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
-import { supabase } from './createClient';
-
+import { supabase } from '../components/supabase';
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   gap: 20px;
@@ -230,7 +231,11 @@ const textarea = styled(textarea`
 
 
 const ProblemblockPage = () => {
+  const navigate = useNavigate();
 
+  const handleNextClick = () => {
+    navigate('/scio/current-state');
+};
   
   const [problemblocks,setProblemblocks]=useState([])
 
@@ -358,8 +363,9 @@ const ProblemblockPage = () => {
           </Div5>
         </Column2>
       </Div>
-      <button type='submit' > Save </button> 
-    
+      <Button type='submit' > Save </Button> 
+      <Button onClick={handleNextClick}>Next</Button>
+
     </form>
   
   );
