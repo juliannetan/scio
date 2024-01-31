@@ -86,6 +86,11 @@ function EditToolbar(props) {
 const DifTable = () => {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const navigate = useNavigate();
+  const handleDoubleClick = (id) => () => {
+    // Assuming you want to navigate to '/scio/title-block' on double-click
+    navigate('/scio/a3-canvas');
+  };
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -95,6 +100,7 @@ const DifTable = () => {
 
   const handleEditClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+    handleDoubleClick(id)();
   };
 
   const handleSaveClick = (id) => () => {
@@ -217,6 +223,7 @@ const DifTable = () => {
           rowModesModel={rowModesModel}
           onRowModesModelChange={handleRowModesModelChange}
           onRowEditStop={handleRowEditStop}
+          onRowDoubleClick={(params) => handleDoubleClick(params.id)()}
           processRowUpdate={processRowUpdate}
           slots={{
             toolbar: EditToolbar,
