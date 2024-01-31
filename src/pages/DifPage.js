@@ -8,6 +8,7 @@ import { LinePlot, MarkPlot } from '@mui/x-charts/LineChart'
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis'
 import { PiePlot } from '@mui/x-charts/PieChart'
 import theme from '../theme'
+import DifTable from '../components/DifTable';
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -21,7 +22,16 @@ const WidgetContainer = styled.div`
   color: ${theme.secondary};
   padding: 20px;
   margin: 10px;
-  width: 45%;
+  width: 48%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+`
+const WidgetTableContainer = styled.div`
+  background-color: ${theme.white};
+  color: ${theme.secondary};
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 `
@@ -97,6 +107,11 @@ const DifPage = () => {
           </Paper>
         </Box>
       </WidgetContainer>
+
+      <WidgetTableContainer>
+        <DifTable />
+      </WidgetTableContainer>
+
     </DashboardContainer>
   )
 }
