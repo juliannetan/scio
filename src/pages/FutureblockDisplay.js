@@ -343,7 +343,7 @@ const FutureblockPage = () => {
           
           <td>{futureblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteFutureblocks(futureblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteFutureblocks(futureblock.ID)} }>Delete</button>
             <button onClick={()=>{displayFutureblocks(futureblock.ID)}}>Edit</button>
           
           </td>

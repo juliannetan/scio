@@ -410,7 +410,7 @@ const ImplementationblockDisplay = () => {
           
           <td>{implementationblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteImplementationblocks(implementationblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteImplementationblocks(implementationblock.ID)} }>Delete</button>
             <button onClick={()=>{displayImplementationblocks(implementationblock.ID)}}>Edit</button>
           
           </td>

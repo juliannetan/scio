@@ -492,7 +492,7 @@ const TitleblockDisplay = () => {
       <td>{titleblock.Description}</td>
       <td>{titleblock.created_at}</td>
       <td>
-        <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteTitleblocks(titleblock.ID)} }>Delete</button>
+        <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteTitleblocks(titleblock.ID)} }>Delete</button>
         <button onClick={()=>{displayTitleblocks(titleblock.ID)}}>Edit</button>
       
       </td>

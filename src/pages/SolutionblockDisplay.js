@@ -410,7 +410,7 @@ const SolutionblockDisplay = () => {
           
           <td>{solutionblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteSolutionblocks(solutionblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteSolutionblocks(solutionblock.ID)} }>Delete</button>
             <button onClick={()=>{displaySolutionblocks(solutionblock.ID)}}>Edit</button>
           
           </td>

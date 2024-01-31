@@ -436,7 +436,7 @@ const ProblemblockDisplay = () => {
           
           <td>{problemblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteProblemblocks(problemblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteProblemblocks(problemblock.ID)} }>Delete</button>
             <button onClick={()=>{displayProblemblocks(problemblock.ID)}}>Edit</button>
           
           </td>

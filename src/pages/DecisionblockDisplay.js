@@ -475,7 +475,7 @@ const DecisionblockDisplay = () => {
           
           <td>{decisionblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteDecisionblocks(decisionblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteDecisionblocks(decisionblock.ID)} }>Delete</button>
             <button onClick={()=>{displayDecisionblocks(decisionblock.ID)}}>Edit</button>
           
           </td>

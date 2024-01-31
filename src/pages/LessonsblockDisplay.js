@@ -483,7 +483,7 @@ const LessonsblockDisplay = () => {
           
           <td>{lessonsblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteLessonsblocks(lessonsblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteLessonsblocks(lessonsblock.ID)} }>Delete</button>
             <button onClick={()=>{displayLessonsblocks(lessonsblock.ID)}}>Edit</button>
           
           </td>
