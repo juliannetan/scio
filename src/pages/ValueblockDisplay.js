@@ -354,7 +354,7 @@ const ValueblockPage = () => {
           
           <td>{valueblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteValueblocks(valueblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteValueblocks(valueblock.ID)} }>Delete</button>
             <button onClick={()=>{displayValueblocks(valueblock.ID)}}>Edit</button>
           
           </td>

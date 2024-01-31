@@ -384,7 +384,7 @@ const CurrentblockDisplay = () => {
           
           <td>{currentblock.created_at}</td>
           <td>
-            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this user?')) deleteCurrentblocks(currentblock.ID)} }>Delete</button>
+            <button onClick={()=>  { if (window.confirm('Are you sure you want to delete this record?')) deleteCurrentblocks(currentblock.ID)} }>Delete</button>
             <button onClick={()=>{displayCurrentblocks(currentblock.ID)}}>Edit</button>
           
           </td>
