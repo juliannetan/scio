@@ -7,6 +7,7 @@ import SignUp from './pages/SignUpPage';
 import AppBar from './components/AppBar';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import { supabase } from './components/supabase';
+import GlanceA3Canvas from './pages/GlanceA3Canvas';
 
 const AppContainer = styled.div`
   background-color: #F5F5F7;
@@ -110,6 +111,7 @@ const App = () => {
             />
             <Route path="/scio/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} />
+          <Route path="/scio/a3-canvas" element={<GlanceA3Canvas />} />
           {/* <Route path="/scio/home" element={<AppBar token={token} />} />  */}
         {/* {token ? <Route path='/scio/MissionPage' element={<AppBar token={token} />} /> : 'NavigateToSignIn' } */}
           </Routes>
