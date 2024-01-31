@@ -246,8 +246,7 @@ const ValueblockPage = () => {
       
   
   
-        fetchValueblocks
-  ()
+        fetchValueblocks()
   
   
   
