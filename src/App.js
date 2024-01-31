@@ -80,6 +80,7 @@ const App = () => {
           <Route path="/scio/lessons-learned" element={<LessonsblockPage />} /> 
           <Route path="/scio/title-block" element={<TitleblockPage />} /> 
           <Route path="/scio/a3-canvas" element={<GlanceA3Canvas />} /> 
+          <Route path="/scio/" component={GlanceA3Canvas} />
           </Routes>
       </Router>
       </AppContainer>

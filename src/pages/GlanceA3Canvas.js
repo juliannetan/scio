@@ -1,5 +1,7 @@
+import { Button } from '@mui/material';
 import React from 'react';
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 
 
@@ -268,12 +270,20 @@ const A3Canvas=(props) => {
         <Div16>1</Div16>
         <Div17>
           <Div18>Problem Statement</Div18>
-          <Div19 >More Info...</Div19>
+          <Div19 >
+          <Link to="/scio/problem-statement">
+            <Button>More Info...</Button>
+          </Link>
+          </Div19>
         </Div17>
         <Div20>5</Div20>
         <Div21>
           <Div22>Decision</Div22>
-          <Div23>More Info...</Div23>
+          <Div23>
+          <Link to="/scio/decision">
+            <Button>More Info...</Button>
+          </Link>
+          </Div23>
         </Div21>
       </Div15>
 
@@ -281,12 +291,20 @@ const A3Canvas=(props) => {
         <Div16>2</Div16>
         <Div17>
           <Div18>Current State</Div18>
-          <Div19>More Info...</Div19>
-        </Div17>
+          <Div19 >
+          <Link to="/scio/current-state">
+            <Button>More Info...</Button>
+          </Link>
+          </Div19>
+          </Div17>
         <Div20>6</Div20>
         <Div21>
           <Div22>Implementation Plan</Div22>
-          <Div23>More Info...</Div23>
+          <Div23>
+          <Link to="/scio/implementation-plan">
+            <Button>More Info...</Button>
+          </Link>
+          </Div23>
         </Div21>
       </Div15>
 
@@ -294,30 +312,43 @@ const A3Canvas=(props) => {
         <Div16>3</Div16>
         <Div17>
           <Div18>Future State</Div18>
-          <Div19>More Info...</Div19>
+          <Div19 >
+          <Link to="/scio/future-state">
+            <Button>More Info...</Button>
+          </Link>
+          </Div19>
         </Div17>
         <Div20>7</Div20>
         <Div21>
           <Div22>Value Delivery</Div22>
-          <Div23>More Info...</Div23>
-        </Div21>
+          <Div23>
+          <Link to="/scio/value-delivery">
+            <Button>More Info...</Button>
+          </Link>
+          </Div23>
+          </Div21>
       </Div15>
 
       <Div15>
         <Div16>4</Div16>
         <Div17>
           <Div18>Solution Evaluation</Div18>
-          <Div19>More Info...</Div19>
+          <Div19 >
+          <Link to="/scio/solution-evaluation">
+            <Button>More Info...</Button>
+          </Link>
+          </Div19>
         </Div17>
         <Div20>8</Div20>
         <Div21>
           <Div22>Lessons Learned</Div22>
-          <Div23>More Info...</Div23>
-        </Div21>
+          <Div23>
+          <Link to="/scio/lessons-learned">
+            <Button>More Info...</Button>
+          </Link>
+          </Div23>
+          </Div21>
       </Div15>
-
-
-
     </Div>
   );
 }
