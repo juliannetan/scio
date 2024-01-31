@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
-import { supabase } from './createClient';
-
+import { supabase } from '../components/supabase.js';
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   gap: 20px;
@@ -192,7 +193,13 @@ const Div19 = styled.div`
 
 const SolutionblockPage = () => {
 
-  
+  const navigate = useNavigate();
+
+  const handleNextClick = () => {
+    navigate('/scio/decision');
+};
+
+
   const [solutionblocks,setSolutionblocks]=useState([])
 
   const [solutionblock,setSolutionblock]=useState({
@@ -332,8 +339,8 @@ const SolutionblockPage = () => {
           </Div12>
         </Column2>
       </Div>
-      <button type='submit' > Save </button> 
-    
+      <Button type='submit' > Save </Button> 
+      <Button onClick={handleNextClick}>Next</Button>    
     </form>
   );
   

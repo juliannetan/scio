@@ -19,6 +19,7 @@ import {
   randomId,
   randomArrayItem,
 } from '@mui/x-data-grid-generator';
+import { useNavigate } from 'react-router-dom';
 
 const roles = ['Julianne', 'Carlos', 'Jason', 'Chris'];
 const randomRole = () => {
@@ -60,6 +61,7 @@ const initialRows = [
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
+  const navigate = useNavigate();
 
   const handleClick = () => {
     const id = randomId();
@@ -68,6 +70,8 @@ function EditToolbar(props) {
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
     }));
+    navigate('/scio/title-block');
+
   };
 
   return (

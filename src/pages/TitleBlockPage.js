@@ -2,7 +2,8 @@
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
 import { supabase } from '../components/supabase.js';
-
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const Div = styled.div`
   display: flex;
@@ -277,6 +278,11 @@ const Div27 = styled.div`
 
 const TitleblockPage = () => {
 
+  const navigate = useNavigate();
+
+  const handleNextClick = () => {
+      navigate('/scio/problem-statement');
+  };
 
   const [titleblocks,setTitleblocks]=useState([])  
 
@@ -414,8 +420,8 @@ const TitleblockPage = () => {
       
     </Div>
 
-        <button type='submit'>Save </button>
-
+        <Button type='submit'>Save </Button>
+        <Button onClick={handleNextClick}>Next</Button>
     </form>
   );
 }

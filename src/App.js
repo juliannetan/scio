@@ -7,6 +7,15 @@ import SignUp from './pages/SignUpPage';
 import AppBar from './components/AppBar';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import { supabase } from './components/supabase';
+import ProblemblockPage from './pages/ProblemblockPage';
+import CurrentblockPage from './pages/CurrentblockPage';
+import FutureblockPage from './pages/FutureblockPage';
+import SolutionblockPage from './pages/SolutionblockPage';
+import DecisionblockPage from './pages/DecisionblockPage';
+import ImplementationblockPage from './pages/ImplementationblockPage';
+import ValueblockPage from './pages/ValueblockPage';
+import LessonsblockPage from './pages/LessonsblockPage';
+import TitleblockPage from './pages/TitleBlockPage';
 
 const AppContainer = styled.div`
   background-color: #F5F5F7;
@@ -111,6 +120,15 @@ const App = () => {
             <Route path="/scio/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} /> */}
           <Route path="/scio/" element={<AppBar />} /> 
+          <Route path="/scio/problem-statement" element={<ProblemblockPage />} /> 
+          <Route path="/scio/current-state" element={<CurrentblockPage />} /> 
+          <Route path="/scio/future-state" element={<FutureblockPage />} /> 
+          <Route path="/scio/solution-evaluation" element={<SolutionblockPage />} /> 
+          <Route path="/scio/decision" element={<DecisionblockPage />} /> 
+          <Route path="/scio/implementation-plan" element={<ImplementationblockPage />} /> 
+          <Route path="/scio/value-delivery" element={<ValueblockPage />} /> 
+          <Route path="/scio/lessons-learned" element={<LessonsblockPage />} /> 
+          <Route path="/scio/title-block" element={<TitleblockPage />} /> 
         {/* {token ? <Route path='/scio/MissionPage' element={<AppBar token={token} />} /> : 'NavigateToSignIn' } */}
           </Routes>
       </Router>
