@@ -274,7 +274,7 @@ const LessonsblockPage = () => {
   const navigate = useNavigate();
 
   const handleNextClick = () => {
-    navigate('/scio/');
+    navigate('/scio/home');
 };
 
 
