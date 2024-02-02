@@ -191,14 +191,11 @@ const Div19 = styled.div`
 `;
 
 
-const SolutionblockPage = () => {
-
-  const navigate = useNavigate();
+const SolutionblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/decision');
-};
-
+    setNextPage();
+  };
 
   const [solutionblocks,setSolutionblocks]=useState([])
 
@@ -340,7 +337,7 @@ const SolutionblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>    
+      <Button type='submit' onClick={handleNextClick}>Next</Button>    
     </form>
   );
   

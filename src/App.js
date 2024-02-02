@@ -8,15 +8,15 @@ import AppBar from './components/AppBar';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import { supabase } from './components/supabase';
 import GlanceA3Canvas from './pages/GlanceA3Canvas';
-import ProblemblockPage from './pages/ProblemblockPage';
-import CurrentblockPage from './pages/CurrentblockPage';
-import FutureblockPage from './pages/FutureblockPage';
-import SolutionblockPage from './pages/SolutionblockPage';
-import DecisionblockPage from './pages/DecisionblockPage';
-import ImplementationblockPage from './pages/ImplementationblockPage';
-import ValueblockPage from './pages/ValueblockPage';
-import LessonsblockPage from './pages/LessonsblockPage';
-import TitleblockPage from './pages/TitleBlockPage';
+import ProblemblockDisplay from './pages/ProblemblockDisplay';
+import CurrentblockDisplay from './pages/CurrentblockDisplay';
+import FutureblockDisplay from './pages/FutureblockDisplay';
+import SolutionblockDisplay from './pages/SolutionblockDisplay';
+import DecisionblockDisplay from './pages/DecisionblockDisplay';
+import ImplementationblockDisplay from './pages/ImplementationblockDisplay';
+import ValueblockDisplay from './pages/ValueblockDisplay';
+import LessonsblockDisplay from './pages/LessonsblockDisplay';
+import TitleblockDisplay from './pages/TitleblockDisplay';
 
 const AppContainer = styled.div`
   background-color: #F5F5F7;
@@ -70,15 +70,15 @@ const App = () => {
             />
             <Route path="/scio/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} />
-          <Route path="/scio/problem-statement" element={<ProblemblockPage />} /> 
-          <Route path="/scio/current-state" element={<CurrentblockPage />} /> 
-          <Route path="/scio/future-state" element={<FutureblockPage />} /> 
-          <Route path="/scio/solution-evaluation" element={<SolutionblockPage />} /> 
-          <Route path="/scio/decision" element={<DecisionblockPage />} /> 
-          <Route path="/scio/implementation-plan" element={<ImplementationblockPage />} /> 
-          <Route path="/scio/value-delivery" element={<ValueblockPage />} /> 
-          <Route path="/scio/lessons-learned" element={<LessonsblockPage />} /> 
-          <Route path="/scio/title-block" element={<TitleblockPage />} /> 
+          <Route path="/scio/home/problem-statement" element={<ProblemblockDisplay />} /> 
+          <Route path="/scio/home/current-state" element={<CurrentblockDisplay />} /> 
+          <Route path="/scio/home/future-state" element={<FutureblockDisplay />} /> 
+          <Route path="/scio/home/solution-evaluation" element={<SolutionblockDisplay />} /> 
+          <Route path="/scio/home/decision" element={<DecisionblockDisplay />} /> 
+          <Route path="/scio/home/implementation-plan" element={<ImplementationblockDisplay />} /> 
+          <Route path="/scio/home/value-delivery" element={<ValueblockDisplay />} /> 
+          <Route path="/scio/home/lessons-learned" element={<LessonsblockDisplay />} /> 
+          <Route path="/scio/home/title-block" element={<TitleblockDisplay />} /> 
           <Route path="/scio/a3-canvas" element={<GlanceA3Canvas />} /> 
           <Route path="/scio/" component={GlanceA3Canvas} />
           </Routes>

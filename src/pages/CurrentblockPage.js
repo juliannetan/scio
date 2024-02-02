@@ -166,13 +166,11 @@ const Img = styled.img`
 
 
 
-const CurrentblockPage = () => {
-
-  const navigate = useNavigate();
+const CurrentblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/future-state');
-};
+    setNextPage(); // This will set the next page in the Drawer component
+  };
 
   const [currentblocks,setCurrentblocks]=useState([])
 
@@ -310,7 +308,7 @@ const CurrentblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>    
+      <Button type='submit' onClick={handleNextClick}>Next</Button>    
     </form>
   
   );

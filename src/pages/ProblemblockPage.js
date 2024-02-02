@@ -230,13 +230,12 @@ const textarea = styled(textarea`
 
 
 
-const ProblemblockPage = () => {
-  const navigate = useNavigate();
+const ProblemblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/current-state');
-};
-  
+    setNextPage(); // This will set the next page in the Drawer component
+  };
+
   const [problemblocks,setProblemblocks]=useState([])
 
   const [problemblock,setProblemblock]=useState({
@@ -364,7 +363,7 @@ const ProblemblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>
+      <Button type='submit' onClick={handleNextClick}>Next</Button>
 
     </form>
   
