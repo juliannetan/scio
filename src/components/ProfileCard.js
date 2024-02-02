@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,8 +7,34 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import { supabase } from '../components/supabase';
 
-export default function ProfileCard({ handleLogout }) {
+function stringAvatar(name) {
+  return {
+    children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
+  };
+}
+
+const ProfileCard = ({ handleLogout }) => {
+    const [userData, setUserData] = useState(null);
+
+        useEffect(() => {
+            // Function to fetch user data from Supabase
+            const fetchUserData = async () => {
+              try {
+                // Retrieve the authenticated user
+                const { data: { user } } = await supabase.auth.getUser()
+                if (user) {
+                    setUserData(user);
+                }
+              } catch (error) {
+                console.error('Error fetching user data:', error.message);
+              }
+            };
+        
+            fetchUserData();
+          }, []);
+
   return (
     <Card sx={{ width: 250 }}>
       <CardMedia
@@ -19,7 +45,8 @@ export default function ProfileCard({ handleLogout }) {
           position: 'relative',
         }}
       >
-        <Avatar
+        <Avatar 
+          {...stringAvatar(userData?.user_metadata?.full_name || '')}
           sx={{
             width: 64,
             height: 64,
@@ -30,9 +57,7 @@ export default function ProfileCard({ handleLogout }) {
             transform: 'translate(-50%, -50%)',
             zIndex: 1,
           }}
-        >
-          JT
-        </Avatar>
+        />
       </CardMedia>
       <CardContent
         sx={{
@@ -42,15 +67,21 @@ export default function ProfileCard({ handleLogout }) {
           marginTop: '-40px',
         }}
       >
-        <Typography gutterBottom variant="h5" component="div">
-          Julianne Tan
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          juliannemtan@gmail.com
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          SCIO
-        </Typography>
+        {userData ? (
+        <>
+            <Typography gutterBottom variant="h5" component="div">
+                {userData.user_metadata.full_name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+                {userData.email}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+                {userData.user_metadata.company}
+            </Typography>
+        </>
+        ) : (
+        <p>Loading user data...</p>
+        )}
       </CardContent>
       <CardActions sx={{ flexDirection: 'column', alignItems: 'center' }}>
         <Divider sx={{ width: '100%', my: 1 }} />
@@ -61,3 +92,5 @@ export default function ProfileCard({ handleLogout }) {
     </Card>
   );
 }
+
+export default ProfileCard;
