@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import theme from '../theme';
 import { supabase } from '../components/supabase';
 
-
 const DashboardContainer = styled.div`
   padding: 20px;
   display: flex;
@@ -26,6 +25,18 @@ const WidgetTitle = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 15px;
 `;
+
+const convertToBulletPoints = (content) => {
+  const points = content.split('\n\n').join('\n').split('\n');
+  const nonEmptyPoints = points.filter((point) => point.trim() !== '');
+
+  // Remove trailing \n or more than one consecutive \n
+  const sanitizedPoints = nonEmptyPoints.map((point) => point.replace(/\n+$/, ''));
+
+  return sanitizedPoints.map((point, index) => (
+    <li key={index}>{point}</li>
+  ));
+};
 
 const OsdPage = () => {
   const [items, setItems] = useState([]);
@@ -50,7 +61,7 @@ const OsdPage = () => {
         <WidgetContainer key={index}>
           <WidgetTitle>{item.title}</WidgetTitle>
           <Box sx={{ width: '100%' }}>
-            {item.content}
+            <ul>{convertToBulletPoints(item.content)}</ul>
           </Box>
         </WidgetContainer>
       ))}
