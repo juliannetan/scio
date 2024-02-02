@@ -268,15 +268,11 @@ const Img2 = styled.img`
 
 
 
-const LessonsblockPage = () => {
-
-  
-  const navigate = useNavigate();
+const LessonsblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/home');
-};
-
+    setNextPage();
+  };
 
   const [lessonsblocks,setLessonsblocks]=useState([])
 
@@ -411,7 +407,7 @@ const LessonsblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Close</Button>    
+      <Button type='submit' onClick={handleNextClick}>Close</Button>    
     </form>
   );
 }

@@ -271,7 +271,7 @@ const A3Canvas=(props) => {
         <Div17>
           <Div18>Problem Statement</Div18>
           <Div19 >
-          <Link to="/scio/problem-statement">
+          <Link to="/scio/home/problem-statement">
             <Button>More Info...</Button>
           </Link>
           </Div19>
@@ -280,7 +280,7 @@ const A3Canvas=(props) => {
         <Div21>
           <Div22>Decision</Div22>
           <Div23>
-          <Link to="/scio/decision">
+          <Link to="/scio/home/decision">
             <Button>More Info...</Button>
           </Link>
           </Div23>
@@ -292,7 +292,7 @@ const A3Canvas=(props) => {
         <Div17>
           <Div18>Current State</Div18>
           <Div19 >
-          <Link to="/scio/current-state">
+          <Link to="/scio/home/current-state">
             <Button>More Info...</Button>
           </Link>
           </Div19>
@@ -301,7 +301,7 @@ const A3Canvas=(props) => {
         <Div21>
           <Div22>Implementation Plan</Div22>
           <Div23>
-          <Link to="/scio/implementation-plan">
+          <Link to="/scio/home/implementation-plan">
             <Button>More Info...</Button>
           </Link>
           </Div23>
@@ -313,7 +313,7 @@ const A3Canvas=(props) => {
         <Div17>
           <Div18>Future State</Div18>
           <Div19 >
-          <Link to="/scio/future-state">
+          <Link to="/scio/home/future-state">
             <Button>More Info...</Button>
           </Link>
           </Div19>
@@ -322,7 +322,7 @@ const A3Canvas=(props) => {
         <Div21>
           <Div22>Value Delivery</Div22>
           <Div23>
-          <Link to="/scio/value-delivery">
+          <Link to="/scio/home/value-delivery">
             <Button>More Info...</Button>
           </Link>
           </Div23>
@@ -334,7 +334,7 @@ const A3Canvas=(props) => {
         <Div17>
           <Div18>Solution Evaluation</Div18>
           <Div19 >
-          <Link to="/scio/solution-evaluation">
+          <Link to="/scio/home/solution-evaluation">
             <Button>More Info...</Button>
           </Link>
           </Div19>
@@ -343,7 +343,7 @@ const A3Canvas=(props) => {
         <Div21>
           <Div22>Lessons Learned</Div22>
           <Div23>
-          <Link to="/scio/lessons-learned">
+          <Link to="/scio/home/lessons-learned">
             <Button>More Info...</Button>
           </Link>
           </Div23>

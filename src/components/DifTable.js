@@ -59,38 +59,36 @@ const initialRows = [
   },
 ];
 
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, name: '', isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    }));
-    navigate('/scio/title-block');
-
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
-const DifTable = () => {
+const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
-  const navigate = useNavigate();
+
   const handleDoubleClick = (id) => () => {
-    // Assuming you want to navigate to '/scio/title-block' on double-click
-    navigate('/scio/a3-canvas');
+    setRenderA3Canvas(true);
   };
+
+  function EditToolbar(props) {
+    const { setRows, setRowModesModel } = props;
+  
+    const handleClick = () => {
+      const id = randomId();
+      setRows((oldRows) => [...oldRows, { id, name: '', isNew: true }]);
+      setRowModesModel((oldModel) => ({
+        ...oldModel,
+        [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+      }));
+      setSubMenuItem('Title');
+      setShowSubItems(true); 
+    };
+  
+    return (
+      <GridToolbarContainer>
+        <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+          Add record
+        </Button>
+      </GridToolbarContainer>
+    );
+  }
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
