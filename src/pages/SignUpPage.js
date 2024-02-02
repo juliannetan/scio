@@ -63,12 +63,19 @@ const SuccessMessage = styled.div`
 
 const SignUpPage = () => {
   const [fullName, setFullName] = useState('');
+  const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSignUp = async () => {
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
       const { user, error } = await supabase.auth.signUp({
         email,
@@ -76,6 +83,7 @@ const SignUpPage = () => {
         options: {
           data: {
             full_name: fullName,
+            company: companyName,
           },
           emailRedirectTo: `${window.location.origin}/scio`,
         },
@@ -123,10 +131,23 @@ const SignUpPage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
+          type="text"
+          placeholder="Company Name"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+        />
+        <Input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
+        <Input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           onKeyPress={handleKeyPress}
         />
         <Button onClick={handleSignUp}>Sign Up</Button>

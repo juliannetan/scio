@@ -9,9 +9,14 @@ import Drawer from './Drawer';
 import { useNavigate } from 'react-router-dom'
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
 import { supabase } from './supabase';
 import ProfileCard from './ProfileCard';
+
+const MenuStyled = styled(Menu)`
+  .MuiList-root.MuiList-padding {
+    padding: 0 !important;
+  }
+`;
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -101,12 +106,9 @@ const AppBar = ({ token, onSignOut }) => {
 
   const fetchUserData = async () => {
     try {
-      const { user, error } = await supabase.auth.api.getUser(token.access_token);
-
-      if (error) {
-        console.error('Error fetching user data:', error.message);
-      } else {
-        setUserData(user);
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+          setUserData(user);
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message);
@@ -135,11 +137,12 @@ const AppBar = ({ token, onSignOut }) => {
     setAnchorElUser(null);
   };
 
-  const getInitials = (fullName) => {
-    const nameParts = fullName.split(' ');
-    const initials = nameParts.map((part) => part.charAt(0)).join('').toUpperCase();
-    return initials;
+
+function stringAvatar(name) {
+  return {
+    children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
   };
+}
 
   return (
     <>
@@ -196,11 +199,13 @@ const AppBar = ({ token, onSignOut }) => {
 
               <Box sx={{ flexGrow: 0 }}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={getInitials('jane doe')}> JT </Avatar>
+                <Avatar 
+                  {...stringAvatar(userData?.user_metadata?.full_name || '')}
+                />
                 </IconButton>
 
-              <Menu
-                sx={{ mt: '48px', padding: 0 }}
+              <MenuStyled
+                sx={{ mt: '48px'}}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -216,7 +221,7 @@ const AppBar = ({ token, onSignOut }) => {
                 onClose={handleCloseUserMenu}
               >
                 <ProfileCard handleLogout={handleLogout} />
-              </Menu>
+              </MenuStyled>
             </Box>
             </Box>
           </Toolbar>
