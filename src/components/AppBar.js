@@ -11,6 +11,7 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import { supabase } from './supabase';
+import ProfileCard from './ProfileCard';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -195,11 +196,11 @@ const AppBar = ({ token, onSignOut }) => {
 
               <Box sx={{ flexGrow: 0 }}>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={getInitials('jane doe')} />
+                <Avatar alt={getInitials('jane doe')}> JT </Avatar>
                 </IconButton>
 
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: '48px', padding: 0 }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -214,11 +215,7 @@ const AppBar = ({ token, onSignOut }) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu }>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <ProfileCard handleLogout={handleLogout} />
               </Menu>
             </Box>
             </Box>
