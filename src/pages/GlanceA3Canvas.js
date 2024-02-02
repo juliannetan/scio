@@ -489,7 +489,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/problem-statement">
+          <Link to="/scio/home/problem-statement">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -512,7 +512,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/decision">
+          <Link to="/scio/home/decision">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -540,7 +540,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/current-state">
+          <Link to="/scio/home/current-state">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -562,7 +562,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/implementation-plan">
+          <Link to="/scio/home/implementation-plan">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -586,7 +586,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/future-state">
+          <Link to="/scio/home/future-state">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -608,7 +608,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/value-delivery">
+          <Link to="/scio/home/value-delivery">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -632,7 +632,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/solution-evaluation">
+          <Link to="/scio/home/solution-evaluation">
             <Button>More Info...</Button>
           </Link>
           </Div25>
@@ -654,7 +654,7 @@ fetchLessonscontent()
              )}
           </Div24>
           <Div25>
-          <Link to="/scio/lessons-learned">
+          <Link to="/scio/home/lessons-learned">
             <Button>More Info...</Button>
           </Link>
           </Div25>

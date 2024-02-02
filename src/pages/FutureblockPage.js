@@ -163,14 +163,11 @@ const Img = styled.img`
 `;
 
 
-const FutureblockPage = () => {
-
-  const navigate = useNavigate();
+const FutureblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/solution-evaluation');
-};
-
+    setNextPage();
+  };
   
   const [futureblocks,setFutureblocks]=useState([])
 
@@ -271,7 +268,7 @@ const FutureblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>    
+      <Button type='submit' onClick={handleNextClick}>Next</Button>    
     </form>
   );
 }

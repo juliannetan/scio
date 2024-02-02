@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import React,{useState, useEffect} from 'react';
 import { supabase } from '../components/supabase.js';
-import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
 const Div = styled.div`
@@ -276,12 +275,10 @@ const Div27 = styled.div`
 
 
 
-const TitleblockPage = () => {
-
-  const navigate = useNavigate();
+const TitleblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-      navigate('/scio/problem-statement');
+    setNextPage(); // This will set the next page in the Drawer component
   };
 
   const [titleblocks,setTitleblocks]=useState([])  
@@ -291,7 +288,6 @@ const TitleblockPage = () => {
     ID:'', Description:'', ProblemSolvers:'',DecisionMakers:'', Implementation:'', Assurance:'', Delivery:'',Organization:'', Assets:'', Practice:'', Value:'', Status:'', TQ1: '',TQ2: '',TQ3: '',TQ4: '',TQ5: '',TQ6: '',TQ7: '',TQ8: ''
   })
 
-  console.log(titleblock)
 
 
   useEffect(() => {
@@ -337,9 +333,7 @@ const TitleblockPage = () => {
 
   fetchTitleblocks()    
 
-
   }
-  console.log(titleblocks)
 
   return (
     /*Form Titleblock*/
@@ -421,7 +415,7 @@ const TitleblockPage = () => {
     </Div>
 
         <Button type='submit'>Save </Button>
-        <Button onClick={handleNextClick}>Next</Button>
+        <Button type='submit' onClick={handleNextClick}>Next</Button>
     </form>
   );
 }

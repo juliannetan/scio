@@ -153,14 +153,11 @@ const Div14 = styled.div`
 
 
 
-const ValueblockPage = () => {
-
-  const navigate = useNavigate();
+const ValueblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/lessons-learned');
-};
-
+    setNextPage();
+  };
 
   const [valueblocks,setValueblocks]=useState([])
 
@@ -278,7 +275,7 @@ const ValueblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>
+      <Button type='submit' onClick={handleNextClick}>Next</Button>
     
     </form>
   );

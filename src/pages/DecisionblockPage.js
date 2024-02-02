@@ -258,13 +258,11 @@ const textarea = styled(textarea`
 
 
 
-const DecisionblockPage = () => {
-
-  const navigate = useNavigate();
+const DecisionblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/implementation-plan');
-};
+    setNextPage();
+  };
 
   const [decisionblocks,setDecisionblocks]=useState([])
 
@@ -404,7 +402,7 @@ const DecisionblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>    
+      <Button type='submit' onClick={handleNextClick}>Next</Button>    
     </form>
   );
 }

@@ -41,7 +41,7 @@ const WidgetTitle = styled.h2`
   margin-bottom: 15px;
 `
 
-const DifPage = () => {
+const DifPage = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
   return (
     <DashboardContainer>
       <WidgetContainer>
@@ -109,7 +109,7 @@ const DifPage = () => {
       </WidgetContainer>
 
       <WidgetTableContainer>
-        <DifTable />
+      <DifTable setSubMenuItem={setSubMenuItem} setShowSubItems={setShowSubItems} setRenderA3Canvas={setRenderA3Canvas} />
       </WidgetTableContainer>
 
     </DashboardContainer>

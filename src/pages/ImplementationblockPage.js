@@ -194,14 +194,11 @@ const Img2 = styled.img`
 
 
 
-const ImplementationblockPage = () => {
-
-  const navigate = useNavigate();
+const ImplementationblockPage = ({ setNextPage }) => {
 
   const handleNextClick = () => {
-    navigate('/scio/value-delivery');
-};
-
+    setNextPage();
+  };
 
   const [implementationblocks,setImplementationblocks]=useState([])
 
@@ -336,7 +333,7 @@ const ImplementationblockPage = () => {
         </Column2>
       </Div>
       <Button type='submit' > Save </Button> 
-      <Button onClick={handleNextClick}>Next</Button>    
+      <Button type='submit' onClick={handleNextClick}>Next</Button>    
     </form>
   );
 }
