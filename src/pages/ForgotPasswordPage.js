@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
 import { styled as muiStyled } from '@mui/system';
-import { Typography, IconButton, InputAdornment, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Typography, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
+import Alert from '@mui/material/Alert';
 
 const Container = styled.div`
   display: flex;
@@ -41,30 +41,6 @@ const SuccessMessage = styled.div`
   color: white;
   margin-bottom: 10px;
 `;
-
-// const Input = styled.input`
-//   background: none;
-//   width: 100%;
-//   padding: 12px;
-//   border: none;
-//   margin-bottom: 20px;
-//   border-bottom: 2px solid #ccc;
-//   font-size: 16px;
-//   color: white;
-// `;
-
-// const Button = styled.button`
-//   background: grey;
-//   width: 425px;
-//   margin-bottom: 20px;
-//   color: white;
-//   padding: 12px;
-//   border: none;
-//   border-radius: 5px;
-//   font-size: 16px;
-//   cursor: pointer;
-//   opacity: .5;
-// `;
 
 const Input = muiStyled(TextField)({
   width: '100%',
@@ -164,9 +140,10 @@ const ForgotPasswordPage = () => {
       <Container>
         <Content>
           <Title>Password Recovery</Title>
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
-          <Input
+          {error && <Alert severity='error'>{error}</Alert>}
+          {successMessage && <Alert severity='success'>{successMessage}</Alert>}
+          <Input 
+            style={{marginTop: '20px'}}
             label="Email" 
             variant="standard" 
             value={username}
@@ -174,7 +151,7 @@ const ForgotPasswordPage = () => {
             onKeyPress={handleKeyPress}
           />
           <ColorButton onClick={signInWithEmail}>Continue</ColorButton>
-          <Typography style={{marginTop: '30px'}}>      
+          <Typography style={{marginTop: '30px', color: grey[500]}}>      
             Already have an account? <LinkStyled to='/scio/' style={{color: 'white'}}>Login</LinkStyled>
         </Typography>
         </Content>

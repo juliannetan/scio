@@ -7,6 +7,7 @@ import { Typography, IconButton, InputAdornment, TextField } from '@mui/material
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
+import Alert from '@mui/material/Alert';
 
 const Container = styled.div`
   display: flex;
@@ -60,8 +61,6 @@ const Input = muiStyled(TextField)({
   },
 });
 
-
-
 const ColorButton = muiStyled(Button)({
   width: '100%',
   color: grey[300],
@@ -73,6 +72,14 @@ const ColorButton = muiStyled(Button)({
   opacity: 0.9,
   fontSize: '20px',
   textTransform: 'capitalize',
+});
+
+const VisibilityIcon = muiStyled(Visibility)({
+  color: grey[300],
+});
+
+const VisibilityOffIcon = muiStyled(VisibilityOff)({
+  color: grey[300],
 });
 
 const LinkStyled = styled(Link)`
@@ -134,15 +141,16 @@ const SignInPage = ({ setToken }) => {
       <Content>
 
         <Title>Sign In</Title>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {error && <Alert severity="error">{error}</Alert>}
         <Input 
+          style={{marginTop: '20px'}} 
           label="Email" 
           variant="standard" 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           onKeyPress={handleKeyPress}
         />
-        <Input
+        <Input 
           type={showPassword ? 'text' : 'password'}
           variant="standard" 
           label="Password" 
@@ -153,14 +161,14 @@ const SignInPage = ({ setToken }) => {
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton tabIndex="-1" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </IconButton>
               </InputAdornment>
             ),
           }}
         />
         <ColorButton onClick={handleSignIn} variant="contained">Sign In</ColorButton>
-        <Typography style={{marginTop: '30px'}}>
+        <Typography style={{marginTop: '30px', color: grey[500]}}>
           Don't have an account? <LinkStyled to="/scio/signup">Sign Up</LinkStyled>
         </Typography>
         <Typography>
