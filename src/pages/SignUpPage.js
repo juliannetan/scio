@@ -30,7 +30,7 @@ const Content = styled.div`
 const Title = styled.h2`
   font-size: 24px;
   margin-bottom: 60px;
-  color: white;
+  color: ${grey[300]};
 `;
 
 const Input = muiStyled(TextField)({
@@ -87,6 +87,16 @@ const SignUpPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorAlertOpen, setErrorAlertOpen] = React.useState(true);
+  const [successAlertOpen, setSuccessAlertOpen] = React.useState(true);
+
+  const handleErrorAlertClose = () => {
+    setErrorAlertOpen(false);
+  };
+
+  const handleSuccessAlertClose = () => {
+    setSuccessAlertOpen(false);
+  };
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
@@ -134,8 +144,8 @@ const SignUpPage = () => {
     <Container>
       <Content>
         <Title>Sign Up</Title>
-        {error && <Alert severity='error'>{error}</Alert>}
-        {successMessage && <Alert severity='success'>{successMessage}</Alert>}
+        {error && errorAlertOpen && <Alert severity='error' onClose={handleErrorAlertClose}>{error}</Alert>}
+        {successMessage && successAlertOpen && <Alert severity='success' onClose={handleSuccessAlertClose}>{successMessage}</Alert>}
         <Input
           style={{marginTop: '20px'}}
           variant="standard" 

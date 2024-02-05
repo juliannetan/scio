@@ -33,11 +33,6 @@ const Title = styled.h2`
   color: ${grey[300]};
 `;
 
-const ErrorMessage = styled.div`
-  color: red;
-  margin-bottom: 10px;
-`;
-
 const Input = muiStyled(TextField)({
   width: '100%',
   marginBottom: '20px',
@@ -94,6 +89,11 @@ const SignInPage = ({ setToken }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [errorAlertOpen, setErrorAlertOpen] = React.useState(true);
+
+  const handleErrorAlertClose = () => {
+    setErrorAlertOpen(false);
+  };
 
   const handleSignIn = async () => {
     try {
@@ -141,7 +141,7 @@ const SignInPage = ({ setToken }) => {
       <Content>
 
         <Title>Sign In</Title>
-        {error && <Alert severity="error">{error}</Alert>}
+        {error && errorAlertOpen && (<Alert severity="error" onClose={handleErrorAlertClose}>{error}</Alert>)}
         <Input 
           style={{marginTop: '20px'}} 
           label="Email" 
