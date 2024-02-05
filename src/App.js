@@ -68,7 +68,7 @@ const App = () => {
               path="/scio/home"
               element={token ? <AppBar token={token} onSignOut={handleSignOut} /> : <Navigate to="/scio/" />}
             />
-            <Route path="/scio/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/scio/forgot-password" element={<ForgotPasswordPage setToken={setToken} />} />
           <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} />
           <Route path="/scio/home/problem-statement" element={<ProblemblockDisplay />} /> 
           <Route path="/scio/home/current-state" element={<CurrentblockDisplay />} /> 
