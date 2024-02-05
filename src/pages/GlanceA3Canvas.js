@@ -280,7 +280,9 @@ const A3Canvas=() => {
     const fetchProblemcontent = async () => {
       const { data, error } = await supabase
       .from('Problemcontent')
-      .select('')
+      .select('*')
+      .eq('ID','AB-123456')
+      
       
       if (error) {
         setFetchError('Could not fetch the Current Content Table')
@@ -300,7 +302,8 @@ const A3Canvas=() => {
     const fetchCurrentcontent = async () => {
       const { data, error } = await supabase
       .from('Currentcontent')
-      .select('')
+      .select('*')
+      .eq('ID','AB-123456')
 
       if (error) {
         setFetchError('Could not fetch the Current Content Table')
@@ -321,7 +324,8 @@ useEffect(() => {
   const fetchFuturecontent = async () => {
     const { data, error } = await supabase
     .from('Futurecontent')
-    .select()
+    .select('*')
+    .eq('ID','AB-123456')
 
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
@@ -341,7 +345,8 @@ useEffect(() => {
   const fetchSolutioncontent = async () => {
     const { data, error } = await supabase
     .from('Solutioncontent')
-    .select()
+    .select('*')
+    .eq('ID','AB-123456')
 
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
@@ -362,7 +367,8 @@ useEffect(() => {
   const fetchDecisioncontent = async () => {
     const { data, error } = await supabase
     .from('Decisioncontent')
-    .select()
+    .select('*')
+    .eq('ID','AB-123456')
 
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
@@ -382,7 +388,8 @@ useEffect(() => {
   const fetchImplementationcontent = async () => {
     const { data, error } = await supabase
     .from('Implementationcontent')
-    .select('')
+    .select('*')
+    .eq('ID','AB-123456')
     
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
@@ -403,7 +410,8 @@ useEffect(() => {
   const fetchValuecontent = async () => {
     const { data, error } = await supabase
     .from('Valuecontent')
-    .select('')
+    .select('*')
+    .eq('ID','AB-123456')
     
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
@@ -426,8 +434,9 @@ useEffect(() => {
   const fetchLessonscontent = async () => {
     const { data, error } = await supabase
     .from('Lessonscontent')
-    .select('')
-    
+    .select('*')
+    .eq('ID','AB-123456')
+
     if (error) {
       setFetchError('Could not fetch the Current Content Table')
       setLessonscontent(null)
