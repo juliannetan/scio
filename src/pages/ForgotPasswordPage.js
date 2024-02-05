@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
-import { Typography} from '@mui/material';
+import { styled as muiStyled } from '@mui/system';
+import { Typography, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Button from '@mui/material/Button';
+import { grey } from '@mui/material/colors';
 
 const Container = styled.div`
   display: flex;
@@ -38,29 +42,67 @@ const SuccessMessage = styled.div`
   margin-bottom: 10px;
 `;
 
-const Input = styled.input`
-  background: none;
-  width: 100%;
-  padding: 12px;
-  border: none;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #ccc;
-  font-size: 16px;
-  color: white;
-`;
+// const Input = styled.input`
+//   background: none;
+//   width: 100%;
+//   padding: 12px;
+//   border: none;
+//   margin-bottom: 20px;
+//   border-bottom: 2px solid #ccc;
+//   font-size: 16px;
+//   color: white;
+// `;
 
-const Button = styled.button`
-  background: grey;
-  width: 425px;
-  margin-bottom: 20px;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  opacity: .5;
-`;
+// const Button = styled.button`
+//   background: grey;
+//   width: 425px;
+//   margin-bottom: 20px;
+//   color: white;
+//   padding: 12px;
+//   border: none;
+//   border-radius: 5px;
+//   font-size: 16px;
+//   cursor: pointer;
+//   opacity: .5;
+// `;
+
+const Input = muiStyled(TextField)({
+  width: '100%',
+  marginBottom: '20px',
+  '& label': {
+    color: grey[300],
+  },
+  '& label.Mui-focused': {
+    color: grey[300]
+  },
+  '& input': {
+    color: grey[300],
+  },
+  '& .MuiInput-underline:before': {
+    borderBottomColor: grey[300],
+  },
+  '&&:hover .MuiInput-underline:before': {
+    borderBottomColor: grey[700],
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: grey[700], 
+  },
+});
+
+
+
+const ColorButton = muiStyled(Button)({
+  width: '100%',
+  color: grey[300],
+  backgroundColor: grey[500],
+  '&:hover': {
+    backgroundColor: grey[700],
+  },
+  padding: '5px',
+  opacity: 0.9,
+  fontSize: '20px',
+  textTransform: 'capitalize',
+});
 
 const LinkStyled = styled(Link)`
   color: white;
@@ -77,14 +119,14 @@ const ForgotPasswordPage = () => {
     const signInWithEmail = async () => {
       try {
         if (!username) {
-          setError('Please enter your email.');
+          setError('Please enter your email');
           setSuccessMessage('');
           return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(username)) {
-          setError('Please enter a valid email address.');
+          setError('Please enter a valid email address');
           setSuccessMessage('');
           return;
         }
@@ -93,7 +135,7 @@ const ForgotPasswordPage = () => {
           email: username,
           options: {
             shouldCreateUser: false,
-            emailRedirectTo: window.location.origin + '/scio/home',
+            emailRedirectTo: window.location.origin + '/scio',
           },
         });
 
@@ -103,7 +145,7 @@ const ForgotPasswordPage = () => {
           console.error('Error sending magic link: ', error.message);
           return;
         }
-        setSuccessMessage('A Magic Link has been sent to your email.');
+        setSuccessMessage('A Magic Link has been sent to your email');
         setError('');
       } catch (error) {
         setSuccessMessage('');
@@ -125,14 +167,14 @@ const ForgotPasswordPage = () => {
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
           <Input
-            type="text"
-            placeholder="Email"
+            label="Email" 
+            variant="standard" 
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <Button onClick={signInWithEmail}>Continue</Button>
-          <Typography>      
+          <ColorButton onClick={signInWithEmail}>Continue</ColorButton>
+          <Typography style={{marginTop: '30px'}}>      
             Already have an account? <LinkStyled to='/scio/' style={{color: 'white'}}>Login</LinkStyled>
         </Typography>
         </Content>
