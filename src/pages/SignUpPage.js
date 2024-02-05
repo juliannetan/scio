@@ -7,11 +7,7 @@ import { styled as muiStyled } from '@mui/system';
 import { Typography, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { grey } from '@mui/material/colors';
-
-const ErrorMessage = styled.div`
-  color: red;
-  margin-bottom: 10px;
-`;
+import Alert from '@mui/material/Alert';
 
 const Container = styled.div`
   display: flex;
@@ -36,16 +32,6 @@ const Title = styled.h2`
   margin-bottom: 60px;
   color: white;
 `;
-// const Input = styled.input`
-//   background: none;
-//   width: 100%;
-//   padding: 12px;
-//   border: none;
-//   margin-bottom: 20px;
-//   border-bottom: 2px solid #ccc;
-//   font-size: 16px;
-//   color: white;
-// `;
 
 const Input = muiStyled(TextField)({
   width: '100%',
@@ -90,25 +76,6 @@ const VisibilityIcon = muiStyled(Visibility)({
 const VisibilityOffIcon = muiStyled(VisibilityOff)({
   color: grey[300],
 });
-
-// const Button = styled.button`
-//   background: grey;
-//   width: 425px;
-//   margin-bottom: 20px;
-//   color: white;
-//   padding: 12px;
-//   border: none;
-//   border-radius: 5px;
-//   font-size: 16px;
-//   cursor: pointer;
-//   opacity: .5;
-// `;
-
-
-const SuccessMessage = styled.div`
-  color: white;
-  margin-bottom: 10px;
-`;
 
 const SignUpPage = () => {
   const [fullName, setFullName] = useState('');
@@ -167,9 +134,10 @@ const SignUpPage = () => {
     <Container>
       <Content>
         <Title>Sign Up</Title>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
+        {error && <Alert severity='error'>{error}</Alert>}
+        {successMessage && <Alert severity='success'>{successMessage}</Alert>}
         <Input
+          style={{marginTop: '20px'}}
           variant="standard" 
           label="Full Name" 
           value={fullName}
@@ -222,7 +190,7 @@ const SignUpPage = () => {
           }}
         />
         <ColorButton onClick={handleSignUp}>Sign Up</ColorButton>
-        <Typography style={{marginTop: '30px'}}>      
+        <Typography style={{marginTop: '30px', color: grey[500]}}>      
             Already have an account? <Link to='/scio/' style={{color: grey[300]}}>Login</Link>
         </Typography>
       </Content>
