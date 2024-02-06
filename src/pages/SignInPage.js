@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
 import Alert from '@mui/material/Alert';
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,19 +21,19 @@ const Container = styled.div`
   background-repeat: no-repeat;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   text-align: center;
   max-width: 400px;
   width: 100%;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 24px;
   margin-bottom: 60px;
   color: ${grey[300]};
 `;
 
-const Input = muiStyled(TextField)({
+export const Input = muiStyled(TextField)({
   width: '100%',
   marginBottom: '20px',
   '& label': {
@@ -56,7 +56,7 @@ const Input = muiStyled(TextField)({
   },
 });
 
-const ColorButton = muiStyled(Button)({
+export const ColorButton = muiStyled(Button)({
   width: '100%',
   color: grey[300],
   backgroundColor: grey[500],
@@ -69,15 +69,15 @@ const ColorButton = muiStyled(Button)({
   textTransform: 'capitalize',
 });
 
-const VisibilityIcon = muiStyled(Visibility)({
+export const VisibilityIcon = muiStyled(Visibility)({
   color: grey[300],
 });
 
-const VisibilityOffIcon = muiStyled(VisibilityOff)({
+export const VisibilityOffIcon = muiStyled(VisibilityOff)({
   color: grey[300],
 });
 
-const LinkStyled = styled(Link)`
+export const LinkStyled = styled(Link)`
   color: ${grey[300]};
   text-decoration: none;
   font-size: 14px;

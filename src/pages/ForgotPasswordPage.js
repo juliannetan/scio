@@ -1,77 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../components/supabase';
 import styled from 'styled-components';
-import { styled as muiStyled } from '@mui/system';
-import { Typography, TextField } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Alert from '@mui/material/Alert';
+import OTPInput from 'react-otp-input';
+import { Container, Title, Content, Input, ColorButton, LinkStyled } from './SignInPage';
 
-const Container = styled.div`
+const OTPContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url(scio_logo2017_dark-blue.png);
-  background-color: #004F71;
-  background-size: 780px 780px;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
-const Content = styled.div`
-  text-align: center;
-  max-width: 400px; /* Adjust the width as needed */
-  width: 100%;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  margin-bottom: 60px;
-  color: ${grey[300]};
-`;
-
-const Input = muiStyled(TextField)({
-  width: '100%',
-  marginBottom: '20px',
-  '& label': {
-    color: grey[300],
-  },
-  '& label.Mui-focused': {
-    color: grey[300],
-  },
-  '& input': {
-    color: grey[300],
-  },
-  '& .MuiInput-underline:before': {
-    borderBottomColor: grey[300],
-  },
-  '&&:hover .MuiInput-underline:before': {
-    borderBottomColor: grey[700],
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: grey[700],
-  },
-});
-
-const ColorButton = muiStyled(Button)({
-  width: '100%',
-  color: grey[300],
-  backgroundColor: grey[500],
-  '&:hover': {
-    backgroundColor: grey[700],
-  },
-  padding: '5px',
-  opacity: 0.9,
-  fontSize: '20px',
-  textTransform: 'capitalize',
-});
-
-const LinkStyled = styled(Link)`
-  color: ${grey[300]};
-  text-decoration: none;
-  font-size: 14px;
+  justify-content: space-around;
+  margin: 20px 0;
 `;
 
 const ForgotPasswordPage = ({setToken}) => {
@@ -187,18 +127,41 @@ const ForgotPasswordPage = ({setToken}) => {
             <Typography style={{ marginTop: '30px', color: grey[500] }}>
               Enter the 6-digit verification code sent to your email
             </Typography>
-            <Input
-              style={{ marginTop: '20px' }}
-              label="Verification Code"
-              variant="standard"
+            <OTPContainer>
+            <OTPInput
               value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-              onKeyPress={(event) => {
-                if (event.key === 'Enter') {
-                  handleVerificationCodeSubmit();
-                }
+              onChange={setVerificationCode}
+              numInputs={6}
+              isInputNum={true}
+              shouldAutoFocus={true}
+              renderInput={(props, index) => (
+                <input
+                  {...props}
+                  onKeyDown={(event) => {
+                    if (index === 5 && event.key === 'Enter') {
+                      handleVerificationCodeSubmit();
+                    }
+                  }}
+                />
+              )}
+              inputStyle={{
+                border: `1px solid ${grey[500]}`,
+                borderRadius: "8px",
+                width: "54px",
+                height: "64px",
+                fontSize: "30px",
+                color: "#000",
+                fontWeight: "400",
+                caretColor: grey[700],
+                margin: '0 5px',
+                backgroundColor: grey[300],
+              }}
+              focusStyle={{
+                border: "1px solid #CFD3DB",
+                outline: "none"
               }}
             />
+            </OTPContainer>
             <ColorButton onClick={handleVerificationCodeSubmit}>Sign In</ColorButton>
           </>
         )}
