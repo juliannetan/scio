@@ -1,348 +1,104 @@
-import styled from "styled-components";
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../components/supabase.js';
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-const Div = styled.div`
-  gap: 20px;
-  display: flex;
-  
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 43%;
-  margin-left: 0px;
- 
-`;
-
-const Div2 = styled.div`
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  
-`;
-
-const Div3 = styled.div`
-  background-color: #d9d9d9;
-  display: flex;
-  flex-direction: column;
-  padding: 16px 19px 10px;
- 
-`;
-
-const Div4 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  font: 600 16px/150% Inter, sans-serif;
- 
-`;
-
-const Div5 = styled.div`
-  background-color: #fff;
-  display: flex;
-  margin-top: 5px;
-  flex-direction: column;
-  align-items: end;
-  padding: 145px 0 50px 60px;
- 
-`;
-
-const Div6 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 14px;
-  font: 600 16px/150% Inter, sans-serif;
-  
-`;
-
-const Div7 = styled.div`
-  background-color: #fff;
-  display: flex;
-  margin-top: 5px;
-  flex-direction: column;
-  align-items: end;
-  padding: 158px 0 50px 60px;
-  
-`;
-
-const Div8 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 16px;
-  font: 600 16px/150% Inter, sans-serif;
- 
-`;
-
-const Div9 = styled.div`
-  background-color: #fff;
-  display: flex;
-  margin-top: 8px;
-  flex-direction: column;
-  align-items: end;
-  padding: 170px 0 50px 60px;
- 
-`;
-
-const Div10 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  font: 600 16px/150% Inter, sans-serif;
-  
-`;
-
-const Div11 = styled.div`
-  background-color: #fff;
-  display: flex;
-  margin-top: 13px;
-  flex-direction: column;
-  align-items: end;
-  padding: 194px 0 50px 60px;
-  
-`;
-
-const Column2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 57%;
-  margin-left: 20px;
- 
-`;
-
-const Div12 = styled.div`
-  background-color: #d9d9d9;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  width: 100%;
-  padding: 15px 13px;
- 
-`;
-
-const Div13 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  font: 500 16px/150% Inter, sans-serif;
-  
-`;
-/*
-const textarea1 = styled(textarea)`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div14 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font: 500 16px/150% Inter, sans-serif;
- 
-`;
-
-const Div15 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font: 500 16px/150% Inter, sans-serif;
- 
-`;
-
-const Div16 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font: 500 16px/24px Inter, sans-serif;
- 
-`;
-
-const Div17 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font: 500 16px/24px Inter, sans-serif;
- 
-`;
-
-const Div18 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 13px;
-  font: 500 16px/150% Inter, sans-serif;
- 
-`;
-
-const Div19 = styled.div`
-  color: #000;
-  letter-spacing: -0.18px;
-  margin-top: 10px;
-  font: 500 16px/150% Inter, sans-serif;
- 
-`;
-
+import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
 
 const SolutionblockPage = ({ setNextPage }) => {
-
   const handleNextClick = () => {
     setNextPage();
   };
 
-  const [solutionblocks,setSolutionblocks]=useState([])
-
-  const [solutionblock,setSolutionblock]=useState({
-    SEQ1:'', SEQ2:'', SEQ3:'',SEQ4:'', SEQ5:'', SEQ6:'', SEQ7:''
-  })
+  const [solutionblocks, setSolutionblocks] = useState([]);
+  const [solutionblock, setSolutionblock] = useState({
+    SEQ1: '', SEQ2: '', SEQ3: '', SEQ4: '', SEQ5: '', SEQ6: '', SEQ7: ''
+  });
 
   useEffect(() => {
-  fetchSolutionblocks()
-  }, [])
-  
+    fetchSolutionblocks();
+  }, []);
 
-
-
-  async function fetchSolutionblocks(){
-    const {data} = await supabase
+  async function fetchSolutionblocks() {
+    const { data } = await supabase
       .from('Solutioncontent')
-      .select('*')
-       setSolutionblocks(data)
-
-    }
-  
-
-    function handleChange(event){
-    
-      setSolutionblock(prevFormData=>{
-        return{
-          ...prevFormData,
-          [event.target.name]:event.target.value
-        }
-      })
-    }
-   
-  
-
-  async function createSolutionblock(e){
-    e.preventDefault();
-
-    console.log('insidesafe')
-    
-    await supabase
-    .from('Solutioncontent')
-    
-    .insert([{SEQ1:solutionblock.SEQ1, SEQ2:solutionblock.SEQ2, SEQ3:solutionblock.SEQ3, SEQ4:solutionblock.SEQ4, SEQ5:solutionblock.SEQ5,SEQ6:solutionblock.SEQ6, SEQ7:solutionblock.SEQ7 }])
-
-    .select()
-    
-    fetchSolutionblocks()
-   
-
+      .select('*');
+    setSolutionblocks(data);
   }
 
+  function handleChange(event) {
+    setSolutionblock(prevFormData => {
+      return {
+        ...prevFormData,
+        [event.target.name]: event.target.value
+      };
+    });
+  }
 
+  async function createSolutionblock(e) {
+    e.preventDefault();
 
+    console.log('insidesafe');
 
+    await supabase
+      .from('Solutioncontent')
+      .insert([{
+        SEQ1: solutionblock.SEQ1, SEQ2: solutionblock.SEQ2, SEQ3: solutionblock.SEQ3, SEQ4: solutionblock.SEQ4, SEQ5: solutionblock.SEQ5, SEQ6: solutionblock.SEQ6, SEQ7: solutionblock.SEQ7
+      }])
+      .select();
+
+    fetchSolutionblocks();
+  }
 
   return (
-
-    <form onSubmit = {createSolutionblock} > 
-
-      <Div>
-        <Column>
-          <Div2>
-            <Div3>
-              <Div4>Model Diagram Graphic</Div4>
-              <Div5 />
-              <Div6>Alternative vs. Objectives Table</Div6>
-              <Div7 />
-              <Div8>Indicated Recommended and Selected Solution</Div8>
-              <Div9 />
-              <Div10>Model Diagram Graphic</Div10>
-              <Div11 />
-            </Div3>
-          </Div2>
-        </Column>
-        <Column2>
-          <Div12>
-            <Div13>
-              <p>
-                <strong>
-                  Identify several compelling creative alternatives
-                </strong>
-              </p>
-            </Div13>
-            <textarea placeholder="" name="SEQ1" required={false} onChange={handleChange}/>
-            <Div14>
-              <p>
-                <strong>
-                  What model type is best suited for right level of evaluation
-                  rigour and complexity?
-                </strong>
-              </p>
-            </Div14>
-            <textarea placeholder="" name="SEQ2" required={false} onChange={handleChange}/>
-            <Div15>
-              <p>
-                <strong>
-                  What inputs are influential variables? Technical, people,
-                  management system?
-                </strong>
-              </p>
-            </Div15>
-            <textarea placeholder="" name="SEQ3" required={false} onChange={handleChange}/>
-            <Div16>
-              <p>
-                <strong>
-                  What are the best knowledge sources: intuition/experience,
-                  data/analytics evidence or a mix? How do we trust human
-                  judgement vs ML/AI?
-                </strong>
-              </p>
-            </Div16>
-            <textarea placeholder="" name="SEQ4" required={false} onChange={handleChange}/>
-            <Div17>
-              <p>
-                <strong>
-                  What is our uncertainty? What is our value of Information? Is
-                  it worth seeking more knowledge to reduce our uncertainty?
-                </strong>
-              </p>
-            </Div17>
-            <textarea placeholder="" name="SEQ5" required={false} onChange={handleChange}/>
-            <Div18>
-              <p>
-                <strong>Have we guarded against all relevant biases?</strong>
-              </p>
-            </Div18>
-            <textarea placeholder="" name="SEQ6" required={false} onChange={handleChange} />
-            <Div19>
-              <p>
-                <strong>
-                  Do constraints come into play? If so, what value is left on
-                  table? Is that acceptable?
-                </strong>
-              </p>
-            </Div19>
-            <textarea placeholder="" name="SEQ7" required={false} onChange={handleChange}/>
-          </Div12>
-        </Column2>
-      </Div>
-      <Button type='submit' > Save </Button> 
-      <Button type='submit' onClick={handleNextClick}>Next</Button>    
+    <form onSubmit={createSolutionblock}>
+      <Container>
+        <Section>
+          <Title>Model Diagram Graphic</Title>
+          <TextArea />
+          <Title>Alternative vs. Objectives Table</Title>
+          <TextArea />
+          <Title>Indicated Recommended and Selected Solution</Title>
+          <TextArea />
+          <Title>Model Diagram Graphic</Title>
+          <TextArea />
+        </Section>
+        <Section>
+          <Title>
+            Identify several compelling creative alternatives
+          </Title>
+          <TextArea placeholder="" name="SEQ1" required={false} onChange={handleChange} />
+          <Title>
+            What model type is best suited for right level of evaluation rigour and complexity?
+          </Title>
+          <TextArea placeholder="" name="SEQ2" required={false} onChange={handleChange} />
+          <Title>
+            What inputs are influential variables? Technical, people, management system?
+          </Title>
+          <TextArea placeholder="" name="SEQ3" required={false} onChange={handleChange} />
+          <Title>
+            What are the best knowledge sources: intuition/experience, data/analytics evidence or a mix?
+            How do we trust human judgement vs ML/AI?
+          </Title>
+          <TextArea placeholder="" name="SEQ4" required={false} onChange={handleChange} />
+          <Title>
+            What is our uncertainty? What is our value of Information?
+            Is it worth seeking more knowledge to reduce our uncertainty?
+          </Title>
+          <TextArea placeholder="" name="SEQ5" required={false} onChange={handleChange} />
+          <Title>
+            Have we guarded against all relevant biases?
+          </Title>
+          <TextArea placeholder="" name="SEQ6" required={false} onChange={handleChange} />
+          <Title>
+            Do constraints come into play? If so, what value is left on table? Is that acceptable?
+          </Title>
+          <TextArea placeholder="" name="SEQ7" required={false} onChange={handleChange} />
+        </Section>
+        <TitleblockButtons>
+        <StyledButton type='submit'>Save</StyledButton>
+        <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
+      </TitleblockButtons>
+      </Container>
     </form>
   );
-  
 }
 
-
 export default SolutionblockPage;
-

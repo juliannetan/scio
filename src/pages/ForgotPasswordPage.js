@@ -203,7 +203,7 @@ const ForgotPasswordPage = ({setToken}) => {
           </>
         )}
         <Typography style={{ marginTop: '30px', color: grey[500] }}>
-          Already have an account? <LinkStyled to='/scio/verification-page' style={{ color: 'white' }}>Login</LinkStyled>
+          Already have an account? <LinkStyled to='/scio' style={{ color: 'white' }}>Login</LinkStyled>
         </Typography>
       </Content>
     </Container>

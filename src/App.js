@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import theme from './theme'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -29,29 +29,6 @@ const App = () => {
     sessionStorage.setItem('token', JSON.stringify(token))
   }
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const magicLinkToken = urlParams.get('token');
-
-    if (magicLinkToken) {
-      handleMagicLinkSignIn({ token: magicLinkToken });
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else {
-      const storedToken = sessionStorage.getItem('token');
-      if (storedToken) {
-        setToken(JSON.parse(storedToken));
-      }
-    }
-  }, []);
-
-
-  const handleMagicLinkSignIn = async (tokenData) => {
-    setToken(tokenData);
-    sessionStorage.setItem('token', JSON.stringify(tokenData));
-        return <Navigate to="/scio/home" />;
-
-  };
-
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setToken(null);
@@ -69,7 +46,7 @@ const App = () => {
               element={token ? <AppBar token={token} onSignOut={handleSignOut} /> : <Navigate to="/scio/" />}
             />
             <Route path="/scio/forgot-password" element={<ForgotPasswordPage setToken={setToken} />} />
-          <Route path="/scio/" element={<SignIn setToken={setToken} onMagicLinkSignIn={handleMagicLinkSignIn} />} />
+          <Route path="/scio/" element={<SignIn setToken={setToken} />} />
           <Route path="/scio/home/problem-statement" element={<ProblemblockDisplay />} /> 
           <Route path="/scio/home/current-state" element={<CurrentblockDisplay />} /> 
           <Route path="/scio/home/future-state" element={<FutureblockDisplay />} /> 
