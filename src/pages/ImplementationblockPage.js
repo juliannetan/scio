@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const ImplementationblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [implementationblocks, setImplementationblocks] = useState([]);
   const [implementationblock, setImplementationblock] = useState({
     IPQ1: '', IPQ2: '', IPQ3: '', IPQ4: '', IPQ5: '', IPQ6: '', IPQ7: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchImplementationblocks();
@@ -45,6 +47,7 @@ const ImplementationblockPage = ({ setNextPage }) => {
       .select();
 
     fetchImplementationblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Implementation form');
   }
 
   return (
@@ -73,6 +76,7 @@ const ImplementationblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

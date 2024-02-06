@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const CurrentblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [currentblocks, setCurrentblocks] = useState([]);
   const [currentblock, setCurrentblock] = useState({
     CS1: '', CS2: '', CQ1: '', CQ2: '', CQ3: '', CQ4: '', CQ5: '', CQ6: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchCurrentblocks();
@@ -41,6 +43,7 @@ const CurrentblockPage = ({ setNextPage }) => {
       }])
       .select();
     fetchCurrentblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Current State form');
   }
 
   return (
@@ -71,6 +74,7 @@ const CurrentblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

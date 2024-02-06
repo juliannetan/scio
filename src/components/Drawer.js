@@ -80,6 +80,7 @@ const MuiDrawerStyled = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !=
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       flexGrow: 1,
+      backgroundColor: theme.palette.grey[100], // Set the background color to gray[100]
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

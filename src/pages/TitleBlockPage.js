@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Button } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import { styled as muiStyled } from '@mui/system';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 export const Container = styled.div`
   padding: 20px;
@@ -38,9 +41,19 @@ export const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-export const StyledButton = styled(Button)`
+export const StyledButton = muiStyled(Button)`
   margin-top: 10px;
   margin: 0 10px; /* Adjust the margin to create space between buttons */
+  color: ${grey[300]};
+  background-color: #004F71;
+  
+  &:hover {
+    background-color: #002738;
+  }
+
+  padding: 2px 20px;
+  font-size: 20px;
+  text-transform: capitalize;
 `;
 
 export const TitleblockButtons = styled.div`
@@ -53,6 +66,7 @@ export const TitleblockButtons = styled.div`
   right: 0;
   background-color: #fff; /* Add background color if needed */
   padding: 10px 30px; /* Add padding for better visibility */
+  border-top: 2px solid ${grey[100]}; /* Add a light border at the top with grey[100] color */
 `;
 
 export const TitleblockNotes = styled.div`
@@ -65,16 +79,18 @@ export const TitleblockNote = styled.p`
 
 
 const TitleblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [titleblocks, setTitleblocks] = useState([]);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const [titleblock, setTitleblock] = useState({
     ID: '', Description: '', ProblemSolvers: '', DecisionMakers: '', Implementation: '', Assurance: '', Delivery: '', Organization: '', Assets: '', Practice: '', Value: '', Status: '', TQ1: '', TQ2: '', TQ3: '', TQ4: '', TQ5: '', TQ6: '', TQ7: '', TQ8: ''
   });
 
+  const handleNextClick = () => {
+    setNextPage();
+  };
+  
   useEffect(() => {
     fetchTitleblocks();
   }, []);
@@ -108,6 +124,7 @@ const TitleblockPage = ({ setNextPage }) => {
       .select();
 
     fetchTitleblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Title form');
   }
 
   return (
@@ -172,10 +189,11 @@ const TitleblockPage = ({ setNextPage }) => {
           </TitleblockNotes>
         </Section>
         <TitleblockButtons>
-          <StyledButton type='submit'>Save</StyledButton>
-          <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
+          <StyledButton type='submit' variant="contained">Save</StyledButton>
+          <StyledButton type='submit' variant="contained"onClick={handleNextClick}>Next</StyledButton>
         </TitleblockButtons>
     </Container>
+    <CustomSnackbar ref={customSnackbarRef} />
     </form>
 
   );
