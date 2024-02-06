@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Button } from "@mui/material";
 
-const Container = styled.div`
+export const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 `;
 
-const Section = styled.div`
+export const Section = styled.div`
   background-color: #fff;
   color: #333;
   padding: 20px;
@@ -20,12 +20,12 @@ const Section = styled.div`
   border-radius: 8px;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   font-size: 1rem;
   margin-bottom: 15px;
 `;
 
-const TextArea = styled.textarea`
+export const TextArea = styled.textarea`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -37,21 +37,21 @@ const TextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   margin-top: 10px;
 `;
 
-const TitleblockButtons = styled.div`
+export const TitleblockButtons = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 `;
 
-const TitleblockNotes = styled.div`
+export const TitleblockNotes = styled.div`
   margin-top: 20px;
 `;
 
-const TitleblockNote = styled.p`
+export const TitleblockNote = styled.p`
   margin-bottom: 10px;
 `;
 
