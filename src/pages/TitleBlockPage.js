@@ -321,9 +321,10 @@ const TitleblockPage = ({ setNextPage }) => {
 
   async function createTitleblock(e){
     e.preventDefault();
+
     console.log('insidesafe')
 
-    await supabase
+    const { data } = await supabase
     
     .from('Titlecontent')
 
@@ -331,9 +332,24 @@ const TitleblockPage = ({ setNextPage }) => {
 
     .select()
 
-  fetchTitleblocks()    
+/*
+    .select('ID')
+    .single()    
+    console.log('id', data)
+
+  await supabase
+
+    .from('Problemcontent')
+
+    .insert([{ ID: data.ID }])
 
   }
+*/
+
+fetchTitleblocks()    
+
+  }
+
 
   return (
     /*Form Titleblock*/

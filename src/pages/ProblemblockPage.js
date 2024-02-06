@@ -208,6 +208,18 @@ const Div12 = styled.div`
   
 `;
 
+const Div200 = styled.div`
+  background-color: #fff;
+  display: flex;
+  margin-top: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  padding: 21px 0 21px 60px;
+  
+`;
+
+
 const Img = styled.img`
   aspect-ratio: 0.63;
   object-fit: contain;
@@ -238,7 +250,7 @@ const ProblemblockPage = ({ setNextPage }) => {
 
   const [problemblocks,setProblemblocks]=useState([])
 
-  const [problemblock,setProblemblock]=useState({
+  const [problemblock,setProblemblock]=useState({ ID:'',
    PS1:'', PS2:'', PQ1:'',PQ2:'', PQ3:'', PQ4:'', PQ5:'',PQ6:''
   })
 
@@ -271,26 +283,28 @@ const ProblemblockPage = ({ setNextPage }) => {
   
 
   async function createProblemblock(e){
-    e.preventDefault();
+    e.preventDefault();   
 
-    console.log('insidesafe')
-    
+
+    const {data} = await supabase
+
+    .from('Titlecontent')
+    .select('ID')
+
+    console.log('ID', data)
+
     await supabase
+  
     .from('Problemcontent')
     
-    .insert([{PS1:problemblock.PS1, PS2:problemblock.PS2, PQ1:problemblock.PQ1, PQ2:problemblock.PQ2, PQ3:problemblock.PQ3, PQ4:problemblock.PQ4, PQ5:problemblock.PQ5,PQ6:problemblock.PQ6 }])
+    .insert([{ID:problemblock.ID , PS1:problemblock.PS1, PS2:problemblock.PS2, PQ1:problemblock.PQ1, PQ2:problemblock.PQ2, PQ3:problemblock.PQ3, PQ4:problemblock.PQ4, PQ5:problemblock.PQ5,PQ6:problemblock.PQ6 }])
 
     .select()
     
     fetchProblemblocks()
    
-
   }
  
-
-
-
-
 
 
   return (
@@ -300,6 +314,7 @@ const ProblemblockPage = ({ setNextPage }) => {
       <Div>
         <Column>
           <Div2>
+          <textarea placeholder="" name="ID" required={false} onChange={handleChange} />
             <Div3>Problem Statement </Div3>
             <textarea placeholder="" name="PS1" required={false} onChange={handleChange} />
             <Div4>Secondary Content</Div4>
