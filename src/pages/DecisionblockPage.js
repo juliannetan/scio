@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const DecisionBlockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [decisionblocks, setDecisionblocks] = useState([]);
   const [decisionblock, setDecisionblock] = useState({
     DS1: '', DQ1: '', DQ2: '', DQ3: '', DQ4: '', DQ5: '', DQ6: '', DQ7: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchDecisionblocks();
@@ -42,6 +44,7 @@ const DecisionBlockPage = ({ setNextPage }) => {
       .select();
 
     fetchDecisionblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Decision form');
   }
 
   return (
@@ -72,6 +75,7 @@ const DecisionBlockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

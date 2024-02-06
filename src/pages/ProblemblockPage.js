@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
-import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js'
+import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const ProblemblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [problemblocks, setProblemblocks] = useState([]);
   const [problemblock, setProblemblock] = useState({
     PS1: '', PS2: '', PQ1: '', PQ2: '', PQ3: '', PQ4: '', PQ5: '', PQ6: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchProblemblocks();
@@ -42,6 +44,7 @@ const ProblemblockPage = ({ setNextPage }) => {
       .select();
 
     fetchProblemblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Problem Statement form');
   }
 
   return (
@@ -72,6 +75,7 @@ const ProblemblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

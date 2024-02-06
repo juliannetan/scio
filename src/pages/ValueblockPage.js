@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const ValueblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [valueblocks, setValueblocks] = useState([]);
   const [valueblock, setValueblock] = useState({
     VDQ1: '', VDQ2: '', VDQ3: '', VDQ4: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchValueblocks();
@@ -42,6 +44,7 @@ const ValueblockPage = ({ setNextPage }) => {
       .select();
 
     fetchValueblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Value Delivery form');
   }
 
   return (
@@ -73,6 +76,7 @@ const ValueblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

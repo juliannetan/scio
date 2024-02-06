@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const SolutionblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [solutionblocks, setSolutionblocks] = useState([]);
   const [solutionblock, setSolutionblock] = useState({
     SEQ1: '', SEQ2: '', SEQ3: '', SEQ4: '', SEQ5: '', SEQ6: '', SEQ7: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchSolutionblocks();
@@ -45,6 +47,7 @@ const SolutionblockPage = ({ setNextPage }) => {
       .select();
 
     fetchSolutionblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Solution Evaluation form');
   }
 
   return (
@@ -97,6 +100,7 @@ const SolutionblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

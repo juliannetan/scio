@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const FutureblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [futureblocks, setFutureblocks] = useState([]);
   const [futureblock, setFutureblock] = useState({
     FS1: '', FS2: '', FQ1: '', FQ2: '', FQ3: '', FQ4: '', FQ5: '', FQ6: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchFutureblocks();
@@ -42,6 +44,7 @@ const FutureblockPage = ({ setNextPage }) => {
       .select();
 
     fetchFutureblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Future State form');
   }
 
   return (
@@ -74,6 +77,7 @@ const FutureblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }

@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../components/supabase.js';
 import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import CustomSnackbar from '../components/CustomSnackbar.js';
 
 const LessonsblockPage = ({ setNextPage }) => {
-  const handleNextClick = () => {
-    setNextPage();
-  };
-
+  const customSnackbarRef = useRef(null);
   const [lessonsblocks, setLessonsblocks] = useState([]);
   const [lessonsblock, setLessonsblock] = useState({
     LLS1: '', LLS2: '', LLQ1: '', LLQ2: '', LLQ3: '', LLQ4: '', LLQ5: '', LLQ6: ''
   });
+
+  const handleNextClick = () => {
+    setNextPage();
+  };
 
   useEffect(() => {
     fetchLessonsblocks();
@@ -42,6 +44,7 @@ const LessonsblockPage = ({ setNextPage }) => {
       .select();
 
     fetchLessonsblocks();
+    customSnackbarRef.current.showSnackbar('You have successfully saved this Lessons Learned form');
   }
 
   return (
@@ -72,6 +75,7 @@ const LessonsblockPage = ({ setNextPage }) => {
         <StyledButton type='submit' onClick={handleNextClick}>Close</StyledButton>
       </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
   );
 }
