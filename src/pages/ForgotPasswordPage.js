@@ -28,7 +28,7 @@ const ForgotPasswordPage = ({ setToken }) => {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorAlertOpen, setErrorAlertOpen] = React.useState(true)
   const [successAlertOpen, setSuccessAlertOpen] = React.useState(true)
-  const [isVerificationMode, setIsVerificationMode] = useState(false)
+  const [isVerificationMode, setIsVerificationMode] = useState(true)
   const navigate = useNavigate()
 
   const handleErrorAlertClose = () => {
@@ -77,7 +77,7 @@ const ForgotPasswordPage = ({ setToken }) => {
       console.error('Error sending OTP verification code', error.message)
     }
   }
-
+  
   const handleVerificationCodeSubmit = async () => {
     try {
       const {
@@ -150,16 +150,7 @@ const ForgotPasswordPage = ({ setToken }) => {
                 numInputs={6}
                 isInputNum={true}
                 shouldAutoFocus={true}
-                renderInput={(props, index) => (
-                  <input
-                    {...props}
-                    onKeyDown={(event) => {
-                      if (index === 5 && event.key === 'Enter') {
-                        handleVerificationCodeSubmit()
-                      }
-                    }}
-                  />
-                )}
+                renderInput={(props) => <input {...props} />}
                 inputStyle={{
                   border: `1px solid ${grey[500]}`,
                   borderRadius: '8px',
