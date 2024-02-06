@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 
 export const Container = styled.div`
   padding: 20px;
+  padding-bottom: 70px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -39,12 +40,19 @@ export const TextArea = styled.textarea`
 
 export const StyledButton = styled(Button)`
   margin-top: 10px;
+  margin: 0 10px; /* Adjust the margin to create space between buttons */
 `;
 
 export const TitleblockButtons = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff; /* Add background color if needed */
+  padding: 10px 30px; /* Add padding for better visibility */
 `;
 
 export const TitleblockNotes = styled.div`
@@ -166,8 +174,8 @@ const TitleblockPage = ({ setNextPage }) => {
           </TitleblockNotes>
         </Section>
         <TitleblockButtons>
-            <StyledButton type='submit'>Save</StyledButton>
-            <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
+          <StyledButton type='submit'>Save</StyledButton>
+          <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
         </TitleblockButtons>
     </Container>
     </form>
