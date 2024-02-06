@@ -28,7 +28,7 @@ const ForgotPasswordPage = ({ setToken }) => {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorAlertOpen, setErrorAlertOpen] = React.useState(true)
   const [successAlertOpen, setSuccessAlertOpen] = React.useState(true)
-  const [isVerificationMode, setIsVerificationMode] = useState(true)
+  const [isVerificationMode, setIsVerificationMode] = useState(false)
   const navigate = useNavigate()
 
   const handleErrorAlertClose = () => {
@@ -77,7 +77,7 @@ const ForgotPasswordPage = ({ setToken }) => {
       console.error('Error sending OTP verification code', error.message)
     }
   }
-  
+
   const handleVerificationCodeSubmit = async () => {
     try {
       const {
