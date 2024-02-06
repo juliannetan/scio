@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { supabase } from '../components/supabase';
-// import { currencyPairs } from '@mui/x-data-grid-generator';
-
-
-
 
 const Div = styled.div`
   display: flex;

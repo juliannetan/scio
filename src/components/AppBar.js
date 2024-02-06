@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Badge, CssBaseline, Toolbar, Typography, IconButton, InputBase } from '@mui/material';
+import { Box, Badge, CssBaseline, Toolbar, IconButton, InputBase, Button } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,6 +11,21 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import { supabase } from './supabase';
 import ProfileCard from './ProfileCard';
+import { styled as muiStyled } from '@mui/system';
+import { grey } from "@mui/material/colors";
+
+export const StyledButton = muiStyled(Button)`
+  color: ${grey[300]};
+  background-color: none;
+  padding: 2px 20px;
+  font-size: 20px;
+  text-transform: capitalize;
+
+  &:hover {
+    background-color: none;
+  }
+`;
+
 
 const MenuStyled = styled(Menu)`
   .MuiList-root.MuiList-padding {
@@ -84,25 +99,18 @@ const AppBar = ({ token, onSignOut }) => {
   const [open, setOpen] = React.useState(true);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userData, setUserData] = React.useState(null);
-  const [isMagicLinkRedirect, setIsMagicLinkRedirect] = React.useState(false);
-  const settings = ['Profile', 'Logout'];
+  const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment');
+  const [subMenuItem, setSubMenuItem] = React.useState('');
   let navigate = useNavigate();
 
   React.useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const redirectToParam = queryParams.get('redirect_to');
-
-    if (!token && redirectToParam) {
-      setIsMagicLinkRedirect(true);
-    }
-
-    if (!token && !isMagicLinkRedirect) {
+    if (!token) {
       navigate('/scio');
     } else 
     if (!userData && token) {
       fetchUserData();
     }
-  }, [token, navigate, userData, isMagicLinkRedirect]);
+  }, [token, navigate, userData]);
 
   const fetchUserData = async () => {
     try {
@@ -137,16 +145,24 @@ const AppBar = ({ token, onSignOut }) => {
     setAnchorElUser(null);
   };
 
-
-function stringAvatar(name) {
-  return {
-    children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
+  function stringAvatar(name) {
+    return {
+      children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
+    };
   };
-}
+
+  const handleRenderMenuItem = (selectedItem) => {
+    setSelectedItem(selectedItem);
+    setSubMenuItem('');
+  };
+
+  const handleRenderSubMenuItem = (subMenuItem) => {
+    setSubMenuItem(subMenuItem);
+  };
 
   return (
     <>
-    {(token || isMagicLinkRedirect) && (
+    {(token) && (
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <MuiAppBarStyled position="fixed" open={open}>
@@ -162,18 +178,17 @@ function stringAvatar(name) {
               }}
             >
               <MenuIcon />
-
             </IconButton>
-
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-            </Typography>
-
-
+            <StyledButton onClick={() => handleRenderMenuItem(selectedItem)}>
+              {selectedItem}
+            </StyledButton>
+            {subMenuItem && (
+              <>{` > `}
+              <StyledButton onClick={() => handleRenderSubMenuItem(subMenuItem)}>
+                {`${subMenuItem}`}
+              </StyledButton>
+              </>
+            )}
             <Box sx={{ flexGrow: 1 }} />
             <Search>
               <SearchIconWrapper>
@@ -226,8 +241,14 @@ function stringAvatar(name) {
             </Box>
           </Toolbar>
         </MuiAppBarStyled>
-        <Drawer open={open} handleDrawerClose={handleDrawerClose} />
-
+        <Drawer
+            open={open}
+            handleDrawerClose={handleDrawerClose}
+            setSelectedItem={setSelectedItem}
+            setSubMenuItem={setSubMenuItem}
+            subMenuItem={subMenuItem}
+            selectedItem={selectedItem}
+          />
       </Box>
     )}
     </>

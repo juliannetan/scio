@@ -80,12 +80,12 @@ const MuiDrawerStyled = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !=
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       flexGrow: 1,
-      backgroundColor: theme.palette.grey[100], // Set the background color to gray[100]
+      backgroundColor: theme.palette.grey[100],
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      top: theme.spacing(9), // Adjust top property instead of marginTop
+      top: theme.spacing(9),
       position: 'relative', 
       ...(open && {
         transition: theme.transitions.create('margin', {
@@ -97,10 +97,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
   );
 
-const Drawer = ({ open, handleDrawerClose }) =>  {
+const Drawer = ({ open, handleDrawerClose, selectedItem, subMenuItem, setSelectedItem, setSubMenuItem }) => {
   const theme = useTheme();
-  const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment');
-  const [subMenuItem, setSubMenuItem] = React.useState(null);
   const [showSubItems, setShowSubItems] = React.useState(true); 
   const [renderA3Canvas, setRenderA3Canvas] = React.useState(false);
 

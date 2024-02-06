@@ -30,7 +30,6 @@ const convertToBulletPoints = (content) => {
   const points = content.split('\n\n').join('\n').split('\n');
   const nonEmptyPoints = points.filter((point) => point.trim() !== '');
 
-  // Remove trailing \n or more than one consecutive \n
   const sanitizedPoints = nonEmptyPoints.map((point) => point.replace(/\n+$/, ''));
 
   return sanitizedPoints.map((point, index) => (
@@ -42,7 +41,6 @@ const OsdPage = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // Fetch data from Supabase
     const fetchData = async () => {
       const { data, error } = await supabase.from('items').select('*');
       if (error) {
@@ -53,7 +51,7 @@ const OsdPage = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs once on mount
+  }, []);
 
   return (
     <DashboardContainer>

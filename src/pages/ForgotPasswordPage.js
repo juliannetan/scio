@@ -63,7 +63,7 @@ const ForgotPasswordPage = ({setToken}) => {
 
       setSuccessMessage('An OTP verification code has been sent to your email');
       setError('');
-      setIsVerificationMode(true); // Enter verification mode
+      setIsVerificationMode(true);
     } catch (error) {
       setSuccessMessage('');
       setError(error.message);
@@ -85,11 +85,9 @@ const ForgotPasswordPage = ({setToken}) => {
         return;
       }
 
-      // Handle successful verification, e.g., navigate to a new page
       console.log(session);
       setToken(session);
       console.log('OTP Verified. Session:', session);
-      // Add your navigation logic here
       navigate('/scio/home');
     } catch (error) {
       setError(error.message);

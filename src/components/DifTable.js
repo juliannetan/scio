@@ -251,7 +251,7 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
         '& .textPrimary': {
           color: 'text.primary',
         },
-        flexGrow: 1, // Allow the table to grow and take available space
+        flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
         maxHeight: '100%',
