@@ -1,18 +1,26 @@
-import * as React from 'react';
-import { alpha, styled } from '@mui/material/styles';
-import { Box, Badge, CssBaseline, Toolbar, IconButton, InputBase, Button } from '@mui/material';
-import MuiAppBar from '@mui/material/AppBar';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Drawer from './Drawer';
+import * as React from 'react'
+import { alpha, styled } from '@mui/material/styles'
+import {
+  Box,
+  Badge,
+  CssBaseline,
+  Toolbar,
+  IconButton,
+  InputBase,
+  Button,
+} from '@mui/material'
+import MuiAppBar from '@mui/material/AppBar'
+import MenuIcon from '@mui/icons-material/Menu'
+import SearchIcon from '@mui/icons-material/Search'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import Drawer from './Drawer'
 import { useNavigate } from 'react-router-dom'
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import { supabase } from './supabase';
-import ProfileCard from './ProfileCard';
-import { styled as muiStyled } from '@mui/system';
-import { grey } from "@mui/material/colors";
+import Menu from '@mui/material/Menu'
+import Avatar from '@mui/material/Avatar'
+import { supabase } from './supabase'
+import ProfileCard from './ProfileCard'
+import { styled as muiStyled } from '@mui/system'
+import { grey } from '@mui/material/colors'
 
 export const StyledButton = muiStyled(Button)`
   color: ${grey[300]};
@@ -24,14 +32,13 @@ export const StyledButton = muiStyled(Button)`
   &:hover {
     background-color: none;
   }
-`;
-
+`
 
 const MenuStyled = styled(Menu)`
   .MuiList-root.MuiList-padding {
     padding: 0 !important;
   }
-`;
+`
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,7 +53,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: 'auto',
   },
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -56,7 +63,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -72,9 +79,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       },
     },
   },
-}));
+}))
 
-const drawerWidth = 350;
+const drawerWidth = 350
 
 const MuiAppBarStyled = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -93,166 +100,177 @@ const MuiAppBarStyled = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
+}))
 
 const AppBar = ({ token, onSignOut }) => {
-  const [open, setOpen] = React.useState(true);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [userData, setUserData] = React.useState(null);
-  const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment');
-  const [subMenuItem, setSubMenuItem] = React.useState('');
-  let navigate = useNavigate();
+  const [open, setOpen] = React.useState(true)
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [userData, setUserData] = React.useState(null)
+  const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment')
+  const [subMenuItem, setSubMenuItem] = React.useState('')
+  const [showSubItems, setShowSubItems] = React.useState(true)
+  let navigate = useNavigate()
 
   React.useEffect(() => {
     if (!token) {
-      navigate('/scio');
-    } else 
-    if (!userData && token) {
-      fetchUserData();
+      navigate('/scio')
+    } else if (!userData && token) {
+      fetchUserData()
     }
-  }, [token, navigate, userData]);
+  }, [token, navigate, userData])
 
   const fetchUserData = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
       if (user) {
-          setUserData(user);
+        setUserData(user)
       }
     } catch (error) {
-      console.error('Error fetching user data:', error.message);
+      console.error('Error fetching user data:', error.message)
     }
-  };
+  }
 
   const handleLogout = () => {
-    sessionStorage.removeItem('token');
-    onSignOut();
-    navigate('/scio');
-  };
+    sessionStorage.removeItem('token')
+    onSignOut()
+    navigate('/scio')
+  }
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
 
   function stringAvatar(name) {
     return {
-      children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
-    };
-  };
+      children: `${name
+        .split(' ')
+        .map((part) => part[0])
+        .join('')
+        .toUpperCase()}`,
+    }
+  }
 
   const handleRenderMenuItem = (selectedItem) => {
-    setSelectedItem(selectedItem);
-    setSubMenuItem('');
-  };
+    setSelectedItem(selectedItem)
+    setSubMenuItem('')
+    setShowSubItems(false)
+  }
 
   const handleRenderSubMenuItem = (subMenuItem) => {
-    setSubMenuItem(subMenuItem);
-  };
+    setSubMenuItem(subMenuItem)
+  }
 
   return (
     <>
-    {(token) && (
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <MuiAppBarStyled position="fixed" open={open}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              sx={{ mr: 2,
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <StyledButton onClick={() => handleRenderMenuItem(selectedItem)}>
-              {selectedItem}
-            </StyledButton>
-            {subMenuItem && (
-              <>{` > `}
-              <StyledButton onClick={() => handleRenderSubMenuItem(subMenuItem)}>
-                {`${subMenuItem}`}
-              </StyledButton>
-              </>
-            )}
-            <Box sx={{ flexGrow: 1 }} />
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-
-
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+      {token && (
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <MuiAppBarStyled position='fixed' open={open}>
+            <Toolbar>
               <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
+                size='large'
+                edge='start'
+                color='inherit'
+                aria-label='open drawer'
+                onClick={handleDrawerOpen}
+                sx={{ mr: 2, ...(open && { display: 'none' }) }}
               >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
-                </Badge>
+                <MenuIcon />
               </IconButton>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar 
-                  {...stringAvatar(userData?.user_metadata?.full_name || '')}
+              <StyledButton onClick={() => handleRenderMenuItem(selectedItem)}>
+                {selectedItem}
+              </StyledButton>
+              {subMenuItem && (
+                <>
+                  {` > `}
+                  <StyledButton
+                    onClick={() => handleRenderSubMenuItem(subMenuItem)}
+                  >
+                    {`${subMenuItem}`}
+                  </StyledButton>
+                </>
+              )}
+              <Box sx={{ flexGrow: 1 }} />
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder='Search…'
+                  inputProps={{ 'aria-label': 'search' }}
                 />
+              </Search>
+
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <IconButton
+                  size='large'
+                  aria-label='show 17 new notifications'
+                  color='inherit'
+                >
+                  <Badge badgeContent={17} color='error'>
+                    <NotificationsIcon />
+                  </Badge>
                 </IconButton>
 
-              <MenuStyled
-                sx={{ mt: '48px'}}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <ProfileCard handleLogout={handleLogout} />
-              </MenuStyled>
-            </Box>
-            </Box>
-          </Toolbar>
-        </MuiAppBarStyled>
-        <Drawer
+                <Box sx={{ flexGrow: 0 }}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      {...stringAvatar(
+                        userData?.user_metadata?.full_name || '',
+                      )}
+                    />
+                  </IconButton>
+
+                  <MenuStyled
+                    sx={{ mt: '48px' }}
+                    id='menu-appbar'
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <ProfileCard handleLogout={handleLogout} />
+                  </MenuStyled>
+                </Box>
+              </Box>
+            </Toolbar>
+          </MuiAppBarStyled>
+          <Drawer
             open={open}
             handleDrawerClose={handleDrawerClose}
             setSelectedItem={setSelectedItem}
             setSubMenuItem={setSubMenuItem}
+            setShowSubItems={setShowSubItems}
+            showSubItems={showSubItems}
             subMenuItem={subMenuItem}
             selectedItem={selectedItem}
           />
-      </Box>
-    )}
+        </Box>
+      )}
     </>
-  );
+  )
 }
 
 export default AppBar

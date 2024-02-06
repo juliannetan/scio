@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Box from '@mui/material/Box';
-import theme from '../theme';
-import { supabase } from '../components/supabase';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Box from '@mui/material/Box'
+import theme from '../theme'
+import { supabase } from '../components/supabase'
 
 const DashboardContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-`;
+`
 
 const WidgetContainer = styled.div`
   background-color: ${theme.white};
@@ -19,39 +19,39 @@ const WidgetContainer = styled.div`
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-`;
+`
 
 const WidgetTitle = styled.h2`
   font-size: 1.5rem;
   margin-bottom: 15px;
-`;
+`
 
 const convertToBulletPoints = (content) => {
-  const points = content.split('\n\n').join('\n').split('\n');
-  const nonEmptyPoints = points.filter((point) => point.trim() !== '');
+  const points = content.split('\n\n').join('\n').split('\n')
+  const nonEmptyPoints = points.filter((point) => point.trim() !== '')
 
-  const sanitizedPoints = nonEmptyPoints.map((point) => point.replace(/\n+$/, ''));
+  const sanitizedPoints = nonEmptyPoints.map((point) =>
+    point.replace(/\n+$/, ''),
+  )
 
-  return sanitizedPoints.map((point, index) => (
-    <li key={index}>{point}</li>
-  ));
-};
+  return sanitizedPoints.map((point, index) => <li key={index}>{point}</li>)
+}
 
 const OsdPage = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from('items').select('*');
+      const { data, error } = await supabase.from('items').select('*')
       if (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching data:', error.message)
       } else {
-        setItems(data);
+        setItems(data)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <DashboardContainer>
@@ -64,7 +64,7 @@ const OsdPage = () => {
         </WidgetContainer>
       ))}
     </DashboardContainer>
-  );
-};
+  )
+}
 
-export default OsdPage;
+export default OsdPage
