@@ -77,11 +77,10 @@ export const TitleblockNote = styled.p`
   margin-bottom: 10px;
 `
 
-const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
+const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage, userData }) => {
   const customSnackbarRef = useRef(null)
   const [titleblocks, setTitleblocks] = useState([])
   const [titleblock, setTitleblock] = useState({})
-
   const handleNextClick = () => {
     setNextPage()
   }
@@ -102,6 +101,7 @@ const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
         setGeneratedId(insertedId); 
         setProvidedId(insertedProvidedId);
       }
+      
       setTitleblocks(data || []);
     } catch (error) {
       console.error('Error fetching titleblocks:', error.message);
@@ -120,9 +120,13 @@ const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const dataToSubmit = {
+        ...titleblock,
+        Created_By: userData?.user_metadata?.full_name || '',
+      };
       const { data, error } = await supabase
         .from('Titlecontent_duplicate')
-        .insert([titleblock]);
+        .insert([dataToSubmit]);
       if (error) {
         throw error;
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
@@ -7,7 +7,6 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
-import { supabase } from '../components/supabase'
 
 function stringAvatar(name) {
   return {
@@ -19,27 +18,7 @@ function stringAvatar(name) {
   }
 }
 
-const ProfileCard = ({ handleLogout }) => {
-  const [userData, setUserData] = useState(null)
-
-  useEffect(() => {
-    // Function to fetch user data from Supabase
-    const fetchUserData = async () => {
-      try {
-        // Retrieve the authenticated user
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-        if (user) {
-          setUserData(user)
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error.message)
-      }
-    }
-
-    fetchUserData()
-  }, [])
+const ProfileCard = ({ userData, handleLogout }) => {
 
   return (
     <Card sx={{ width: 250 }}>

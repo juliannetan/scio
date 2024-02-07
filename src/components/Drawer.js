@@ -109,7 +109,8 @@ const Drawer = ({
   setSubMenuItem,
   setShowSubItems,
   setGeneratedId,
-  setProvidedId
+  setProvidedId,
+  userData
 }) => {
   const theme = useTheme()
   const [renderA3Canvas, setRenderA3Canvas] = React.useState(false)
@@ -156,6 +157,7 @@ const Drawer = ({
             setGeneratedId={setGeneratedId}
             setProvidedId={setProvidedId}
             setNextPage={() => setSubMenuItem('Problem Statement')}
+            userData={userData}
           />
         )
       case 'Problem Statement':
