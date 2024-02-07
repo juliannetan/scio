@@ -77,11 +77,10 @@ export const TitleblockNote = styled.p`
   margin-bottom: 10px;
 `
 
-const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
+const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage, userData }) => {
   const customSnackbarRef = useRef(null)
   const [titleblocks, setTitleblocks] = useState([])
   const [titleblock, setTitleblock] = useState({})
-
   const handleNextClick = () => {
     setNextPage()
   }
@@ -102,6 +101,7 @@ const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
         setGeneratedId(insertedId); 
         setProvidedId(insertedProvidedId);
       }
+      
       setTitleblocks(data || []);
     } catch (error) {
       console.error('Error fetching titleblocks:', error.message);
@@ -112,6 +112,31 @@ const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
     setTitleblock((prevFormData) => {
       return {
         ...prevFormData,
+        [event.target.name]: event.target.value,
+      }
+    })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const dataToSubmit = {
+        ...titleblock,
+        Created_By: userData?.user_metadata?.full_name || '',
+      };
+      const { data, error } = await supabase
+        .from('Titlecontent_duplicate')
+        .insert([dataToSubmit]);
+      if (error) {
+        throw error;
+      }
+      fetchTitleblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Title form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Title form:', error.message);
+    }
+  };
         [event.target.name]: event.target.value
       };
     });

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import { alpha, styled } from '@mui/material/styles'
 import {
   Box,
@@ -103,15 +103,16 @@ const MuiAppBarStyled = styled(MuiAppBar, {
 }))
 
 const AppBar = ({ token, onSignOut }) => {
-  const [open, setOpen] = React.useState(true)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
-  const [userData, setUserData] = React.useState(null)
-  const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment')
-  const [subMenuItem, setSubMenuItem] = React.useState('')
-  const [showSubItems, setShowSubItems] = React.useState(true)
-  const [generatedId, setGeneratedId] = React.useState(null)
-  const [providedId, setProvidedId] = React.useState('')
-  
+  const [open, setOpen] = useState(true)
+  const [anchorElUser, setAnchorElUser] = useState(null)
+  const [userData, setUserData] = useState(null)
+  const [selectedItem, setSelectedItem] = useState('Strategy Deployment')
+  const [subMenuItem, setSubMenuItem] = useState('')
+  const [showSubItems, setShowSubItems] = useState(true)
+  const [generatedId, setGeneratedId] = useState(null)
+  const [providedId, setProvidedId] = useState('')
+  const [userFullName, setUserFullName] = useState('')
+
   let navigate = useNavigate()
 
   React.useEffect(() => {
@@ -129,6 +130,7 @@ const AppBar = ({ token, onSignOut }) => {
       } = await supabase.auth.getUser()
       if (user) {
         setUserData(user)
+        setUserFullName(userData?.user_metadata?.full_name || '')
       }
     } catch (error) {
       console.error('Error fetching user data:', error.message)
@@ -254,7 +256,7 @@ const AppBar = ({ token, onSignOut }) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <ProfileCard handleLogout={handleLogout} />
+                    <ProfileCard userData={userData} handleLogout={handleLogout} />
                   </MenuStyled>
                 </Box>
               </Box>
@@ -273,6 +275,7 @@ const AppBar = ({ token, onSignOut }) => {
             setGeneratedId={setGeneratedId}
             providedId={providedId}
             setProvidedId={setProvidedId}
+            userData={userData}
           />
         </Box>
       )}
