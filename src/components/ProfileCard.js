@@ -1,39 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
-import { supabase } from '../components/supabase';
+import React, { useEffect, useState } from 'react'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Avatar from '@mui/material/Avatar'
+import Divider from '@mui/material/Divider'
+import { supabase } from '../components/supabase'
 
 function stringAvatar(name) {
   return {
-    children: `${name.split(' ').map((part) => part[0]).join('').toUpperCase()}`,
-  };
+    children: `${name
+      .split(' ')
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase()}`,
+  }
 }
 
 const ProfileCard = ({ handleLogout }) => {
-    const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null)
 
-        useEffect(() => {
-            // Function to fetch user data from Supabase
-            const fetchUserData = async () => {
-              try {
-                // Retrieve the authenticated user
-                const { data: { user } } = await supabase.auth.getUser()
-                if (user) {
-                    setUserData(user);
-                }
-              } catch (error) {
-                console.error('Error fetching user data:', error.message);
-              }
-            };
-        
-            fetchUserData();
-          }, []);
+  useEffect(() => {
+    // Function to fetch user data from Supabase
+    const fetchUserData = async () => {
+      try {
+        // Retrieve the authenticated user
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+        if (user) {
+          setUserData(user)
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message)
+      }
+    }
+
+    fetchUserData()
+  }, [])
 
   return (
     <Card sx={{ width: 250 }}>
@@ -45,7 +51,7 @@ const ProfileCard = ({ handleLogout }) => {
           position: 'relative',
         }}
       >
-        <Avatar 
+        <Avatar
           {...stringAvatar(userData?.user_metadata?.full_name || '')}
           sx={{
             width: 64,
@@ -68,29 +74,29 @@ const ProfileCard = ({ handleLogout }) => {
         }}
       >
         {userData ? (
-        <>
-            <Typography gutterBottom variant="h5" component="div">
-                {userData.user_metadata.full_name}
+          <>
+            <Typography gutterBottom variant='h5' component='div'>
+              {userData.user_metadata.full_name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-                {userData.email}
+            <Typography variant='body2' color='text.secondary'>
+              {userData.email}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-                {userData.user_metadata.company}
+            <Typography variant='body2' color='text.secondary'>
+              {userData.user_metadata.company}
             </Typography>
-        </>
+          </>
         ) : (
-        <p>Loading user data...</p>
+          <p>Loading user data...</p>
         )}
       </CardContent>
       <CardActions sx={{ flexDirection: 'column', alignItems: 'center' }}>
         <Divider sx={{ width: '100%', my: 1 }} />
-        <Button size="small" onClick={handleLogout}>
+        <Button size='small' onClick={handleLogout}>
           Logout
         </Button>
       </CardActions>
     </Card>
-  );
+  )
 }
 
-export default ProfileCard;
+export default ProfileCard

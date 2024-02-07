@@ -1,80 +1,139 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../components/supabase.js';
-import { Container, Section, Title, TextArea, StyledButton, TitleblockButtons } from './TitleBlockPage.js';
+import React, { useState, useEffect, useRef } from 'react'
+import { supabase } from '../components/supabase.js'
+import {
+  Container,
+  Section,
+  Title,
+  TextArea,
+  StyledButton,
+  TitleblockButtons,
+} from './TitleBlockPage.js'
+import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const ImplementationblockPage = ({ setNextPage }) => {
+const ImplementationblockPage = ({ generatedId, providedId, setNextPage }) => {
+  const customSnackbarRef = useRef(null)
+  const [implementationblocks, setImplementationblocks] = useState([])
+  const [implementationblock, setImplementationblock] = useState({})
+
   const handleNextClick = () => {
-    setNextPage();
-  };
-
-  const [implementationblocks, setImplementationblocks] = useState([]);
-  const [implementationblock, setImplementationblock] = useState({
-    IPQ1: '', IPQ2: '', IPQ3: '', IPQ4: '', IPQ5: '', IPQ6: '', IPQ7: ''
-  });
+    setNextPage()
+  }
 
   useEffect(() => {
-    fetchImplementationblocks();
-  }, []);
+    fetchImplementationblocks()
+  }, [])
 
   async function fetchImplementationblocks() {
-    const { data } = await supabase
-      .from('Implementationcontent')
-      .select('*');
-    setImplementationblocks(data);
+    const { data } = await supabase.from('Implementationcontent_duplicate').select('*')
+    setImplementationblocks(data)
   }
 
   function handleChange(event) {
-    setImplementationblock(prevFormData => {
+    setImplementationblock((prevFormData) => {
       return {
         ...prevFormData,
-        [event.target.name]: event.target.value
+        [event.target.name]: event.target.value,
+      }
+    })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const dataToSubmit = {
+        ...implementationblock,
+        id: generatedId,
+        ID: providedId,
       };
-    });
-  }
 
-  async function createImplementationblock(e) {
-    e.preventDefault();
-
-    await supabase
-      .from('Implementationcontent')
-      .insert([{
-        IPQ1: implementationblock.IPQ1, IPQ2: implementationblock.IPQ2, IPQ3: implementationblock.IPQ3,
-        IPQ4: implementationblock.IPQ4, IPQ5: implementationblock.IPQ5, IPQ6: implementationblock.IPQ6,
-        IPQ7: implementationblock.IPQ7
-      }])
-      .select();
-
-    fetchImplementationblocks();
-  }
+      const { data, error } = await supabase
+        .from('Implementationcontent_duplicate')
+        .insert([dataToSubmit]);
+      if (error) {
+        throw error;
+      }
+      fetchImplementationblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Implementation form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Implementation form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createImplementationblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Action Plan Milestone Chart</Title>
-          <TextArea placeholder="" name="IPQ1" required={false} onChange={handleChange} />
+          <TextArea
+            placeholder=''
+            name='IPQ1'
+            required={false}
+            onChange={handleChange}
+          />
           <Title>Secondary Action Plan Milestone</Title>
-          <TextArea placeholder="" name="IPQ2" required={false} onChange={handleChange} />
+          <TextArea
+            placeholder=''
+            name='IPQ2'
+            required={false}
+            onChange={handleChange}
+          />
         </Section>
         <Section>
           <Title>Set of activities assigned to the selected solution?</Title>
-          <TextArea placeholder="" name="IPQ3" required={false} onChange={handleChange} />
-          <Title>Plan. Include plan scope, schedule, cost and resources, and MOC/org change?</Title>
-          <TextArea placeholder="" name="IPQ4" required={false} onChange={handleChange} />
+          <TextArea
+            placeholder=''
+            name='IPQ3'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>
+            Plan. Include plan scope, schedule, cost and resources, and MOC/org
+            change?
+          </Title>
+          <TextArea
+            placeholder=''
+            name='IPQ4'
+            required={false}
+            onChange={handleChange}
+          />
           <Title>Do. Commit to execution. Track implementation?</Title>
-          <TextArea placeholder="" name="IPQ5" required={false} onChange={handleChange} />
-          <Title>Check. Monitor on track within preset guardrails and safeguards?</Title>
-          <TextArea placeholder="" name="IPQ6" required={false} onChange={handleChange} />
-          <Title>Act. Modify and adjust action plan based with preset contingency plans?</Title>
-          <TextArea placeholder="" name="IPQ7" required={false} onChange={handleChange} />
+          <TextArea
+            placeholder=''
+            name='IPQ5'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>
+            Check. Monitor on track within preset guardrails and safeguards?
+          </Title>
+          <TextArea
+            placeholder=''
+            name='IPQ6'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>
+            Act. Modify and adjust action plan based with preset contingency
+            plans?
+          </Title>
+          <TextArea
+            placeholder=''
+            name='IPQ7'
+            required={false}
+            onChange={handleChange}
+          />
         </Section>
         <TitleblockButtons>
-        <StyledButton type='submit'>Save</StyledButton>
-        <StyledButton type='submit' onClick={handleNextClick}>Next</StyledButton>
-      </TitleblockButtons>
+          <StyledButton type='submit'>Save</StyledButton>
+          <StyledButton type='submit' onClick={handleNextClick}>
+            Next
+          </StyledButton>
+        </TitleblockButtons>
       </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
     </form>
-  );
+  )
 }
 
-export default ImplementationblockPage;
+export default ImplementationblockPage

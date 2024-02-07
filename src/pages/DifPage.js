@@ -8,7 +8,7 @@ import { LinePlot, MarkPlot } from '@mui/x-charts/LineChart'
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis'
 import { PiePlot } from '@mui/x-charts/PieChart'
 import theme from '../theme'
-import DifTable from '../components/DifTable';
+import DifTable from '../components/DifTable'
 
 const DashboardContainer = styled.div`
   padding: 20px;
@@ -109,9 +109,12 @@ const DifPage = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
       </WidgetContainer>
 
       <WidgetTableContainer>
-      <DifTable setSubMenuItem={setSubMenuItem} setShowSubItems={setShowSubItems} setRenderA3Canvas={setRenderA3Canvas} />
+        <DifTable
+          setSubMenuItem={setSubMenuItem}
+          setShowSubItems={setShowSubItems}
+          setRenderA3Canvas={setRenderA3Canvas}
+        />
       </WidgetTableContainer>
-
     </DashboardContainer>
   )
 }
