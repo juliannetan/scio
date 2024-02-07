@@ -10,7 +10,7 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const ValueblockPage = ({ setNextPage }) => {
+const ValueblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [valueblocks, setValueblocks] = useState([])
   const [valueblock, setValueblock] = useState({})
@@ -24,7 +24,7 @@ const ValueblockPage = ({ setNextPage }) => {
   }, [])
 
   async function fetchValueblocks() {
-    const { data } = await supabase.from('Valuecontent').select('*')
+    const { data } = await supabase.from('Valuecontent_duplicate').select('*')
     setValueblocks(data)
   }
 
@@ -40,9 +40,15 @@ const ValueblockPage = ({ setNextPage }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const dataToSubmit = {
+        ...valueblock,
+        id: generatedId,
+        ID: providedId
+      };
+
       const { data, error } = await supabase
-        .from('Valuecontent')
-        .insert([valueblock]);
+        .from('Valuecontent_duplicate')
+        .insert([dataToSubmit]);
       if (error) {
         throw error;
       }

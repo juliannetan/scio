@@ -109,6 +109,9 @@ const AppBar = ({ token, onSignOut }) => {
   const [selectedItem, setSelectedItem] = React.useState('Strategy Deployment')
   const [subMenuItem, setSubMenuItem] = React.useState('')
   const [showSubItems, setShowSubItems] = React.useState(true)
+  const [generatedId, setGeneratedId] = React.useState(null)
+  const [providedId, setProvidedId] = React.useState('')
+  
   let navigate = useNavigate()
 
   React.useEffect(() => {
@@ -266,6 +269,10 @@ const AppBar = ({ token, onSignOut }) => {
             showSubItems={showSubItems}
             subMenuItem={subMenuItem}
             selectedItem={selectedItem}
+            generatedId={generatedId}
+            setGeneratedId={setGeneratedId}
+            providedId={providedId}
+            setProvidedId={setProvidedId}
           />
         </Box>
       )}

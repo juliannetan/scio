@@ -10,7 +10,7 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const ProblemblockPage = ({ setNextPage }) => {
+const ProblemblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [problemblocks, setProblemblocks] = useState([])
   const [problemblock, setProblemblock] = useState({})
@@ -24,7 +24,7 @@ const ProblemblockPage = ({ setNextPage }) => {
   }, [])
 
   async function fetchProblemblocks() {
-    const { data } = await supabase.from('Problemcontent').select('*')
+    const { data } = await supabase.from('Problemcontent_duplicate').select('*')
     setProblemblocks(data)
   }
 
@@ -40,9 +40,15 @@ const ProblemblockPage = ({ setNextPage }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const dataToSubmit = {
+        ...problemblock,
+        id: generatedId,
+        ID: providedId,
+      };
+
       const { data, error } = await supabase
-        .from('Problemcontent')
-        .insert([problemblock]);
+        .from('Problemcontent_duplicate')
+        .insert([dataToSubmit]);
       if (error) {
         throw error;
       }

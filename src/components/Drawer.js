@@ -103,23 +103,22 @@ const Drawer = ({
   selectedItem,
   subMenuItem,
   showSubItems,
+  generatedId,
+  providedId,
   setSelectedItem,
   setSubMenuItem,
   setShowSubItems,
+  setGeneratedId,
+  setProvidedId
 }) => {
   const theme = useTheme()
   const [renderA3Canvas, setRenderA3Canvas] = React.useState(false)
-  const [generatedId, setGeneratedId] = React.useState(null);
-
-  const handleIdGenerated = (id) => {
-    setGeneratedId(id);
-  };
 
   const handleListItemClick = (text) => {
     setSelectedItem(text)
     setRenderA3Canvas(false)
-    setSubMenuItem(null) // Reset sub-menu item when main menu item is clicked
-    setShowSubItems(false) // Add this line to hide sub-items when clicking a main menu item
+    setSubMenuItem(null)
+    setShowSubItems(false) 
   }
 
   const handleSubMenuItemClick = (text) => {
@@ -154,7 +153,8 @@ const Drawer = ({
       case 'Title':
         return (
           <TitleBlockPage
-            onIdGenerated={handleIdGenerated}
+            setGeneratedId={setGeneratedId}
+            setProvidedId={setProvidedId}
             setNextPage={() => setSubMenuItem('Problem Statement')}
           />
         )
@@ -162,6 +162,7 @@ const Drawer = ({
         return (
           <ProblemblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Current State')}
           />
         )
@@ -169,6 +170,7 @@ const Drawer = ({
         return (
           <CurrentblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Future State')}
           />
         )
@@ -176,6 +178,7 @@ const Drawer = ({
         return (
           <FutureblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Solution Evaluation')}
           />
         )
@@ -183,19 +186,22 @@ const Drawer = ({
         return (
           <SolutionblockPage 
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Decision')} />
         )
       case 'Decision':
         return (
           <DecisionblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Implementation Plan')}
           />
         )
       case 'Implementation Plan':
         return (
           <ImplementationblockPage
-            generatedId={generatedId}  
+            generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Value Delivery')}
           />
         )
@@ -203,6 +209,7 @@ const Drawer = ({
         return (
           <ValueblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() => setSubMenuItem('Lessons Learned')}
           />
         )
@@ -210,6 +217,7 @@ const Drawer = ({
         return (
           <LessonsblockPage
             generatedId={generatedId}
+            providedId={providedId}
             setNextPage={() =>
               handleListItemClick('Decision Intelligence Framework')
             }
@@ -237,7 +245,9 @@ const Drawer = ({
     <>
       <MuiDrawerStyled variant='permanent' open={open}>
         <DrawerHeader>
-          <ScioHorizontalIcon />
+          <ListItemButton onClick={() => handleListItemClick('Strategy Deployment')}>
+            <ScioHorizontalIcon />
+          </ListItemButton>
           <IconButton onClick={handleDrawerClose} style={{ color: '#fff' }}>
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />

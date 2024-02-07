@@ -77,7 +77,7 @@ export const TitleblockNote = styled.p`
   margin-bottom: 10px;
 `
 
-const TitleblockPage = ({ setNextPage }) => {
+const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [titleblocks, setTitleblocks] = useState([])
   const [titleblock, setTitleblock] = useState({})
@@ -91,8 +91,21 @@ const TitleblockPage = ({ setNextPage }) => {
   }, [])
 
   async function fetchTitleblocks() {
-    const { data } = await supabase.from('Titlecontent').select('*')
-    setTitleblocks(data)
+    try {
+      const { data, error } = await supabase.from('Titlecontent_duplicate').select('*');
+      if (error) {
+        throw error;
+      }
+      if (data) {
+        const insertedId = data[data.length - 1].id
+        const insertedProvidedId = data[data.length - 1].ID
+        setGeneratedId(insertedId); 
+        setProvidedId(insertedProvidedId);
+      }
+      setTitleblocks(data || []);
+    } catch (error) {
+      console.error('Error fetching titleblocks:', error.message);
+    }
   }
 
   function handleChange(event) {
@@ -108,7 +121,7 @@ const TitleblockPage = ({ setNextPage }) => {
     event.preventDefault();
     try {
       const { data, error } = await supabase
-        .from('Titlecontent')
+        .from('Titlecontent_duplicate')
         .insert([titleblock]);
       if (error) {
         throw error;

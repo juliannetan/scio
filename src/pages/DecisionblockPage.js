@@ -10,7 +10,7 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const DecisionBlockPage = ({ setNextPage }) => {
+const DecisionBlockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [decisionblocks, setDecisionblocks] = useState([])
   const [decisionblock, setDecisionblock] = useState({})
@@ -24,7 +24,7 @@ const DecisionBlockPage = ({ setNextPage }) => {
   }, [])
 
   async function fetchDecisionblocks() {
-    const { data } = await supabase.from('Decisioncontent').select('*')
+    const { data } = await supabase.from('Decisioncontent_duplicate').select('*')
     setDecisionblocks(data)
   }
 
@@ -41,9 +41,15 @@ const DecisionBlockPage = ({ setNextPage }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const dataToSubmit = {
+        ...decisionblock,
+        id: generatedId,
+        ID: providedId
+      };
+
       const { data, error } = await supabase
-        .from('Decisioncontent')
-        .insert([decisionblock]);
+        .from('Decisioncontent_duplicate')
+        .insert([dataToSubmit]);
       if (error) {
         throw error;
       }
