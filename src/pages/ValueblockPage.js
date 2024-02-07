@@ -13,12 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const ValueblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [valueblocks, setValueblocks] = useState([])
-  const [valueblock, setValueblock] = useState({
-    VDQ1: '',
-    VDQ2: '',
-    VDQ3: '',
-    VDQ4: '',
-  })
+  const [valueblock, setValueblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -42,51 +37,45 @@ const ValueblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createValueblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Valuecontent')
-      .insert([
-        {
-          VDQ1: valueblock.VDQ1,
-          VDQ2: valueblock.VDQ2,
-          VDQ3: valueblock.VDQ3,
-          VDQ4: valueblock.VDQ4,
-        },
-      ])
-      .select()
-
-    fetchValueblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Value Delivery form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Valuecontent')
+        .insert([valueblock]);
+      if (error) {
+        throw error;
+      }
+      fetchValueblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Value Delivery form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Value Delivery form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createValueblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Performance Graphic</Title>
-          {/* Add any relevant components or content here */}
           <TextArea
             placeholder=''
-            name='performanceGraphic'
+            name='VDMedia1'
             required={false}
             onChange={handleChange}
           />
           <Title>Value Delivery Chart</Title>
-          {/* Add any relevant components or content here */}
           <TextArea
             placeholder=''
-            name='valueDeliveryChart'
+            name='VDMedia2'
             required={false}
             onChange={handleChange}
           />
           <Title>Secondary Value Delivery</Title>
-          {/* Add any relevant components or content here */}
           <TextArea
             placeholder=''
-            name='secondaryValueDelivery'
+            name='VDMedia3'
             required={false}
             onChange={handleChange}
           />

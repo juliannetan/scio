@@ -13,16 +13,11 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from '@mui/x-data-grid'
-import { randomCreatedDate, randomArrayItem } from '@mui/x-data-grid-generator'
+import { randomCreatedDate, randomArrayItem, randomId } from '@mui/x-data-grid-generator'
 
 const roles = ['Julianne', 'Carlos', 'Jason', 'Chris']
 const randomRole = () => {
   return randomArrayItem(roles)
-}
-
-const ids = ['AB-123456', 'BC-123456', 'AA-123456', 'XX-123456']
-const randomId = () => {
-  return randomArrayItem(ids)
 }
 
 const initialRows = [

@@ -80,30 +80,7 @@ export const TitleblockNote = styled.p`
 const TitleblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [titleblocks, setTitleblocks] = useState([])
-  const [openSnackbar, setOpenSnackbar] = useState(false)
-
-  const [titleblock, setTitleblock] = useState({
-    ID: '',
-    Description: '',
-    ProblemSolvers: '',
-    DecisionMakers: '',
-    Implementation: '',
-    Assurance: '',
-    Delivery: '',
-    Organization: '',
-    Assets: '',
-    Practice: '',
-    Value: '',
-    Status: '',
-    TQ1: '',
-    TQ2: '',
-    TQ3: '',
-    TQ4: '',
-    TQ5: '',
-    TQ6: '',
-    TQ7: '',
-    TQ8: '',
-  })
+  const [titleblock, setTitleblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -127,44 +104,25 @@ const TitleblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createTitleblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Titlecontent')
-      .insert([
-        {
-          ID: titleblock.ID,
-          Description: titleblock.Description,
-          ProblemSolvers: titleblock.ProblemSolvers,
-          DecisionMakers: titleblock.DecisionMakers,
-          Implementation: titleblock.Implementation,
-          Assurance: titleblock.Assurance,
-          Delivery: titleblock.Delivery,
-          Organization: titleblock.Organization,
-          Assets: titleblock.Assets,
-          Practice: titleblock.Practice,
-          Value: titleblock.Value,
-          Status: titleblock.Status,
-          TQ1: titleblock.TQ1,
-          TQ2: titleblock.TQ2,
-          TQ3: titleblock.TQ3,
-          TQ4: titleblock.TQ4,
-          TQ5: titleblock.TQ5,
-          TQ6: titleblock.TQ6,
-          TQ7: titleblock.TQ7,
-          TQ8: titleblock.TQ8,
-        },
-      ])
-      .select()
-
-    fetchTitleblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Title form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Titlecontent')
+        .insert([titleblock]);
+      if (error) {
+        throw error;
+      }
+      fetchTitleblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Title form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Title form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createTitleblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>ID: Unique Identification Reference</Title>

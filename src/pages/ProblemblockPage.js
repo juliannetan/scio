@@ -13,16 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const ProblemblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [problemblocks, setProblemblocks] = useState([])
-  const [problemblock, setProblemblock] = useState({
-    PS1: '',
-    PS2: '',
-    PQ1: '',
-    PQ2: '',
-    PQ3: '',
-    PQ4: '',
-    PQ5: '',
-    PQ6: '',
-  })
+  const [problemblock, setProblemblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -46,32 +37,26 @@ const ProblemblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createProblemblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Problemcontent')
-      .insert([
-        {
-          PS1: problemblock.PS1,
-          PS2: problemblock.PS2,
-          PQ1: problemblock.PQ1,
-          PQ2: problemblock.PQ2,
-          PQ3: problemblock.PQ3,
-          PQ4: problemblock.PQ4,
-          PQ5: problemblock.PQ5,
-          PQ6: problemblock.PQ6,
-        },
-      ])
-      .select()
-
-    fetchProblemblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Problem Statement form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Problemcontent')
+        .insert([problemblock]);
+      if (error) {
+        throw error;
+      }
+      fetchProblemblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Problem Statement form',
+      'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Problem Statement form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createProblemblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Problem Statement</Title>

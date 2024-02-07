@@ -13,15 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const SolutionblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [solutionblocks, setSolutionblocks] = useState([])
-  const [solutionblock, setSolutionblock] = useState({
-    SEQ1: '',
-    SEQ2: '',
-    SEQ3: '',
-    SEQ4: '',
-    SEQ5: '',
-    SEQ6: '',
-    SEQ7: '',
-  })
+  const [solutionblock, setSolutionblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -45,34 +37,25 @@ const SolutionblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createSolutionblock(e) {
-    e.preventDefault()
-
-    console.log('insidesafe')
-
-    await supabase
-      .from('Solutioncontent')
-      .insert([
-        {
-          SEQ1: solutionblock.SEQ1,
-          SEQ2: solutionblock.SEQ2,
-          SEQ3: solutionblock.SEQ3,
-          SEQ4: solutionblock.SEQ4,
-          SEQ5: solutionblock.SEQ5,
-          SEQ6: solutionblock.SEQ6,
-          SEQ7: solutionblock.SEQ7,
-        },
-      ])
-      .select()
-
-    fetchSolutionblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Solution Evaluation form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Solutioncontent')
+        .insert([solutionblock]);
+      if (error) {
+        throw error;
+      }
+      fetchSolutionblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Solution Evaluation form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Solution Evaluation form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createSolutionblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Model Diagram Graphic</Title>

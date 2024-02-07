@@ -109,6 +109,11 @@ const Drawer = ({
 }) => {
   const theme = useTheme()
   const [renderA3Canvas, setRenderA3Canvas] = React.useState(false)
+  const [generatedId, setGeneratedId] = React.useState(null);
+
+  const handleIdGenerated = (id) => {
+    setGeneratedId(id);
+  };
 
   const handleListItemClick = (text) => {
     setSelectedItem(text)
@@ -149,52 +154,62 @@ const Drawer = ({
       case 'Title':
         return (
           <TitleBlockPage
+            onIdGenerated={handleIdGenerated}
             setNextPage={() => setSubMenuItem('Problem Statement')}
           />
         )
       case 'Problem Statement':
         return (
           <ProblemblockPage
+            generatedId={generatedId}
             setNextPage={() => setSubMenuItem('Current State')}
           />
         )
       case 'Current State':
         return (
           <CurrentblockPage
+            generatedId={generatedId}
             setNextPage={() => setSubMenuItem('Future State')}
           />
         )
       case 'Future State':
         return (
           <FutureblockPage
+            generatedId={generatedId}
             setNextPage={() => setSubMenuItem('Solution Evaluation')}
           />
         )
       case 'Solution Evaluation':
         return (
-          <SolutionblockPage setNextPage={() => setSubMenuItem('Decision')} />
+          <SolutionblockPage 
+            generatedId={generatedId}
+            setNextPage={() => setSubMenuItem('Decision')} />
         )
       case 'Decision':
         return (
           <DecisionblockPage
+            generatedId={generatedId}
             setNextPage={() => setSubMenuItem('Implementation Plan')}
           />
         )
       case 'Implementation Plan':
         return (
           <ImplementationblockPage
+            generatedId={generatedId}  
             setNextPage={() => setSubMenuItem('Value Delivery')}
           />
         )
       case 'Value Delivery':
         return (
           <ValueblockPage
+            generatedId={generatedId}
             setNextPage={() => setSubMenuItem('Lessons Learned')}
           />
         )
       case 'Lessons Learned':
         return (
           <LessonsblockPage
+            generatedId={generatedId}
             setNextPage={() =>
               handleListItemClick('Decision Intelligence Framework')
             }

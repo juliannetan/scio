@@ -13,16 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const LessonsblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [lessonsblocks, setLessonsblocks] = useState([])
-  const [lessonsblock, setLessonsblock] = useState({
-    LLS1: '',
-    LLS2: '',
-    LLQ1: '',
-    LLQ2: '',
-    LLQ3: '',
-    LLQ4: '',
-    LLQ5: '',
-    LLQ6: '',
-  })
+  const [lessonsblock, setLessonsblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -46,32 +37,25 @@ const LessonsblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createLessonsblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Lessonscontent')
-      .insert([
-        {
-          LLS1: lessonsblock.LLS1,
-          LLS2: lessonsblock.LLS2,
-          LLQ1: lessonsblock.LLQ1,
-          LLQ2: lessonsblock.LLQ2,
-          LLQ3: lessonsblock.LLQ3,
-          LLQ4: lessonsblock.LLQ4,
-          LLQ5: lessonsblock.LLQ5,
-          LLQ6: lessonsblock.LLQ6,
-        },
-      ])
-      .select()
-
-    fetchLessonsblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Lessons Learned form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Lessonscontent')
+        .insert([lessonsblock]);
+      if (error) {
+        throw error;
+      }
+      fetchLessonsblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Lessons Learned form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Lessons Learned form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createLessonsblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Shared Learnings Text Bullets</Title>

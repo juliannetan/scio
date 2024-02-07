@@ -13,16 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const FutureblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [futureblocks, setFutureblocks] = useState([])
-  const [futureblock, setFutureblock] = useState({
-    FS1: '',
-    FS2: '',
-    FQ1: '',
-    FQ2: '',
-    FQ3: '',
-    FQ4: '',
-    FQ5: '',
-    FQ6: '',
-  })
+  const [futureblock, setFutureblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -46,32 +37,25 @@ const FutureblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createFutureblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Futurecontent')
-      .insert([
-        {
-          FS1: futureblock.FS1,
-          FS2: futureblock.FS2,
-          FQ1: futureblock.FQ1,
-          FQ2: futureblock.FQ2,
-          FQ3: futureblock.FQ3,
-          FQ4: futureblock.FQ4,
-          FQ5: futureblock.FQ5,
-          FQ6: futureblock.FQ6,
-        },
-      ])
-      .select()
-
-    fetchFutureblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Future State form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Futurecontent')
+        .insert([futureblock]);
+      if (error) {
+        throw error;
+      }
+      fetchFutureblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Future State form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error, 'error');
+      console.error('Error saving Future State form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createFutureblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Future State Gap Statement with bullets</Title>

@@ -5,10 +5,12 @@ import Alert from '@mui/material/Alert'
 const CustomSnackbar = forwardRef((props, ref) => {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
+  const [type, setType] = useState('success')
 
   useImperativeHandle(ref, () => ({
-    showSnackbar: (msg) => {
+    showSnackbar: (msg, type) => {
       setMessage(msg)
+      setType(type)
       setOpen(true)
     },
   }))
@@ -24,14 +26,16 @@ const CustomSnackbar = forwardRef((props, ref) => {
       onClose={handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     >
-      <Alert
-        onClose={handleClose}
-        severity='success'
-        variant='filled'
-        sx={{ width: '100%' }}
-      >
-        {message}
-      </Alert>
+      {message && (
+        <Alert
+          onClose={handleClose}
+          severity={type === 'success' ? 'success' : 'error'}
+          variant='filled'
+          sx={{ width: '100%' }}
+        >
+          {message}
+        </Alert>
+      )}
     </Snackbar>
   )
 })

@@ -13,16 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const DecisionBlockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [decisionblocks, setDecisionblocks] = useState([])
-  const [decisionblock, setDecisionblock] = useState({
-    DS1: '',
-    DQ1: '',
-    DQ2: '',
-    DQ3: '',
-    DQ4: '',
-    DQ5: '',
-    DQ6: '',
-    DQ7: '',
-  })
+  const [decisionblock, setDecisionblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -46,32 +37,26 @@ const DecisionBlockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createDecisionblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Decisioncontent')
-      .insert([
-        {
-          DS1: decisionblock.DS1,
-          DQ1: decisionblock.DQ1,
-          DQ2: decisionblock.DQ2,
-          DQ3: decisionblock.DQ3,
-          DQ4: decisionblock.DQ4,
-          DQ5: decisionblock.DQ5,
-          DQ6: decisionblock.DQ6,
-          DQ7: decisionblock.DQ7,
-        },
-      ])
-      .select()
 
-    fetchDecisionblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Decision form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Decisioncontent')
+        .insert([decisionblock]);
+      if (error) {
+        throw error;
+      }
+      fetchDecisionblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Decision form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Decision form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createDecisionblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Decision Statement</Title>

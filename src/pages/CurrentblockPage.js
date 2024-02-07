@@ -13,16 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const CurrentblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [currentblocks, setCurrentblocks] = useState([])
-  const [currentblock, setCurrentblock] = useState({
-    CS1: '',
-    CS2: '',
-    CQ1: '',
-    CQ2: '',
-    CQ3: '',
-    CQ4: '',
-    CQ5: '',
-    CQ6: '',
-  })
+  const [currentblock, setCurrentblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -46,31 +37,25 @@ const CurrentblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createCurrentblock(e) {
-    e.preventDefault()
-    await supabase
-      .from('Currentcontent')
-      .insert([
-        {
-          CS1: currentblock.CS1,
-          CS2: currentblock.CS2,
-          CQ1: currentblock.CQ1,
-          CQ2: currentblock.CQ2,
-          CQ3: currentblock.CQ3,
-          CQ4: currentblock.CQ4,
-          CQ5: currentblock.CQ5,
-          CQ6: currentblock.CQ6,
-        },
-      ])
-      .select()
-    fetchCurrentblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Current State form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Currentcontent')
+        .insert([currentblock]);
+      if (error) {
+        throw error;
+      }
+      fetchCurrentblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Current State form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Current State form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createCurrentblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Current State Statement</Title>

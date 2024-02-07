@@ -13,15 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 const ImplementationblockPage = ({ setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [implementationblocks, setImplementationblocks] = useState([])
-  const [implementationblock, setImplementationblock] = useState({
-    IPQ1: '',
-    IPQ2: '',
-    IPQ3: '',
-    IPQ4: '',
-    IPQ5: '',
-    IPQ6: '',
-    IPQ7: '',
-  })
+  const [implementationblock, setImplementationblock] = useState({})
 
   const handleNextClick = () => {
     setNextPage()
@@ -45,32 +37,25 @@ const ImplementationblockPage = ({ setNextPage }) => {
     })
   }
 
-  async function createImplementationblock(e) {
-    e.preventDefault()
-
-    await supabase
-      .from('Implementationcontent')
-      .insert([
-        {
-          IPQ1: implementationblock.IPQ1,
-          IPQ2: implementationblock.IPQ2,
-          IPQ3: implementationblock.IPQ3,
-          IPQ4: implementationblock.IPQ4,
-          IPQ5: implementationblock.IPQ5,
-          IPQ6: implementationblock.IPQ6,
-          IPQ7: implementationblock.IPQ7,
-        },
-      ])
-      .select()
-
-    fetchImplementationblocks()
-    customSnackbarRef.current.showSnackbar(
-      'You have successfully saved this Implementation form',
-    )
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data, error } = await supabase
+        .from('Implementationcontent')
+        .insert([implementationblock]);
+      if (error) {
+        throw error;
+      }
+      fetchImplementationblocks()
+      customSnackbarRef.current.showSnackbar('You have successfully saved this Implementation form', 'success');
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error');
+      console.error('Error saving Implementation form:', error.message);
+    }
+  };
 
   return (
-    <form onSubmit={createImplementationblock}>
+    <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Action Plan Milestone Chart</Title>
