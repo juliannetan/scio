@@ -18,8 +18,6 @@ import {
   randomArrayItem,
 } from '@mui/x-data-grid-generator';
 
-
-
 const roles = ['Julianne', 'Carlos', 'Jason', 'Chris'];
 const randomRole = () => {
   return randomArrayItem(roles);

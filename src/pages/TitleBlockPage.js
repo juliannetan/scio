@@ -109,6 +109,31 @@ const TitleblockPage = ({ setNextPage }) => {
 
   fetchTitleblocks()    
 
+/*
+  const { data: newShit } = await client
+  .from('yourtable')
+  .insert({ someStuff: 'cool'} )
+  .select('id')
+  .single();
+
+await client
+  .from('youtothertable')
+  .insert({yourtable_id: newShit.id, very: 'cool' });
+
+  
+  */
+ 
+   /* const { data, error } = await supabase
+    .from('Titlecontent')
+    .insert(ID, Description);
+  
+  // Handle the result or error
+  if (error) {
+    console.error('Error inserting data:', error);
+  } else {
+    console.log('Data inserted successfully:', data);
+  }*/
+
   }
 
 

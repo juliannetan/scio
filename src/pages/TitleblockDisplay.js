@@ -292,7 +292,7 @@ const TitleblockDisplay = () => {
 
 
   const [titleblock2,setTitleblock2]=useState({
-    id:'', created_at:'', ID:'', Description:'', ProblemSolvers:'',DecisionMakers:'', Implementation:'', Assurance:'', Delivery:'',Organization:'', Assets:'', Practice:'', Value:'', Status:'', TQ1: '',TQ2: '',TQ3: '',TQ4: '',TQ5: '',TQ6: '',TQ7: '',TQ8: ''
+    id:'', created_at:'', Created_by:'', ID:'', Description:'', ProblemSolvers:'',DecisionMakers:'', Implementation:'', Assurance:'', Delivery:'',Organization:'', Assets:'', Practice:'', Value:'', Status:'', TQ1: '',TQ2: '',TQ3: '',TQ4: '',TQ5: '',TQ6: '',TQ7: '',TQ8: ''
   })
  
   useEffect(() => {
@@ -358,7 +358,7 @@ const TitleblockDisplay = () => {
     
         if(titleblock.ID==titleblockID){
 
-          setTitleblock2({ ID:titleblock.ID, created_at: titleblock.created_at, Description:titleblock.Description, ProblemSolvers:titleblock.ProblemSolvers, DecisionMakers:titleblock.DecisionMakers, Implementation:titleblock.Implementation, Assurance:titleblock.Assurance, Delivery:titleblock.Delivery,Organization:titleblock.Organization, Assets:titleblock.Assets, Practice:titleblock.Practice, Value:titleblock.Value, Status:titleblock.Status, TQ1: titleblock.TQ1,TQ2: titleblock.TQ2,TQ3: titleblock.TQ3,TQ4: titleblock.TQ4,TQ5:titleblock.TQ5 ,TQ6: titleblock.TQ6,TQ7: titleblock.TQ7,TQ8: titleblock.TQ8 })
+          setTitleblock2({ ID:titleblock.ID, created_at: titleblock.created_at, Created_by:titleblock.Created_by, Description:titleblock.Description, ProblemSolvers:titleblock.ProblemSolvers, DecisionMakers:titleblock.DecisionMakers, Implementation:titleblock.Implementation, Assurance:titleblock.Assurance, Delivery:titleblock.Delivery,Organization:titleblock.Organization, Assets:titleblock.Assets, Practice:titleblock.Practice, Value:titleblock.Value, Status:titleblock.Status, TQ1: titleblock.TQ1,TQ2: titleblock.TQ2,TQ3: titleblock.TQ3,TQ4: titleblock.TQ4,TQ5:titleblock.TQ5 ,TQ6: titleblock.TQ6,TQ7: titleblock.TQ7,TQ8: titleblock.TQ8 })
         }
       
     })
