@@ -1,9 +1,11 @@
-import { Button, Typography } from '@mui/material'
+import { Button, Modal, Typography } from '@mui/material'
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { supabase } from '../components/supabase'
 import CustomSnackbar from '../components/CustomSnackbar'
+import ProblemblockDisplay from './ProblemblockDisplay'
+import DecisionblockDisplay from './DecisionblockDisplay'
 
 const Container = styled.div`
   padding: 20px;
@@ -57,7 +59,7 @@ const MainHeader = styled.h1`
   font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
-`;
+`
 
 const StyledButton = styled(Button)`
   margin-top: 10px;
@@ -86,84 +88,106 @@ const A3Canvas = ({ selectedEntryId }) => {
   const [solutionContent, setSolutionContent] = useState(null)
   const [lessonsContent, setLessonsContent] = useState(null)
   const customSnackbarRef = useRef(null)
+  const [displayModal, setDisplayModal] = useState(false)
+  const [displayDecisionModal, setDisplayDecisionModal] = useState(false)
+
+
+  const fetchData = async () => {
+    try {
+      const [
+        titleData,
+        problemData,
+        decisionData,
+        currentData,
+        implementationData,
+        futureData,
+        valueData,
+        solutionData,
+        lessonsData,
+      ] = await Promise.all([
+        supabase
+          .from('Titlecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Problemcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Decisioncontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Currentcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Implementationcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Futurecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Valuecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Solutioncontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Lessonscontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+      ])
+
+      setTitleContent(titleData.data)
+      setProblemContent(problemData.data)
+      setDecisionContent(decisionData.data)
+      setCurrentContent(currentData.data)
+      setImplementationContent(implementationData.data)
+      setFutureContent(futureData.data)
+      setValueContent(valueData.data)
+      setSolutionContent(solutionData.data)
+      setLessonsContent(lessonsData.data)
+      setFetchError(null)
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [
-          titleData,
-          problemData,
-          decisionData,
-          currentData,
-          implementationData,
-          futureData,
-          valueData,
-          solutionData,
-          lessonsData,
-        ] = await Promise.all([
-          supabase
-            .from('Titlecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Problemcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Decisioncontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Currentcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Implementationcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Futurecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Valuecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Solutioncontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Lessonscontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-        ])
-
-        setTitleContent(titleData.data)
-        setProblemContent(problemData.data)
-        setDecisionContent(decisionData.data)
-        setCurrentContent(currentData.data)
-        setImplementationContent(implementationData.data)
-        setFutureContent(futureData.data)
-        setValueContent(valueData.data)
-        setSolutionContent(solutionData.data)
-        setLessonsContent(lessonsData.data)
-        setFetchError(null)
-      } catch (error) {
-        customSnackbarRef.current.showSnackbar(error.message, 'error')
-        console.error(error)
-      }
-    }
-
     fetchData()
   }, [selectedEntryId])
 
   const moreInfoText = 'More Info'
 
+  const openModal = () => {
+    setDisplayModal(true)
+  }
+
+  const closeModal = () => {
+    setDisplayModal(false)
+    fetchData()
+  }
+
+
+  const openDecisionModal = () => {
+    setDisplayDecisionModal(true)
+  }
+
+  const closeDecisionModal = () => {
+    setDisplayDecisionModal(false)
+    fetchData()
+  }
+
   return (
     <>
       <Container>
-      <MainHeader>A3 Canvas</MainHeader>
+        <MainHeader>A3 Canvas</MainHeader>
         <Header>
           <HeaderItem>
             <HeaderLabel>ID:</HeaderLabel>
@@ -198,35 +222,40 @@ const A3Canvas = ({ selectedEntryId }) => {
         </Header>
         <Section>
           <Title>Problem Statement</Title>
-          {fetchError && <p>{fetchError}</p>}
           {problemContent &&
             problemContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.PS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/problem-statement'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayModal}>
+            <ProblemblockDisplay
+              selectedEntryId={selectedEntryId}
+              onClose={closeModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Decision</Title>
-          {fetchError && <p>{fetchError}</p>}
           {decisionContent &&
             decisionContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.DS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/decision'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openDecisionModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayDecisionModal}>
+            <DecisionblockDisplay
+              selectedEntryId={selectedEntryId}
+              onClose={closeDecisionModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Current</Title>
-          {fetchError && <p>{fetchError}</p>}
           {currentContent &&
             currentContent.map((content) => (
               <React.Fragment key={content.id}>
@@ -240,7 +269,6 @@ const A3Canvas = ({ selectedEntryId }) => {
 
         <Section>
           <Title>Implementation</Title>
-          {fetchError && <p>{fetchError}</p>}
           {implementationContent &&
             implementationContent.map((content) => (
               <React.Fragment key={content.id}>
@@ -254,7 +282,6 @@ const A3Canvas = ({ selectedEntryId }) => {
 
         <Section>
           <Title>Future</Title>
-          {fetchError && <p>{fetchError}</p>}
           {futureContent &&
             futureContent.map((content) => (
               <React.Fragment key={content.id}>
@@ -268,7 +295,6 @@ const A3Canvas = ({ selectedEntryId }) => {
 
         <Section>
           <Title>Value</Title>
-          {fetchError && <p>{fetchError}</p>}
           {valueContent &&
             valueContent.map((content) => (
               <React.Fragment key={content.id}>
@@ -282,7 +308,6 @@ const A3Canvas = ({ selectedEntryId }) => {
 
         <Section>
           <Title>Solution</Title>
-          {fetchError && <p>{fetchError}</p>}
           {solutionContent &&
             solutionContent.map((content) => (
               <React.Fragment key={content.id}>
@@ -296,7 +321,6 @@ const A3Canvas = ({ selectedEntryId }) => {
 
         <Section>
           <Title>Lessons</Title>
-          {fetchError && <p>{fetchError}</p>}
           {lessonsContent &&
             lessonsContent.map((content) => (
               <React.Fragment key={content.id}>
