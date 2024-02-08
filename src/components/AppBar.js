@@ -256,7 +256,10 @@ const AppBar = ({ token, onSignOut }) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <ProfileCard userData={userData} handleLogout={handleLogout} />
+                    <ProfileCard
+                      userData={userData}
+                      handleLogout={handleLogout}
+                    />
                   </MenuStyled>
                 </Box>
               </Box>

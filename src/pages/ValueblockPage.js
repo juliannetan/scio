@@ -38,27 +38,30 @@ const ValueblockPage = ({ generatedId, providedId, setNextPage }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...valueblock,
         id: generatedId,
-        ID: providedId
-      };
+        ID: providedId,
+      }
 
       const { data, error } = await supabase
         .from('Valuecontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchValueblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Value Delivery form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Value Delivery form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Value Delivery form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Value Delivery form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

@@ -110,16 +110,17 @@ const Drawer = ({
   setShowSubItems,
   setGeneratedId,
   setProvidedId,
-  userData
+  userData,
 }) => {
   const theme = useTheme()
   const [renderA3Canvas, setRenderA3Canvas] = React.useState(false)
+  const [selectedEntryId, setSelectedEntryId] = React.useState(null)
 
   const handleListItemClick = (text) => {
     setSelectedItem(text)
     setRenderA3Canvas(false)
     setSubMenuItem(null)
-    setShowSubItems(false) 
+    setShowSubItems(false)
   }
 
   const handleSubMenuItemClick = (text) => {
@@ -142,6 +143,8 @@ const Drawer = ({
             setSubMenuItem={setSubMenuItem}
             setShowSubItems={setShowSubItems}
             setRenderA3Canvas={setRenderA3Canvas}
+            setSelectedEntryId={setSelectedEntryId}
+            selectedEntryId={selectedEntryId}
           />
         )
       default:
@@ -186,10 +189,11 @@ const Drawer = ({
         )
       case 'Solution Evaluation':
         return (
-          <SolutionblockPage 
+          <SolutionblockPage
             generatedId={generatedId}
             providedId={providedId}
-            setNextPage={() => setSubMenuItem('Decision')} />
+            setNextPage={() => setSubMenuItem('Decision')}
+          />
         )
       case 'Decision':
         return (
@@ -225,8 +229,6 @@ const Drawer = ({
             }
           />
         )
-      case 'A3 Canvas':
-        return <GlanceA3Canvas />
       default:
         return null
     }
@@ -247,7 +249,9 @@ const Drawer = ({
     <>
       <MuiDrawerStyled variant='permanent' open={open}>
         <DrawerHeader>
-          <ListItemButton onClick={() => handleListItemClick('Strategy Deployment')}>
+          <ListItemButton
+            onClick={() => handleListItemClick('Strategy Deployment')}
+          >
             <ScioHorizontalIcon />
           </ListItemButton>
           <IconButton onClick={handleDrawerClose} style={{ color: '#fff' }}>
@@ -332,7 +336,7 @@ const Drawer = ({
       </MuiDrawerStyled>
       <Main open={open}>
         {renderA3Canvas ? (
-          <GlanceA3Canvas />
+          <GlanceA3Canvas selectedEntryId={selectedEntryId} />
         ) : subMenuItem ? (
           renderSubPage()
         ) : (
