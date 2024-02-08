@@ -315,6 +315,9 @@ const A3Canvas = ({ selectedEntryId }) => {
                 </HeaderItem>
                 <HeaderItem>
                   <HeaderLabel>Status:</HeaderLabel>
+                  <Typography variant='subtitle1'>
+                    {content.TQ2}
+                  </Typography>
                 </HeaderItem>
               </React.Fragment>
             ))}
