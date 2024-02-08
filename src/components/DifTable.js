@@ -39,7 +39,7 @@ const DifTable = ({
           title: row.Description,
           name: row.Created_By,
           joinDate: row.Created_Date,
-          modifiedDate: new Date(), // Adjust as needed
+          // modifiedDate: new Date(), 
           problemSolvers: row.ProblemSolvers,
           decisionMakers: row.DecisionMakers,
         }))
@@ -131,12 +131,12 @@ const DifTable = ({
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
       },
     },
-    {
-      field: 'modifiedDate',
-      headerName: 'Modified Date',
-      type: 'date',
-      width: 180,
-    },
+    // {
+    //   field: 'modifiedDate',
+    //   headerName: 'Modified Date',
+    //   type: 'date',
+    //   width: 180,
+    // },
     {
       field: 'problemSolvers',
       headerName: 'Problem-Solvers',
