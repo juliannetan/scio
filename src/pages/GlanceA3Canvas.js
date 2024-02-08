@@ -6,6 +6,8 @@ import { supabase } from '../components/supabase'
 import CustomSnackbar from '../components/CustomSnackbar'
 import ProblemblockDisplay from './ProblemblockDisplay'
 import DecisionblockDisplay from './DecisionblockDisplay'
+import CurrentblockDisplay from './CurrentblockDisplay'
+import FutureblockDisplay from './FutureblockDisplay'
 
 const Container = styled.div`
   padding: 20px;
@@ -90,7 +92,8 @@ const A3Canvas = ({ selectedEntryId }) => {
   const customSnackbarRef = useRef(null)
   const [displayModal, setDisplayModal] = useState(false)
   const [displayDecisionModal, setDisplayDecisionModal] = useState(false)
-
+  const [displayCurrentModal, setDisplayCurrentModal] = useState(false)
+  const [displayFutureModal, setDisplayFutureModal] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -174,7 +177,6 @@ const A3Canvas = ({ selectedEntryId }) => {
     fetchData()
   }
 
-
   const openDecisionModal = () => {
     setDisplayDecisionModal(true)
   }
@@ -183,6 +185,25 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayDecisionModal(false)
     fetchData()
   }
+
+  const openCurrentModal = () => {
+    setDisplayCurrentModal(true)
+  }
+
+  const closeCurrentModal = () => {
+    setDisplayCurrentModal(false)
+    fetchData()
+  }
+
+  const openFutureModal = () => {
+    setDisplayFutureModal(true)
+  }
+
+  const closeFutureModal = () => {
+    setDisplayFutureModal(false)
+    fetchData()
+  }
+  
 
   return (
     <>
@@ -262,9 +283,13 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.CS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/current'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openCurrentModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayCurrentModal}>
+            <CurrentblockDisplay
+              selectedEntryId={selectedEntryId}
+              onClose={closeCurrentModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
@@ -288,9 +313,13 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.FS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/future'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openFutureModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayFutureModal}>
+            <FutureblockDisplay
+              selectedEntryId={selectedEntryId}
+              onClose={closeFutureModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
