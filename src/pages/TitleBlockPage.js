@@ -137,10 +137,9 @@ const TitleblockPage = ({ setGeneratedId, setProvidedId, setNextPage, userData }
       console.error('Error saving Title form:', error.message);
     }
   };
-        [event.target.name]: event.target.value
-      };
-    });
-  }
+
+    
+  
 
   async function createTitleblock(e) {
     e.preventDefault();

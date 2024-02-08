@@ -119,4 +119,4 @@ const DifPage = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
   )
 }
 
-export default DifPage
+export default DifPage;
