@@ -53,6 +53,12 @@ const HeaderLabel = styled(Title)`
   margin-right: 10px;
 `
 
+const MainHeader = styled.h1`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
 const StyledButton = styled(Button)`
   margin-top: 10px;
   margin: 0 10px;
@@ -157,6 +163,7 @@ const A3Canvas = ({ selectedEntryId }) => {
   return (
     <>
       <Container>
+      <MainHeader>A3 Canvas</MainHeader>
         <Header>
           <HeaderItem>
             <HeaderLabel>ID:</HeaderLabel>
