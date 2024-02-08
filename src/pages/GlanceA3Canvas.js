@@ -12,6 +12,7 @@ import ImplementationblockDisplay from './ImplementationblockDisplay'
 import SolutionblockDisplay from './SolutionblockDisplay'
 import ValueblockDisplay from './ValueblockDisplay'
 import LessonsblockDisplay from './LessonsblockDisplay'
+import TitleblockDisplay from './TitleblockDisplay'
 
 const Container = styled.div`
   padding: 20px;
@@ -103,6 +104,7 @@ const A3Canvas = ({ selectedEntryId }) => {
   const [displaySolutionModal, setDisplaySolutionModal] = useState(false)
   const [displayValueModal, setDisplayValueModal] = useState(false)
   const [displayLessonsModal, setDisplayLessonsModal] = useState(false)
+  const [displayTitleModal, setDisplayTitleModal] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -271,7 +273,15 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayLessonsModal(false)
     fetchData()
   }
-  
+    
+  const openTitleModal = () => {
+    setDisplayTitleModal(true)
+  }
+
+  const closeTitleModal = () => {
+    setDisplayTitleModal(false)
+    fetchData()
+  }
 
   return (
     <>
@@ -308,6 +318,14 @@ const A3Canvas = ({ selectedEntryId }) => {
                 </HeaderItem>
               </React.Fragment>
             ))}
+            <StyledButton onClick={openTitleModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayTitleModal}>
+            <TitleblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeTitleModal}
+            />
+          </Modal>
         </Header>
         <Section>
           <Title>Problem Statement</Title>

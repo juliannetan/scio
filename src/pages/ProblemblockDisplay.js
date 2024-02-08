@@ -46,7 +46,6 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
       }
     } catch (error) {
       console.error('Error fetching Problem block:', error.message)
-      customSnackbarRef.current.showSnackbar('Problem statement not found', 'error')
     }
   }
 
