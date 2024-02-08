@@ -35,7 +35,7 @@ const Header = styled.div`
   display: flex;
   flex-direction: column; /* Arrange items in a column */
   align-items: center; /* Center items horizontally */
-  background-color: #fff;
+  background-color: #f0f0f0;
   color: #333;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
