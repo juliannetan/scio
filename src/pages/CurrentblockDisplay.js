@@ -10,7 +10,7 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js';
 
-const CurrentblockDisplay = ({selectedEntryId, onClose }) => {
+const CurrentblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
   const [currentblock, setCurrentblock] = useState({});
   const customSnackbarRef = useRef(null);
 
@@ -48,21 +48,40 @@ const CurrentblockDisplay = ({selectedEntryId, onClose }) => {
     }));
   };
 
+  const dataToSubmit = {
+    ...currentblock,
+    id: selectedId,
+    ID: selectedEntryId,
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       let { data, error } = {};
-      if (Object.keys(currentblock).length > 0) {
+      // Check if implementation block ID exists
+      const existingEntry = await supabase
+        .from('Currentcontent_duplicate')
+        .select('*')
+        .eq('ID', currentblock.ID)
+        .single();
+  
+      if (!existingEntry.data) {
+        // Insert a new entry if it doesn't exist
+        ({ data, error } = await supabase
+          .from('Currentcontent_duplicate')
+          .insert([dataToSubmit]));
+      } else {
+        // Update existing entry
         ({ data, error } = await supabase
           .from('Currentcontent_duplicate')
           .update(currentblock)
           .eq('ID', currentblock.ID));
-      } else {
-        customSnackbarRef.current.showSnackbar('Entry does not exist', 'error');
       }
+      
       if (error) {
         throw error;
       }
+  
       fetchCurrentblock();
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Current form.',

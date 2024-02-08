@@ -10,7 +10,7 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const ProblemblockDisplay = ({ selectedEntryId, onClose }) => {
+const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const customSnackbarRef = useRef(null)
   const [problemblocks, setProblemblocks] = useState([])
   const [problemblock, setProblemblock] = useState({})
@@ -45,7 +45,8 @@ const ProblemblockDisplay = ({ selectedEntryId, onClose }) => {
         setProblemblocks([])
       }
     } catch (error) {
-      console.error('Error fetching problemblock:', error.message)
+      console.error('Error fetching Problem block:', error.message)
+      customSnackbarRef.current.showSnackbar('Problem statement not found', 'error')
     }
   }
 
@@ -56,32 +57,51 @@ const ProblemblockDisplay = ({ selectedEntryId, onClose }) => {
     }))
   }
 
+  const dataToSubmit = {
+    ...problemblock,
+    id: selectedId,
+    ID: selectedEntryId,
+  }
+
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
-      let { data, error } = {}
-      if (problemblocks.some((block) => block.ID === problemblock.ID)) {
-        // Update existing data if problemblock already exists
+      let { data, error } = {};
+      // Check if implementation block ID exists
+      const existingEntry = await supabase
+        .from('Problemcontent_duplicate')
+        .select('*')
+        .eq('ID', problemblock.ID)
+        .single();
+  
+      if (!existingEntry.data) {
+        // Insert a new entry if it doesn't exist
+        ({ data, error } = await supabase
+          .from('Problemcontent_duplicate')
+          .insert([dataToSubmit]));
+      } else {
+        // Update existing entry
         ({ data, error } = await supabase
           .from('Problemcontent_duplicate')
           .update(problemblock)
-          .eq('ID', problemblock.ID))
-      } else {
-        customSnackbarRef.current.showSnackbar('Entry does not exist', 'error')
+          .eq('ID', problemblock.ID));
       }
+  
       if (error) {
-        throw error
+        throw error;
       }
-      fetchProblemblock()
+  
+      fetchProblemblock();
       customSnackbarRef.current.showSnackbar(
-        'Successfully saved the problem statement.',
-        'success',
-      )
+        'Successfully saved Problem form.',
+        'success'
+      );
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
-      console.error('Error saving problem statement:', error.message)
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
+      console.error('Error saving Problem form:', error.message);
     }
-  }
+  };
+
 
   return (
     <form onSubmit={handleSubmit}>

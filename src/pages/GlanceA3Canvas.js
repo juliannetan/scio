@@ -8,6 +8,10 @@ import ProblemblockDisplay from './ProblemblockDisplay'
 import DecisionblockDisplay from './DecisionblockDisplay'
 import CurrentblockDisplay from './CurrentblockDisplay'
 import FutureblockDisplay from './FutureblockDisplay'
+import ImplementationblockDisplay from './ImplementationblockDisplay'
+import SolutionblockDisplay from './SolutionblockDisplay'
+import ValueblockDisplay from './ValueblockDisplay'
+import LessonsblockDisplay from './LessonsblockDisplay'
 
 const Container = styled.div`
   padding: 20px;
@@ -89,11 +93,16 @@ const A3Canvas = ({ selectedEntryId }) => {
   const [valueContent, setValueContent] = useState(null)
   const [solutionContent, setSolutionContent] = useState(null)
   const [lessonsContent, setLessonsContent] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
   const customSnackbarRef = useRef(null)
   const [displayModal, setDisplayModal] = useState(false)
   const [displayDecisionModal, setDisplayDecisionModal] = useState(false)
   const [displayCurrentModal, setDisplayCurrentModal] = useState(false)
   const [displayFutureModal, setDisplayFutureModal] = useState(false)
+  const [displayImplementationModal, setDisplayImplementationModal] = useState(false)
+  const [displaySolutionModal, setDisplaySolutionModal] = useState(false)
+  const [displayValueModal, setDisplayValueModal] = useState(false)
+  const [displayLessonsModal, setDisplayLessonsModal] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -164,7 +173,30 @@ const A3Canvas = ({ selectedEntryId }) => {
 
   useEffect(() => {
     fetchData()
+    fetchSelectedId()
   }, [selectedEntryId])
+
+
+  async function fetchSelectedId() {
+    try {
+      const { data, error } = await supabase
+        .from('Titlecontent_duplicate')
+        .select('id')
+        .eq('ID', selectedEntryId)
+        .single()
+  
+      if (error) {
+        throw error
+      }
+  
+      if (data) {
+        setSelectedId(data.id)
+      }
+  
+    } catch (error) {
+      console.error('Error fetching titleblocks:', error.message)
+    }
+  }
 
   const moreInfoText = 'More Info'
 
@@ -201,6 +233,42 @@ const A3Canvas = ({ selectedEntryId }) => {
 
   const closeFutureModal = () => {
     setDisplayFutureModal(false)
+    fetchData()
+  }
+  
+  const openImplementationModal = () => {
+    setDisplayImplementationModal(true)
+  }
+
+  const closeImplementationModal = () => {
+    setDisplayImplementationModal(false)
+    fetchData()
+  }
+  
+  const openSolutionModal = () => {
+    setDisplaySolutionModal(true)
+  }
+
+  const closeSolutionModal = () => {
+    setDisplaySolutionModal(false)
+    fetchData()
+  }
+    
+  const openValueModal = () => {
+    setDisplayValueModal(true)
+  }
+
+  const closeValueModal = () => {
+    setDisplayValueModal(false)
+    fetchData()
+  }
+  
+  const openLessonsModal = () => {
+    setDisplayLessonsModal(true)
+  }
+
+  const closeLessonsModal = () => {
+    setDisplayLessonsModal(false)
     fetchData()
   }
   
@@ -253,6 +321,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <Modal open={displayModal}>
             <ProblemblockDisplay
               selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
               onClose={closeModal}
             />
           </Modal>
@@ -270,6 +339,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <Modal open={displayDecisionModal}>
             <DecisionblockDisplay
               selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
               onClose={closeDecisionModal}
             />
           </Modal>
@@ -287,6 +357,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <Modal open={displayCurrentModal}>
             <CurrentblockDisplay
               selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
               onClose={closeCurrentModal}
             />
           </Modal>
@@ -300,9 +371,14 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.IPQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/implementation'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openImplementationModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayImplementationModal}>
+            <ImplementationblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeImplementationModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
@@ -317,6 +393,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <Modal open={displayFutureModal}>
             <FutureblockDisplay
               selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
               onClose={closeFutureModal}
             />
           </Modal>
@@ -330,9 +407,14 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.VDQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/value'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openValueModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayValueModal}>
+            <ValueblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeValueModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
@@ -343,9 +425,14 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.SEQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/solution'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openSolutionModal}>{moreInfoText}</StyledButton>
+          <Modal open={displaySolutionModal}>
+            <SolutionblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeSolutionModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
@@ -356,9 +443,14 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.LLS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/lessons'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openLessonsModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayLessonsModal}>
+            <LessonsblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeLessonsModal}
+            />
+          </Modal>
         </Section>
       </Container>
       <CustomSnackbar ref={customSnackbarRef} />

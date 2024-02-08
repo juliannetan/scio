@@ -10,7 +10,7 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js';
 
-const FutureblockDisplay = ({selectedEntryId, onClose }) => {
+const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
   const [futureblock, setFuturebblock] = useState({})
   const customSnackbarRef = React.useRef(null)
 
@@ -48,21 +48,40 @@ const FutureblockDisplay = ({selectedEntryId, onClose }) => {
     }));
   };
 
+  const dataToSubmit = {
+    ...futureblock,
+    id: selectedId,
+    ID: selectedEntryId,
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       let { data, error } = {};
-      if (Object.keys(futureblock).length > 0) {
+      // Check if implementation block ID exists
+      const existingEntry = await supabase
+        .from('Futurecontent_duplicate')
+        .select('*')
+        .eq('ID', futureblock.ID)
+        .single();
+  
+      if (!existingEntry.data) {
+        // Insert a new entry if it doesn't exist
+        ({ data, error } = await supabase
+          .from('Futurecontent_duplicate')
+          .insert([dataToSubmit]));
+      } else {
+        // Update existing entry
         ({ data, error } = await supabase
           .from('Futurecontent_duplicate')
           .update(futureblock)
           .eq('ID', futureblock.ID));
-      } else {
-        customSnackbarRef.current.showSnackbar('Entry does not exist', 'error');
       }
+  
       if (error) {
         throw error;
       }
+  
       fetchFutureblock();
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Future form.',
