@@ -41,7 +41,12 @@ const WidgetTitle = styled.h2`
   margin-bottom: 15px;
 `
 
-const DifPage = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
+const DifPage = ({
+  setSubMenuItem,
+  setShowSubItems,
+  setRenderA3Canvas,
+  setSelectedEntryId,
+}) => {
   return (
     <DashboardContainer>
       <WidgetContainer>
@@ -113,6 +118,7 @@ const DifPage = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
           setSubMenuItem={setSubMenuItem}
           setShowSubItems={setShowSubItems}
           setRenderA3Canvas={setRenderA3Canvas}
+          setSelectedEntryId={setSelectedEntryId}
         />
       </WidgetTableContainer>
     </DashboardContainer>

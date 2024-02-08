@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
+import { Box, Paper, Button } from '@mui/material'
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridRowModes,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 import CancelIcon from '@mui/icons-material/Close'
-import {
-  GridRowModes,
-  DataGrid,
-  GridToolbarContainer,
-  GridActionsCellItem,
-  GridRowEditStopReasons,
-} from '@mui/x-data-grid'
-import { supabase } from '../components/supabase.js';
+import { supabase } from '../components/supabase.js'
 
-const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
+const DifTable = ({
+  setSubMenuItem,
+  setShowSubItems,
+  setRenderA3Canvas,
+  setSelectedEntryId,
+}) => {
   const [rows, setRows] = React.useState([])
   const [rowModesModel, setRowModesModel] = React.useState({})
 
@@ -23,9 +27,11 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
       try {
         const { data, error } = await supabase
           .from('Titlecontent_duplicate')
-          .select('ID, Description, Created_By, Created_Date, ProblemSolvers, DecisionMakers');
+          .select(
+            'ID, Description, Created_By, Created_Date, ProblemSolvers, DecisionMakers',
+          )
         if (error) {
-          throw error;
+          throw error
         }
         // Map fetched data to rows
         const formattedRows = data.map((row) => ({
@@ -36,23 +42,22 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
           modifiedDate: new Date(), // Adjust as needed
           problemSolvers: row.ProblemSolvers,
           decisionMakers: row.DecisionMakers,
-        }));
-        setRows(formattedRows);
+        }))
+        setRows(formattedRows)
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching data:', error.message)
       }
     }
 
-    fetchData();
-  }, []);
-
+    fetchData()
+  }, [])
 
   const handleDoubleClick = (id) => () => {
     setRenderA3Canvas(true)
+    setSelectedEntryId(id)
   }
 
   function EditToolbar(props) {
-
     const handleClick = () => {
       setSubMenuItem('Title')
       setShowSubItems(true)
@@ -116,10 +121,16 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
       width: 220,
     },
     { field: 'name', headerName: 'Created By', width: 180 },
-    { field: 'joinDate', headerName: 'Created Date', type: 'date', width: 180,     valueFormatter: (params) => {
-      const date = new Date(params.value);
-      return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-    } },
+    {
+      field: 'joinDate',
+      headerName: 'Created Date',
+      type: 'date',
+      width: 180,
+      valueFormatter: (params) => {
+        const date = new Date(params.value)
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+      },
+    },
     {
       field: 'modifiedDate',
       headerName: 'Modified Date',
@@ -129,20 +140,20 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
     {
       field: 'problemSolvers',
       headerName: 'Problem-Solvers',
-      width: 130,
+      width: 180,
       type: 'singleSelect',
     },
     {
       field: 'decisionMakers',
       headerName: 'Decision-Makers',
-      width: 130,
+      width: 180,
       type: 'singleSelect',
     },
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 100,
+      width: 80,
       cellClassName: 'actions',
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit
@@ -174,47 +185,36 @@ const DifTable = ({ setSubMenuItem, setShowSubItems, setRenderA3Canvas }) => {
             className='textPrimary'
             onClick={handleEditClick(id)}
             color='inherit'
-          />
+          />,
         ]
       },
     },
   ]
 
   return (
-    <Box
-      sx={{
-        height: 340,
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-        flexGrow: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        maxHeight: '100%',
-      }}
-    >
-      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          editMode='row'
-          rowModesModel={rowModesModel}
-          onRowModesModelChange={handleRowModesModelChange}
-          onRowEditStop={handleRowEditStop}
-          onRowDoubleClick={(params) => handleDoubleClick(params.id)()}
-          processRowUpdate={processRowUpdate}
-          slots={{
-            toolbar: EditToolbar,
-          }}
-          slotProps={{
-            toolbar: { setRows, setRowModesModel },
-          }}
-        />
-      </Box>
+    <Box sx={{ width: '100%', overflowX: 'auto' }}>
+      <Paper elevation={3}>
+        <Box sx={{ minWidth: 600 }}>
+          {' '}
+          {/* Set minimum width to prevent content from shrinking too much */}
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            editMode='row'
+            rowModesModel={rowModesModel}
+            onRowModesModelChange={handleRowModesModelChange}
+            onRowEditStop={handleRowEditStop}
+            onRowDoubleClick={(params) => handleDoubleClick(params.id)()}
+            processRowUpdate={processRowUpdate}
+            slots={{
+              toolbar: EditToolbar,
+            }}
+            slotProps={{
+              toolbar: { setRows, setRowModesModel },
+            }}
+          />
+        </Box>
+      </Paper>
     </Box>
   )
 }

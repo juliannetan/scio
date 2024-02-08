@@ -24,7 +24,9 @@ const ImplementationblockPage = ({ generatedId, providedId, setNextPage }) => {
   }, [])
 
   async function fetchImplementationblocks() {
-    const { data } = await supabase.from('Implementationcontent_duplicate').select('*')
+    const { data } = await supabase
+      .from('Implementationcontent_duplicate')
+      .select('*')
     setImplementationblocks(data)
   }
 
@@ -38,27 +40,30 @@ const ImplementationblockPage = ({ generatedId, providedId, setNextPage }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...implementationblock,
         id: generatedId,
         ID: providedId,
-      };
+      }
 
       const { data, error } = await supabase
         .from('Implementationcontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchImplementationblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Implementation form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Implementation form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Implementation form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Implementation form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
