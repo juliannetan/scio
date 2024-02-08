@@ -38,27 +38,30 @@ const LessonsblockPage = ({ generatedId, providedId, setNextPage }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...lessonsblock,
         id: generatedId,
         ID: providedId,
-      };
+      }
 
       const { data, error } = await supabase
         .from('Lessonscontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchLessonsblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Lessons Learned form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Lessons Learned form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Lessons Learned form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Lessons Learned form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

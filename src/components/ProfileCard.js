@@ -19,7 +19,6 @@ function stringAvatar(name) {
 }
 
 const ProfileCard = ({ userData, handleLogout }) => {
-
   return (
     <Card sx={{ width: 250 }}>
       <CardMedia

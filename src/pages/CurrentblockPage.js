@@ -38,27 +38,30 @@ const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...currentblock,
         id: generatedId,
         ID: providedId,
-      };
+      }
 
       const { data, error } = await supabase
         .from('Currentcontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchCurrentblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Current State form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Current State form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Current State form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Current State form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

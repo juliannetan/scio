@@ -24,7 +24,9 @@ const DecisionBlockPage = ({ generatedId, providedId, setNextPage }) => {
   }, [])
 
   async function fetchDecisionblocks() {
-    const { data } = await supabase.from('Decisioncontent_duplicate').select('*')
+    const { data } = await supabase
+      .from('Decisioncontent_duplicate')
+      .select('*')
     setDecisionblocks(data)
   }
 
@@ -37,29 +39,31 @@ const DecisionBlockPage = ({ generatedId, providedId, setNextPage }) => {
     })
   }
 
-
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...decisionblock,
         id: generatedId,
-        ID: providedId
-      };
+        ID: providedId,
+      }
 
       const { data, error } = await supabase
         .from('Decisioncontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchDecisionblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Decision form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Decision form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Decision form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Decision form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

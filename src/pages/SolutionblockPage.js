@@ -24,7 +24,9 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
   }, [])
 
   async function fetchSolutionblocks() {
-    const { data } = await supabase.from('Solutioncontent_duplicate').select('*')
+    const { data } = await supabase
+      .from('Solutioncontent_duplicate')
+      .select('*')
     setSolutionblocks(data)
   }
 
@@ -38,27 +40,30 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const dataToSubmit = {
         ...solutionblock,
         id: generatedId,
         ID: providedId,
-      };
+      }
 
       const { data, error } = await supabase
         .from('Solutioncontent_duplicate')
-        .insert([dataToSubmit]);
+        .insert([dataToSubmit])
       if (error) {
-        throw error;
+        throw error
       }
       fetchSolutionblocks()
-      customSnackbarRef.current.showSnackbar('You have successfully saved this Solution Evaluation form', 'success');
+      customSnackbarRef.current.showSnackbar(
+        'You have successfully saved this Solution Evaluation form',
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(error.message, 'error');
-      console.error('Error saving Solution Evaluation form:', error.message);
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error('Error saving Solution Evaluation form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
