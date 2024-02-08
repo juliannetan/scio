@@ -29,7 +29,7 @@ const Title = styled.h2`
 `
 
 const Header = styled.div`
-  padding: 20px;
+  padding: 0 20px 20px;
   border-radius: 8px;
   width: 100%; /* Set width to 100% */
   display: flex;
@@ -43,6 +43,7 @@ const Header = styled.div`
 `
 
 const HeaderItem = styled.div`
+  margin-bottom: -20px;
   width: 100%; /* Set width to 100% */
   display: flex;
   align-items: center;
