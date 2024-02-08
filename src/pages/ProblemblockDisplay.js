@@ -1,509 +1,199 @@
-import styled from 'styled-components'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { supabase } from '../components/supabase.js'
+import {
+  Container,
+  Section,
+  Title,
+  TextArea,
+  StyledButton,
+  TitleblockButtons,
+} from './TitleBlockPage.js'
+import CustomSnackbar from '../components/CustomSnackbar.js'
 
-const Div = styled.div`
-  gap: 20px;
-  display: flex;
-`
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 43%;
-  margin-left: 0px;
-`
-
-const Div2 = styled.div`
-  background-color: #d9d9d9;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  width: 100%;
-  margin-right: -5px;
-  padding: 20px 37px 50px 30px;
-`
-
-const Div3 = styled.div`
-  color: #000;
-  letter-spacing: -0.22px;
-  font:
-    500 20px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 136px 10px 180px;
-`;
-*/
-const Div4 = styled.div`
-  color: #000;
-  letter-spacing: -0.22px;
-  margin-top: 37px;
-  font:
-    500 20px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea2 = styled(textarea2`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 97px 10px 147px;
-`;
-*/
-const Column2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 57%;
-  margin-left: 20px;
-`
-
-const Div5 = styled.div`
-  background-color: #d9d9d9;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  width: 100%;
-  margin-right: -5px;
-  padding: 20px 37px 50px 30px;
-`
-
-const Div6 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  font:
-    500 16px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div7 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  margin-top: 19px;
-  font:
-    500 16px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div8 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  margin-top: 26px;
-  font:
-    500 16px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div9 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font:
-    500 16px/150% Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div10 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  margin-top: 6px;
-  font:
-    500 16px/24px Inter,
-    sans-serif;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-const Div11 = styled.div`
-  color: rgba(0, 0, 0, 0.8);
-  letter-spacing: -0.18px;
-  margin-top: 13px;
-  font:
-    500 16px/150% Inter,
-    sans-serif;
-`
-
-const Div12 = styled.div`
-  background-color: #fff;
-  display: flex;
-  margin-top: 8px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
-  padding: 21px 0 21px 60px;
-`
-
-const Img = styled.img`
-  aspect-ratio: 0.63;
-  object-fit: contain;
-  object-position: center;
-  width: 20px;
-`
-/*
-const textarea = styled(textarea`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ccc;
-  padding: 10px;
-`;
-*/
-
-const StyledTable = styled.table`
-  border-collapse: collapse;
-  max-width: 900px;
-  width: 100%;
-  margin: 2rem auto;
-
-  th,
-  td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-`
-
-const ProblemblockDisplay = () => {
+const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
+  const customSnackbarRef = useRef(null)
   const [problemblocks, setProblemblocks] = useState([])
-
-  const [problemblock2, setProblemblock2] = useState({
-    id: '',
-    created_at: '',
-    ID: '',
-    Description: '',
-    PS1: '',
-    PS2: '',
-    PQ1: '',
-    PQ2: '',
-    PQ3: '',
-    PQ4: '',
-    PQ5: '',
-    PQ6: '',
-  })
+  const [problemblock, setProblemblock] = useState({})
 
   useEffect(() => {
-    fetchProblemblocks()
+    fetchProblemblock()
   }, [])
 
-  async function fetchProblemblocks() {
-    const { data } = await supabase.from('Problemcontent').select('*')
-    setProblemblocks(data)
-  }
+  useEffect(() => {
+    // Populate the data of the first problemblock entry on first load
+    if (problemblocks.length > 0) {
+      setProblemblock(problemblocks[0])
+    }
+  }, [problemblocks])
 
-  function handleChange2(event) {
-    setProblemblock2((prevFormData) => {
-      return {
-        ...prevFormData,
-        [event.target.name]: event.target.value,
+  async function fetchProblemblock() {
+    try {
+      const { data, error } = await supabase
+        .from('Problemcontent_duplicate')
+        .select('*')
+        .eq('ID', selectedEntryId)
+        .single()
+
+      if (error) {
+        throw error
       }
-    })
-  }
 
-  async function deleteProblemblocks(problemblockID) {
-    const { data, error } = await supabase
-      .from('Problemcontent')
-      .delete()
-      .eq('ID', problemblockID)
-
-    fetchProblemblocks()
-
-    if (error) {
-      console.log(error)
-    }
-
-    if (data) {
-      console.log(data)
-    }
-  }
-
-  function displayProblemblocks(problemblockID) {
-    problemblocks.map((problemblock) => {
-      if (problemblock.ID == problemblockID) {
-        setProblemblock2({
-          ID: problemblock.ID,
-          created_at: problemblock.created_at,
-          PS1: problemblock.PS1,
-          PS2: problemblock.PS2,
-          PQ1: problemblock.PQ1,
-          PQ2: problemblock.PQ2,
-          PQ3: problemblock.PQ3,
-          PQ4: problemblock.PQ4,
-          PQ5: problemblock.PQ5,
-          PQ6: problemblock.PQ6,
-        })
+      if (data) {
+        setProblemblocks([data])
+        setProblemblock(data)
+      } else {
+        setProblemblocks([])
       }
-    })
-  }
-
-  async function updateProblemblocks(problemblockID) {
-    const { data, error } = await supabase
-      .from('Problemcontent')
-
-      .update({
-        ID: problemblock2.ID,
-        created_at: problemblock2.created_at,
-        PS1: problemblock2.PS1,
-        PS2: problemblock2.PS2,
-        PQ1: problemblock2.PQ1,
-        PQ2: problemblock2.PQ2,
-        PQ3: problemblock2.PQ3,
-        PQ4: problemblock2.PQ4,
-        PQ5: problemblock2.PQ5,
-        PQ6: problemblock2.PQ6,
-      })
-
-      .eq('ID', problemblockID)
-
-    fetchProblemblocks()
-
-    if (error) {
-      console.log(error)
-    }
-
-    if (data) {
-      console.log(data)
+    } catch (error) {
+      console.error('Error fetching Problem block:', error.message)
+      customSnackbarRef.current.showSnackbar('Problem statement not found', 'error')
     }
   }
+
+  function handleChange(event) {
+    setProblemblock((prevFormData) => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }))
+  }
+
+  const dataToSubmit = {
+    ...problemblock,
+    id: selectedId,
+    ID: selectedEntryId,
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      let { data, error } = {};
+      // Check if implementation block ID exists
+      const existingEntry = await supabase
+        .from('Problemcontent_duplicate')
+        .select('*')
+        .eq('ID', problemblock.ID)
+        .single();
+  
+      if (!existingEntry.data) {
+        // Insert a new entry if it doesn't exist
+        ({ data, error } = await supabase
+          .from('Problemcontent_duplicate')
+          .insert([dataToSubmit]));
+      } else {
+        // Update existing entry
+        ({ data, error } = await supabase
+          .from('Problemcontent_duplicate')
+          .update(problemblock)
+          .eq('ID', problemblock.ID));
+      }
+  
+      if (error) {
+        throw error;
+      }
+  
+      fetchProblemblock();
+      customSnackbarRef.current.showSnackbar(
+        'Successfully saved Problem form.',
+        'success'
+      );
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
+      console.error('Error saving Problem form:', error.message);
+    }
+  };
+
 
   return (
-    <div100>
-      <form onSubmit={() => updateProblemblocks(problemblock2.ID)}>
-        <Div>
-          <Column>
-            <Div2>
-              <Div3>Problem Statement </Div3>
-              <textarea
-                placeholder=''
-                name='PS1'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PS1}
-              />
-              <Div4>Secondary Content</Div4>
-              <textarea
-                placeholder=''
-                name='PS2'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PS2}
-              />
-            </Div2>
-          </Column>
-          <Column2>
-            <Div5>
-              <Div6>
-                <p>
-                  <strong>
-                    What is the Problem Brief, our initial understanding of the
-                    problem (a priority)
-                  </strong>
-                </p>
-              </Div6>
-              <textarea
-                placeholder=''
-                name='PQ1'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ1}
-              />
-              <Div7>
-                <p>
-                  <strong>Why this is a problem worth solving?</strong>
-                </p>
-              </Div7>
-              <textarea
-                placeholder=''
-                name='PQ2'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ2}
-              />
-              <Div8>
-                <p>
-                  <strong>
-                    What is the threat or opportunity to the organization's
-                    goals, objectives, strategies or plans?
-                  </strong>
-                </p>
-              </Div8>
-              <textarea
-                placeholder=''
-                name='PQ3'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ3}
-              />
-              <Div9>
-                <p>
-                  <strong>
-                    Who or what internal/external stakeholders are affected?
-                  </strong>
-                </p>
-              </Div9>
-              <textarea
-                placeholder=''
-                name='PQ4'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ4}
-              />
-              <Div10>
-                <p>
-                  <strong>
-                    What alternate frames apply as lens through which we see the
-                    problem (apply different perspectives using diverse
-                    frameworks)
-                  </strong>
-                </p>
-              </Div10>
-              <textarea
-                placeholder=''
-                name='PQ5'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ5}
-              />
-              <Div11>
-                <p>
-                  <strong>
-                    Clarify the problem statement in context of suitable
-                    frame(s)
-                  </strong>
-                </p>
-              </Div11>
-
-              <textarea
-                placeholder=''
-                name='PQ6'
-                required={false}
-                onChange={handleChange2}
-                defaultValue={problemblock2.PQ6}
-              />
-            </Div5>
-          </Column2>
-        </Div>
-        <button type='submit'>Save Changes</button>
-      </form>
-
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-
-            <th>Date Created</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {problemblocks.map((problemblock) => (
-            <tr key={problemblock.ID}>
-              <td>{problemblock.ID}</td>
-
-              <td>{problemblock.created_at}</td>
-              <td>
-                <button
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        'Are you sure you want to delete this record?',
-                      )
-                    )
-                      deleteProblemblocks(problemblock.ID)
-                  }}
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => {
-                    displayProblemblocks(problemblock.ID)
-                  }}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div100>
+    <form onSubmit={handleSubmit}>
+      <Container>
+        <Section>
+          <Title>Problem Statement</Title>
+          <TextArea
+            placeholder=''
+            name='PS1'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PS1 || ''}
+          />
+          <Title>Secondary Content</Title>
+          <TextArea
+            placeholder=''
+            name='PS2'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PS2 || ''}
+          />
+        </Section>
+        <Section>
+          <Title>
+            What is the Problem Brief, our initial understanding of the problem
+            (a priority)
+          </Title>
+          <TextArea
+            placeholder=''
+            name='PQ1'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ1 || ''}
+          />
+          <Title>Why this is a problem worth solving?</Title>
+          <TextArea
+            placeholder=''
+            name='PQ2'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ2 || ''}
+          />
+          <Title>
+            What is the threat or opportunity to the organization's goals,
+            objectives, strategies or plans?
+          </Title>
+          <TextArea
+            placeholder=''
+            name='PQ3'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ3 || ''}
+          />
+          <Title>
+            Who or what internal/external stakeholders are affected?
+          </Title>
+          <TextArea
+            placeholder=''
+            name='PQ4'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ4 || ''}
+          />
+          <Title>
+            What alternate frames apply as lens through which we see the problem
+            (apply different perspectives using diverse frameworks)
+          </Title>
+          <TextArea
+            placeholder=''
+            name='PQ5'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ5 || ''}
+          />
+          <Title>
+            Clarify the problem statement in context of suitable frame(s)
+          </Title>
+          <TextArea
+            placeholder=''
+            name='PQ6'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ6 || ''}
+          />
+        </Section>
+        <TitleblockButtons>
+          <StyledButton type='submit'>Save</StyledButton>
+          <StyledButton onClick={onClose}>Close</StyledButton>
+        </TitleblockButtons>
+      </Container>
+      <CustomSnackbar ref={customSnackbarRef} />
+    </form>
   )
 }
 

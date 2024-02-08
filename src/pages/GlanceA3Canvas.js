@@ -1,9 +1,17 @@
-import { Button, Typography } from '@mui/material'
+import { Button, Modal, Typography } from '@mui/material'
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { supabase } from '../components/supabase'
 import CustomSnackbar from '../components/CustomSnackbar'
+import ProblemblockDisplay from './ProblemblockDisplay'
+import DecisionblockDisplay from './DecisionblockDisplay'
+import CurrentblockDisplay from './CurrentblockDisplay'
+import FutureblockDisplay from './FutureblockDisplay'
+import ImplementationblockDisplay from './ImplementationblockDisplay'
+import SolutionblockDisplay from './SolutionblockDisplay'
+import ValueblockDisplay from './ValueblockDisplay'
+import LessonsblockDisplay from './LessonsblockDisplay'
 
 const Container = styled.div`
   padding: 20px;
@@ -57,7 +65,7 @@ const MainHeader = styled.h1`
   font-size: 2rem;
   text-align: center;
   margin-bottom: 20px;
-`;
+`
 
 const StyledButton = styled(Button)`
   margin-top: 10px;
@@ -85,85 +93,190 @@ const A3Canvas = ({ selectedEntryId }) => {
   const [valueContent, setValueContent] = useState(null)
   const [solutionContent, setSolutionContent] = useState(null)
   const [lessonsContent, setLessonsContent] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
   const customSnackbarRef = useRef(null)
+  const [displayModal, setDisplayModal] = useState(false)
+  const [displayDecisionModal, setDisplayDecisionModal] = useState(false)
+  const [displayCurrentModal, setDisplayCurrentModal] = useState(false)
+  const [displayFutureModal, setDisplayFutureModal] = useState(false)
+  const [displayImplementationModal, setDisplayImplementationModal] = useState(false)
+  const [displaySolutionModal, setDisplaySolutionModal] = useState(false)
+  const [displayValueModal, setDisplayValueModal] = useState(false)
+  const [displayLessonsModal, setDisplayLessonsModal] = useState(false)
+
+  const fetchData = async () => {
+    try {
+      const [
+        titleData,
+        problemData,
+        decisionData,
+        currentData,
+        implementationData,
+        futureData,
+        valueData,
+        solutionData,
+        lessonsData,
+      ] = await Promise.all([
+        supabase
+          .from('Titlecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Problemcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Decisioncontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Currentcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Implementationcontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Futurecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Valuecontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Solutioncontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+        supabase
+          .from('Lessonscontent_duplicate')
+          .select('*')
+          .eq('ID', selectedEntryId),
+      ])
+
+      setTitleContent(titleData.data)
+      setProblemContent(problemData.data)
+      setDecisionContent(decisionData.data)
+      setCurrentContent(currentData.data)
+      setImplementationContent(implementationData.data)
+      setFutureContent(futureData.data)
+      setValueContent(valueData.data)
+      setSolutionContent(solutionData.data)
+      setLessonsContent(lessonsData.data)
+      setFetchError(null)
+    } catch (error) {
+      customSnackbarRef.current.showSnackbar(error.message, 'error')
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [
-          titleData,
-          problemData,
-          decisionData,
-          currentData,
-          implementationData,
-          futureData,
-          valueData,
-          solutionData,
-          lessonsData,
-        ] = await Promise.all([
-          supabase
-            .from('Titlecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Problemcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Decisioncontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Currentcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Implementationcontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Futurecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Valuecontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Solutioncontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-          supabase
-            .from('Lessonscontent_duplicate')
-            .select('*')
-            .eq('ID', selectedEntryId),
-        ])
-
-        setTitleContent(titleData.data)
-        setProblemContent(problemData.data)
-        setDecisionContent(decisionData.data)
-        setCurrentContent(currentData.data)
-        setImplementationContent(implementationData.data)
-        setFutureContent(futureData.data)
-        setValueContent(valueData.data)
-        setSolutionContent(solutionData.data)
-        setLessonsContent(lessonsData.data)
-        setFetchError(null)
-      } catch (error) {
-        customSnackbarRef.current.showSnackbar(error.message, 'error')
-        console.error(error)
-      }
-    }
-
     fetchData()
+    fetchSelectedId()
   }, [selectedEntryId])
 
+
+  async function fetchSelectedId() {
+    try {
+      const { data, error } = await supabase
+        .from('Titlecontent_duplicate')
+        .select('id')
+        .eq('ID', selectedEntryId)
+        .single()
+  
+      if (error) {
+        throw error
+      }
+  
+      if (data) {
+        setSelectedId(data.id)
+      }
+  
+    } catch (error) {
+      console.error('Error fetching titleblocks:', error.message)
+    }
+  }
+
   const moreInfoText = 'More Info'
+
+  const openModal = () => {
+    setDisplayModal(true)
+  }
+
+  const closeModal = () => {
+    setDisplayModal(false)
+    fetchData()
+  }
+
+  const openDecisionModal = () => {
+    setDisplayDecisionModal(true)
+  }
+
+  const closeDecisionModal = () => {
+    setDisplayDecisionModal(false)
+    fetchData()
+  }
+
+  const openCurrentModal = () => {
+    setDisplayCurrentModal(true)
+  }
+
+  const closeCurrentModal = () => {
+    setDisplayCurrentModal(false)
+    fetchData()
+  }
+
+  const openFutureModal = () => {
+    setDisplayFutureModal(true)
+  }
+
+  const closeFutureModal = () => {
+    setDisplayFutureModal(false)
+    fetchData()
+  }
+  
+  const openImplementationModal = () => {
+    setDisplayImplementationModal(true)
+  }
+
+  const closeImplementationModal = () => {
+    setDisplayImplementationModal(false)
+    fetchData()
+  }
+  
+  const openSolutionModal = () => {
+    setDisplaySolutionModal(true)
+  }
+
+  const closeSolutionModal = () => {
+    setDisplaySolutionModal(false)
+    fetchData()
+  }
+    
+  const openValueModal = () => {
+    setDisplayValueModal(true)
+  }
+
+  const closeValueModal = () => {
+    setDisplayValueModal(false)
+    fetchData()
+  }
+  
+  const openLessonsModal = () => {
+    setDisplayLessonsModal(true)
+  }
+
+  const closeLessonsModal = () => {
+    setDisplayLessonsModal(false)
+    fetchData()
+  }
+  
 
   return (
     <>
       <Container>
-      <MainHeader>A3 Canvas</MainHeader>
+        <MainHeader>A3 Canvas</MainHeader>
         <Header>
           <HeaderItem>
             <HeaderLabel>ID:</HeaderLabel>
@@ -198,114 +311,146 @@ const A3Canvas = ({ selectedEntryId }) => {
         </Header>
         <Section>
           <Title>Problem Statement</Title>
-          {fetchError && <p>{fetchError}</p>}
           {problemContent &&
             problemContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.PS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/problem-statement'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayModal}>
+            <ProblemblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Decision</Title>
-          {fetchError && <p>{fetchError}</p>}
           {decisionContent &&
             decisionContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.DS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/decision'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openDecisionModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayDecisionModal}>
+            <DecisionblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeDecisionModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Current</Title>
-          {fetchError && <p>{fetchError}</p>}
           {currentContent &&
             currentContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.CS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/current'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openCurrentModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayCurrentModal}>
+            <CurrentblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeCurrentModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Implementation</Title>
-          {fetchError && <p>{fetchError}</p>}
           {implementationContent &&
             implementationContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.IPQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/implementation'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openImplementationModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayImplementationModal}>
+            <ImplementationblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeImplementationModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Future</Title>
-          {fetchError && <p>{fetchError}</p>}
           {futureContent &&
             futureContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.FS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/future'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openFutureModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayFutureModal}>
+            <FutureblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeFutureModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Value</Title>
-          {fetchError && <p>{fetchError}</p>}
           {valueContent &&
             valueContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.VDQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/value'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openValueModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayValueModal}>
+            <ValueblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeValueModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Solution</Title>
-          {fetchError && <p>{fetchError}</p>}
           {solutionContent &&
             solutionContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.SEQ1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/solution'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openSolutionModal}>{moreInfoText}</StyledButton>
+          <Modal open={displaySolutionModal}>
+            <SolutionblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeSolutionModal}
+            />
+          </Modal>
         </Section>
 
         <Section>
           <Title>Lessons</Title>
-          {fetchError && <p>{fetchError}</p>}
           {lessonsContent &&
             lessonsContent.map((content) => (
               <React.Fragment key={content.id}>
                 <Typography variant='body1'>{content.LLS1}</Typography>
               </React.Fragment>
             ))}
-          <Link to='/scio/home/lessons'>
-            <StyledButton>{moreInfoText}</StyledButton>
-          </Link>
+          <StyledButton onClick={openLessonsModal}>{moreInfoText}</StyledButton>
+          <Modal open={displayLessonsModal}>
+            <LessonsblockDisplay
+              selectedEntryId={selectedEntryId}
+              selectedId={selectedId}
+              onClose={closeLessonsModal}
+            />
+          </Modal>
         </Section>
       </Container>
       <CustomSnackbar ref={customSnackbarRef} />
