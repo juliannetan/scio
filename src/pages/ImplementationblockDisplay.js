@@ -113,6 +113,8 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
             onChange={handleChange}
             value={implementationblock.IPQ2 || ''}
           />
+          </Section>
+          <Section>
           <Title>Set of activities assigned to the selected solution?</Title>
           <TextArea
             placeholder=''
