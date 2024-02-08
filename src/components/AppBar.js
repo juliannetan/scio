@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { alpha, styled } from '@mui/material/styles'
+import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import {
   Box,
-  Badge,
   CssBaseline,
   Toolbar,
   IconButton,
-  InputBase,
   Button,
 } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import MenuIcon from '@mui/icons-material/Menu'
-import SearchIcon from '@mui/icons-material/Search'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 import Drawer from './Drawer'
 import { useNavigate } from 'react-router-dom'
 import Menu from '@mui/material/Menu'
@@ -39,47 +35,6 @@ const MenuStyled = styled(Menu)`
     padding: 0 !important;
   }
 `
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: '20px',
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}))
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}))
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}))
 
 const drawerWidth = 350
 
@@ -210,27 +165,9 @@ const AppBar = ({ token, onSignOut }) => {
                 </>
               )}
               <Box sx={{ flexGrow: 1 }} />
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder='Search…'
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
+
 
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton
-                  size='large'
-                  aria-label='show 17 new notifications'
-                  color='inherit'
-                >
-                  <Badge badgeContent={17} color='error'>
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-
                 <Box sx={{ flexGrow: 0 }}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
