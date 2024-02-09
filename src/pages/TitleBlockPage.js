@@ -124,6 +124,18 @@ const TitleblockPage = ({
     })
   }
 
+  function handleIdChange(event) {
+    const sanitizedValue = event.target.value.replace(/\s/g, '');
+  
+    setTitleblock((prevFormData) => {
+      return {
+        ...prevFormData,
+        [event.target.name]: sanitizedValue,
+      };
+    });
+  }
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -157,7 +169,7 @@ const TitleblockPage = ({
             placeholder='AB-123456'
             name='ID'
             required={true}
-            onChange={handleChange}
+            onChange={handleIdChange}
           />
           <Title>Title: PSDM Description</Title>
           <TextArea
