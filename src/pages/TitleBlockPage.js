@@ -125,16 +125,15 @@ const TitleblockPage = ({
   }
 
   function handleIdChange(event) {
-    const sanitizedValue = event.target.value.replace(/\s/g, '');
-  
+    const sanitizedValue = event.target.value.replace(/\s/g, '')
+
     setTitleblock((prevFormData) => {
       return {
         ...prevFormData,
         [event.target.name]: sanitizedValue,
-      };
-    });
+      }
+    })
   }
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault()

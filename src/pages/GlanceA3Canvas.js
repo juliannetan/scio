@@ -100,7 +100,8 @@ const A3Canvas = ({ selectedEntryId }) => {
   const [displayDecisionModal, setDisplayDecisionModal] = useState(false)
   const [displayCurrentModal, setDisplayCurrentModal] = useState(false)
   const [displayFutureModal, setDisplayFutureModal] = useState(false)
-  const [displayImplementationModal, setDisplayImplementationModal] = useState(false)
+  const [displayImplementationModal, setDisplayImplementationModal] =
+    useState(false)
   const [displaySolutionModal, setDisplaySolutionModal] = useState(false)
   const [displayValueModal, setDisplayValueModal] = useState(false)
   const [displayLessonsModal, setDisplayLessonsModal] = useState(false)
@@ -178,7 +179,6 @@ const A3Canvas = ({ selectedEntryId }) => {
     fetchSelectedId()
   }, [selectedEntryId])
 
-
   async function fetchSelectedId() {
     try {
       const { data, error } = await supabase
@@ -186,15 +186,14 @@ const A3Canvas = ({ selectedEntryId }) => {
         .select('id')
         .eq('ID', selectedEntryId)
         .single()
-  
+
       if (error) {
         throw error
       }
-  
+
       if (data) {
         setSelectedId(data.id)
       }
-  
     } catch (error) {
       console.error('Error fetching titleblocks:', error.message)
     }
@@ -237,7 +236,7 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayFutureModal(false)
     fetchData()
   }
-  
+
   const openImplementationModal = () => {
     setDisplayImplementationModal(true)
   }
@@ -246,7 +245,7 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayImplementationModal(false)
     fetchData()
   }
-  
+
   const openSolutionModal = () => {
     setDisplaySolutionModal(true)
   }
@@ -255,7 +254,7 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplaySolutionModal(false)
     fetchData()
   }
-    
+
   const openValueModal = () => {
     setDisplayValueModal(true)
   }
@@ -264,7 +263,7 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayValueModal(false)
     fetchData()
   }
-  
+
   const openLessonsModal = () => {
     setDisplayLessonsModal(true)
   }
@@ -273,7 +272,7 @@ const A3Canvas = ({ selectedEntryId }) => {
     setDisplayLessonsModal(false)
     fetchData()
   }
-    
+
   const openTitleModal = () => {
     setDisplayTitleModal(true)
   }
@@ -315,13 +314,11 @@ const A3Canvas = ({ selectedEntryId }) => {
                 </HeaderItem>
                 <HeaderItem>
                   <HeaderLabel>Status:</HeaderLabel>
-                  <Typography variant='subtitle1'>
-                    {content.TQ2}
-                  </Typography>
+                  <Typography variant='subtitle1'>{content.TQ2}</Typography>
                 </HeaderItem>
               </React.Fragment>
             ))}
-            <StyledButton onClick={openTitleModal}>{moreInfoText}</StyledButton>
+          <StyledButton onClick={openTitleModal}>{moreInfoText}</StyledButton>
           <Modal open={displayTitleModal}>
             <TitleblockDisplay
               selectedEntryId={selectedEntryId}
@@ -356,7 +353,9 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.DS1}</Typography>
               </React.Fragment>
             ))}
-          <StyledButton onClick={openDecisionModal}>{moreInfoText}</StyledButton>
+          <StyledButton onClick={openDecisionModal}>
+            {moreInfoText}
+          </StyledButton>
           <Modal open={displayDecisionModal}>
             <DecisionblockDisplay
               selectedEntryId={selectedEntryId}
@@ -392,7 +391,9 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.IPQ1}</Typography>
               </React.Fragment>
             ))}
-          <StyledButton onClick={openImplementationModal}>{moreInfoText}</StyledButton>
+          <StyledButton onClick={openImplementationModal}>
+            {moreInfoText}
+          </StyledButton>
           <Modal open={displayImplementationModal}>
             <ImplementationblockDisplay
               selectedEntryId={selectedEntryId}
@@ -446,7 +447,9 @@ const A3Canvas = ({ selectedEntryId }) => {
                 <Typography variant='body1'>{content.SEQ1}</Typography>
               </React.Fragment>
             ))}
-          <StyledButton onClick={openSolutionModal}>{moreInfoText}</StyledButton>
+          <StyledButton onClick={openSolutionModal}>
+            {moreInfoText}
+          </StyledButton>
           <Modal open={displaySolutionModal}>
             <SolutionblockDisplay
               selectedEntryId={selectedEntryId}

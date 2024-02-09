@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
-import {
-  Box,
-  CssBaseline,
-  Toolbar,
-  IconButton,
-  Button,
-} from '@mui/material'
+import { Box, CssBaseline, Toolbar, IconButton, Button } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar'
 import MenuIcon from '@mui/icons-material/Menu'
 import Drawer from './Drawer'
@@ -165,7 +159,6 @@ const AppBar = ({ token, onSignOut }) => {
                 </>
               )}
               <Box sx={{ flexGrow: 1 }} />
-
 
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <Box sx={{ flexGrow: 0 }}>

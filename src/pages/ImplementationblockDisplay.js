@@ -10,13 +10,17 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js'
 
-const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
+const ImplementationblockDisplay = ({
+  selectedEntryId,
+  selectedId,
+  onClose,
+}) => {
   const [implementationblock, setImplementationblock] = useState({})
-  const customSnackbarRef = useRef(null);
+  const customSnackbarRef = useRef(null)
 
   useEffect(() => {
-    fetchImplementationblock();
-  }, []);
+    fetchImplementationblock()
+  }, [])
 
   async function fetchImplementationblock() {
     try {
@@ -24,29 +28,29 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
         .from('Implementationcontent_duplicate')
         .select('*')
         .eq('ID', selectedEntryId)
-        .single();
+        .single()
 
       if (error) {
-        throw error;
+        throw error
       }
 
       if (data) {
-        setImplementationblock(data);
+        setImplementationblock(data)
       } else {
-        setImplementationblock({});
+        setImplementationblock({})
       }
     } catch (error) {
-      console.error('Error fetching Implementation block:', error.message);
+      console.error('Error fetching Implementation block:', error.message)
     }
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setImplementationblock((prevImplementationblock) => ({
       ...prevImplementationblock,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const dataToSubmit = {
     ...implementationblock,
@@ -55,43 +59,43 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let { data, error } = {};
+      let { data, error } = {}
       // Check if implementation block ID exists
       const existingEntry = await supabase
         .from('Implementationcontent_duplicate')
         .select('*')
         .eq('ID', implementationblock.ID)
-        .single();
-  
+        .single()
+
       if (!existingEntry.data) {
         // Insert a new entry if it doesn't exist
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Implementationcontent_duplicate')
-          .insert([dataToSubmit]));
+          .insert([dataToSubmit]))
       } else {
         // Update existing entry
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Implementationcontent_duplicate')
           .update(implementationblock)
-          .eq('ID', implementationblock.ID));
+          .eq('ID', implementationblock.ID))
       }
-  
+
       if (error) {
-        throw error;
+        throw error
       }
-  
-      fetchImplementationblock();
+
+      fetchImplementationblock()
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Implementation form.',
-        'success'
-      );
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
-      console.error('Error saving Implementation form:', error.message);
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
+      console.error('Error saving Implementation form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -113,8 +117,8 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
             onChange={handleChange}
             value={implementationblock.IPQ2 || ''}
           />
-          </Section>
-          <Section>
+        </Section>
+        <Section>
           <Title>Set of activities assigned to the selected solution?</Title>
           <TextArea
             placeholder=''
@@ -123,7 +127,10 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
             onChange={handleChange}
             value={implementationblock.IPQ3 || ''}
           />
-          <Title>Plan. Include plan scope, schedule, cost and resources, and MOC/org change?</Title>
+          <Title>
+            Plan. Include plan scope, schedule, cost and resources, and MOC/org
+            change?
+          </Title>
           <TextArea
             placeholder=''
             name='IPQ4'
@@ -139,7 +146,9 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
             onChange={handleChange}
             value={implementationblock.IPQ5 || ''}
           />
-          <Title>Check. Monitor on track within preset guardrails and safeguards?</Title>
+          <Title>
+            Check. Monitor on track within preset guardrails and safeguards?
+          </Title>
           <TextArea
             placeholder=''
             name='IPQ6'
@@ -147,7 +156,10 @@ const ImplementationblockDisplay = ({ selectedEntryId, selectedId, onClose }) =>
             onChange={handleChange}
             value={implementationblock.IPQ6 || ''}
           />
-          <Title>Act. Modify and adjust action plan based with preset contingency plans?</Title>
+          <Title>
+            Act. Modify and adjust action plan based with preset contingency
+            plans?
+          </Title>
           <TextArea
             placeholder=''
             name='IPQ7'

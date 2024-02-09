@@ -12,11 +12,11 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 
 const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [solutionblock, setSolutionblock] = useState({})
-  const customSnackbarRef = useRef(null);
+  const customSnackbarRef = useRef(null)
 
   useEffect(() => {
-    fetchSolutionblock();
-  }, []);
+    fetchSolutionblock()
+  }, [])
 
   async function fetchSolutionblock() {
     try {
@@ -24,29 +24,29 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
         .from('Solutioncontent_duplicate')
         .select('*')
         .eq('ID', selectedEntryId)
-        .single();
+        .single()
 
       if (error) {
-        throw error;
+        throw error
       }
 
       if (data) {
-        setSolutionblock(data);
+        setSolutionblock(data)
       } else {
-        setSolutionblock({});
+        setSolutionblock({})
       }
     } catch (error) {
-      console.error('Error fetching Solution block:', error.message);
+      console.error('Error fetching Solution block:', error.message)
     }
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setSolutionblock((prevImplementationblock) => ({
       ...prevImplementationblock,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const dataToSubmit = {
     ...solutionblock,
@@ -55,64 +55,56 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let { data, error } = {};
+      let { data, error } = {}
       // Check if implementation block ID exists
       const existingEntry = await supabase
         .from('Solutioncontent_duplicate')
         .select('*')
         .eq('ID', solutionblock.ID)
-        .single();
-  
+        .single()
+
       if (!existingEntry.data) {
         // Insert a new entry if it doesn't exist
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Solutioncontent_duplicate')
-          .insert([dataToSubmit]));
+          .insert([dataToSubmit]))
       } else {
         // Update existing entry
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Solutioncontent_duplicate')
           .update(solutionblock)
-          .eq('ID', solutionblock.ID));
+          .eq('ID', solutionblock.ID))
       }
-  
+
       if (error) {
-        throw error;
+        throw error
       }
-  
-      fetchSolutionblock();
+
+      fetchSolutionblock()
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Solution form.',
-        'success'
-      );
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
-      console.error('Error saving Solution form:', error.message);
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
+      console.error('Error saving Solution form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <Container>
-      <Section>
-        <Title>Model Diagram Graphic</Title>
-        <TextArea
-          placeholder=''
-        />
-        <Title>Alternative vs. Objectives Table</Title>
-        <TextArea
-          placeholder=''
-        />
-        <Title>Indicated Recommended and Selected Solution</Title>
-        <TextArea
-          placeholder=''
-        />
-        <Title>Model Diagram Graphic</Title>
-        <TextArea
-          placeholder=''
-        />
+        <Section>
+          <Title>Model Diagram Graphic</Title>
+          <TextArea placeholder='' />
+          <Title>Alternative vs. Objectives Table</Title>
+          <TextArea placeholder='' />
+          <Title>Indicated Recommended and Selected Solution</Title>
+          <TextArea placeholder='' />
+          <Title>Model Diagram Graphic</Title>
+          <TextArea placeholder='' />
         </Section>
 
         <Section>
@@ -124,7 +116,10 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={solutionblock.SEQ1 || ''}
           />
-          <Title>What model type is best suited for right level of evaluation rigour and complexity?</Title>
+          <Title>
+            What model type is best suited for right level of evaluation rigour
+            and complexity?
+          </Title>
           <TextArea
             placeholder=''
             name='SEQ2'
@@ -132,7 +127,10 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={solutionblock.SEQ2 || ''}
           />
-          <Title>What inputs are influential variables? Technical, people, management system?</Title>
+          <Title>
+            What inputs are influential variables? Technical, people, management
+            system?
+          </Title>
           <TextArea
             placeholder=''
             name='SEQ3'
@@ -140,7 +138,11 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={solutionblock.SEQ3 || ''}
           />
-          <Title>What are the best knowledge sources: intuition/experience, data/analytics evidence or a mix? How do we trust human judgement vs ML/AI?</Title>
+          <Title>
+            What are the best knowledge sources: intuition/experience,
+            data/analytics evidence or a mix? How do we trust human judgement vs
+            ML/AI?
+          </Title>
           <TextArea
             placeholder=''
             name='SEQ4'
@@ -148,7 +150,10 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={solutionblock.SEQ4 || ''}
           />
-          <Title>What is our uncertainty? What is our value of Information? Is it worth seeking more knowledge to reduce our uncertainty?</Title>
+          <Title>
+            What is our uncertainty? What is our value of Information? Is it
+            worth seeking more knowledge to reduce our uncertainty?
+          </Title>
           <TextArea
             placeholder=''
             name='SEQ5'
@@ -164,7 +169,10 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={solutionblock.SEQ6 || ''}
           />
-          <Title>Do constraints come into play? If so, what value is left on table? Is that acceptable?</Title>
+          <Title>
+            Do constraints come into play? If so, what value is left on table?
+            Is that acceptable?
+          </Title>
           <TextArea
             placeholder=''
             name='SEQ7'

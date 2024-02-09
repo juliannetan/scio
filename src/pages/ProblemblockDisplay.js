@@ -63,44 +63,43 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let { data, error } = {};
+      let { data, error } = {}
       // Check if implementation block ID exists
       const existingEntry = await supabase
         .from('Problemcontent_duplicate')
         .select('*')
         .eq('ID', problemblock.ID)
-        .single();
-  
+        .single()
+
       if (!existingEntry.data) {
         // Insert a new entry if it doesn't exist
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Problemcontent_duplicate')
-          .insert([dataToSubmit]));
+          .insert([dataToSubmit]))
       } else {
         // Update existing entry
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Problemcontent_duplicate')
           .update(problemblock)
-          .eq('ID', problemblock.ID));
+          .eq('ID', problemblock.ID))
       }
-  
+
       if (error) {
-        throw error;
+        throw error
       }
-  
-      fetchProblemblock();
+
+      fetchProblemblock()
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Problem form.',
-        'success'
-      );
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
-      console.error('Error saving Problem form:', error.message);
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
+      console.error('Error saving Problem form:', error.message)
     }
-  };
-
+  }
 
   return (
     <form onSubmit={handleSubmit}>

@@ -15,8 +15,8 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [valueblock, setValueblock] = useState({})
 
   useEffect(() => {
-    fetchValueblock();
-  }, []);
+    fetchValueblock()
+  }, [])
 
   async function fetchValueblock() {
     try {
@@ -24,29 +24,29 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
         .from('Valuecontent_duplicate')
         .select('*')
         .eq('ID', selectedEntryId)
-        .single();
+        .single()
 
       if (error) {
-        throw error;
+        throw error
       }
 
       if (data) {
-        setValueblock(data);
+        setValueblock(data)
       } else {
-        setValueblock({});
+        setValueblock({})
       }
     } catch (error) {
-      console.error('Error fetching Value block:', error.message);
+      console.error('Error fetching Value block:', error.message)
     }
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setValueblock((prevImplementationblock) => ({
       ...prevImplementationblock,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const dataToSubmit = {
     ...valueblock,
@@ -55,42 +55,42 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let { data, error } = {};
+      let { data, error } = {}
       const existingEntry = await supabase
         .from('Valuecontent_duplicate')
         .select('*')
         .eq('ID', valueblock.ID)
-        .single();
-  
+        .single()
+
       if (!existingEntry.data) {
         // Insert a new entry if it doesn't exist
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Valuecontent_duplicate')
-          .insert([dataToSubmit]));
+          .insert([dataToSubmit]))
       } else {
         // Update existing entry
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Valuecontent_duplicate')
           .update(valueblock)
-          .eq('ID', valueblock.ID));
+          .eq('ID', valueblock.ID))
       }
-  
+
       if (error) {
-        throw error;
+        throw error
       }
-  
-      fetchValueblock();
+
+      fetchValueblock()
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Value form.',
-        'success'
-      );
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
-      console.error('Error saving Value form:', error.message);
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
+      console.error('Error saving Value form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -123,7 +123,8 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
         </Section>
         <Section>
           <Title>
-            Is what we did having the desired effect within the expected time frame?
+            Is what we did having the desired effect within the expected time
+            frame?
           </Title>
           <TextArea
             placeholder=''
@@ -133,7 +134,8 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={valueblock.VDQ1}
           />
           <Title>
-            Identify and track leading performance metrics to lagging business outcomes?
+            Identify and track leading performance metrics to lagging business
+            outcomes?
           </Title>
           <TextArea
             placeholder=''
@@ -150,9 +152,7 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={valueblock.VDQ3}
           />
-          <Title>
-            Performance map to show value delivery progress
-          </Title>
+          <Title>Performance map to show value delivery progress</Title>
           <TextArea
             placeholder=''
             name='VDQ4'

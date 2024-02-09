@@ -8,15 +8,15 @@ import {
   TextArea,
   StyledButton,
   TitleblockButtons,
-} from './TitleBlockPage.js';
+} from './TitleBlockPage.js'
 
-const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
+const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [futureblock, setFuturebblock] = useState({})
   const customSnackbarRef = React.useRef(null)
 
   useEffect(() => {
-    fetchFutureblock();
-  }, []);
+    fetchFutureblock()
+  }, [])
 
   async function fetchFutureblock() {
     try {
@@ -24,29 +24,29 @@ const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
         .from('Futurecontent_duplicate')
         .select('*')
         .eq('ID', selectedEntryId)
-        .single();
+        .single()
 
       if (error) {
-        throw error;
+        throw error
       }
 
       if (data) {
-        setFuturebblock(data);
+        setFuturebblock(data)
       } else {
-        setFuturebblock({});
+        setFuturebblock({})
       }
     } catch (error) {
-      console.error('Error fetching Future block:', error.message);
+      console.error('Error fetching Future block:', error.message)
     }
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFuturebblock((prevFutureblock) => ({
       ...prevFutureblock,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const dataToSubmit = {
     ...futureblock,
@@ -55,43 +55,43 @@ const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      let { data, error } = {};
+      let { data, error } = {}
       // Check if implementation block ID exists
       const existingEntry = await supabase
         .from('Futurecontent_duplicate')
         .select('*')
         .eq('ID', futureblock.ID)
-        .single();
-  
+        .single()
+
       if (!existingEntry.data) {
         // Insert a new entry if it doesn't exist
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Futurecontent_duplicate')
-          .insert([dataToSubmit]));
+          .insert([dataToSubmit]))
       } else {
         // Update existing entry
-        ({ data, error } = await supabase
+        ;({ data, error } = await supabase
           .from('Futurecontent_duplicate')
           .update(futureblock)
-          .eq('ID', futureblock.ID));
+          .eq('ID', futureblock.ID))
       }
-  
+
       if (error) {
-        throw error;
+        throw error
       }
-  
-      fetchFutureblock();
+
+      fetchFutureblock()
       customSnackbarRef.current.showSnackbar(
         'Successfully saved Future form.',
-        'success'
-      );
+        'success',
+      )
     } catch (error) {
-      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error');
-      console.error('Error saving Future form:', error.message);
+      customSnackbarRef.current.showSnackbar(`Error: ${error.message}`, 'error')
+      console.error('Error saving Future form:', error.message)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -117,7 +117,10 @@ const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
           />
         </Section>
         <Section>
-          <Title>What are the expected targets from Future business goals & objectives?</Title>
+          <Title>
+            What are the expected targets from Future business goals &
+            objectives?
+          </Title>
           <TextArea
             placeholder=''
             name='FQ1'
@@ -133,7 +136,10 @@ const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ2}
           />
-          <Title>Can the real or perceived constraints in this situation be challenged?</Title>
+          <Title>
+            Can the real or perceived constraints in this situation be
+            challenged?
+          </Title>
           <TextArea
             placeholder=''
             name='FQ3'
@@ -157,7 +163,9 @@ const FutureblockDisplay = ({selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ5}
           />
-          <Title>What is our tolerance for failure or an undesired outcome?</Title>
+          <Title>
+            What is our tolerance for failure or an undesired outcome?
+          </Title>
           <TextArea
             placeholder=''
             name='FQ6'

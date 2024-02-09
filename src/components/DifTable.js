@@ -39,7 +39,7 @@ const DifTable = ({
           title: row.Description,
           name: row.Created_By,
           joinDate: row.Created_Date,
-          // modifiedDate: new Date(), 
+          // modifiedDate: new Date(),
           problemSolvers: row.ProblemSolvers,
           decisionMakers: row.DecisionMakers,
         }))
