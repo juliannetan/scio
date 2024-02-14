@@ -10,6 +10,14 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
+import { v4 as uuidv4 } from 'uuid';
+import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
+
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/solution/";
+
+
+
+
 const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [solutionblocks, setSolutionblocks] = useState([])
@@ -65,18 +73,152 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
     }
   }
 
+
+  /* Upload Image*/
+  const [images, setImages] = useState([]);
+  
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  async function getImages() {
+    const { data, error } = await supabase
+    
+      .storage
+      .from('images')
+      .list( 'scio/solution/', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: "name", order: "asc"}
+      });   
+
+      if(data !== null) {
+        setImages(data);
+      } else {
+        alert("Error loading images");
+        console.log(error);
+      }
+  }
+
+  useEffect(() => {
+    getImages();    
+}, [])
+
+
+async function uploadImage(e) {
+
+  let file = e.target.files[0];  
+
+  const { data, error } = await supabase
+    .storage
+    .from('images/scio/solution/')
+    .upload('/' + uuidv4(), file )
+     
+    if(data) {
+      console.log('Image uploaded successfully')
+    getImages();
+  } else {
+    console.log('Error uploading image:', error)
+  }
+}
+
+
+async function deleteImage(imageName) {
+  const { error } = await supabase
+    .storage
+    .from('images')
+    .remove([ 'scio/solution/' + imageName])
+  
+  if(error) {
+    alert(error);
+  } else {
+    getImages();
+  }
+}
+
+const handleImageClick = () => {
+  if (selectedFile)
+  {
+    window.open(URL.createObjectURL(selectedFile)); 
+};
+}
+
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
           <Title>Model Diagram Graphic</Title>
-          <TextArea />
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <hr />
+          <h3>Your Images</h3>
+          <Grid container spacing={2}>
+            {images.map((image) => (
+              <Grid item key={CDNURL + "/" + image.name}>
+                <Card>
+                  <CardMedia  
+                    component="img"
+                    height="150"                
+                    image={CDNURL + "/" + image.name}
+                  />
+                  <CardContent>   
+                   
+                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                   
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>  
           <Title>Alternative vs. Objectives Table</Title>
-          <TextArea />
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <hr />
+          <h3>Your Files</h3>
+          <Grid container spacing={2}>
+            {images.map((image) => (
+              <Grid item key={CDNURL + "/" + image.name}>
+                <Card>
+                  <CardMedia  
+                    component="img"
+                    height="150"                
+                    image={CDNURL + "/" + image.name}
+                  />
+                  <CardContent>   
+                   
+                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                   
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>  
           <Title>Indicated Recommended and Selected Solution</Title>
           <TextArea />
           <Title>Model Diagram Graphic</Title>
-          <TextArea />
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <hr />
+          <h3>Your Images</h3>
+          <Grid container spacing={2}>
+            {images.map((image) => (
+              <Grid item key={CDNURL + "/" + image.name}>
+                <Card>
+                  <CardMedia  
+                    component="img"
+                    height="150"                
+                    image={CDNURL + "/" + image.name}
+                  />
+                  <CardContent>   
+                   
+                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                   
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>  
         </Section>
         <Section>
           <Title>Identify several compelling creative alternatives</Title>

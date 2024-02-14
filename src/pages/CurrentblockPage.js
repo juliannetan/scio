@@ -10,10 +10,19 @@ import {
 } from './TitleBlockPage.js'
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
+
+/*import {useUser, useSupabaseClient} from '@supabase/supabase-auth-helpers';*/
+import { v4 as uuidv4 } from 'uuid';
+import {  Button, Grid, Card, CardMedia, CardContent } from '@mui/material';
+
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/current/";
+
 const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
   const [currentblocks, setCurrentblocks] = useState([])
   const [currentblock, setCurrentblock] = useState({})
+  
+
 
   const handleNextClick = () => {
     setNextPage()
@@ -62,6 +71,70 @@ const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
       console.error('Error saving Current State form:', error.message)
     }
   }
+  
+
+
+  /* Upload Image*/
+  const [images, setImages] = useState([]);  
+ 
+  async function getImages() {
+    const { data, error } = await supabase
+    
+      .storage
+      .from('images')
+      .list( 'scio/current/', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: "name", order: "asc"}
+      });   
+
+      if(data !== null) {
+        setImages(data);
+      } else {
+        alert("Error loading images");
+        console.log(error);
+      }
+  }
+
+  useEffect(() => {
+    getImages();    
+}, [])
+
+
+async function uploadImage(e) {
+
+  let file = e.target.files[0];  
+
+  const { data, error } = await supabase
+    .storage
+    .from('images/scio/current/')
+    .upload('/' + uuidv4(), file )
+     
+    if(data) {
+      console.log('Image uploaded successfully')
+    getImages();
+  } else {
+    console.log('Error uploading image:', error)
+  }
+}
+
+
+async function deleteImage(imageName) {
+  const { error } = await supabase
+    .storage
+    .from('images')
+    .remove([ 'scio/current/' + imageName])
+  
+  if(error) {
+    alert(error);
+  } else {
+    getImages();
+  }
+}
+
+
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -74,6 +147,36 @@ const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
             required={false}
             onChange={handleChange}
           />
+        <Title>Current State Chart/Graphic</Title>
+        <p>Use the Choose File button below to upload an image to your gallery</p>
+        <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+       
+        
+        <h3>Your Images</h3>
+        <Grid container spacing={2}>
+          {images.map((image) => (
+            <Grid item key={CDNURL + "/" + image.name}>
+              <Card>
+                <CardMedia  
+                  component="img"
+                  height="150"                
+                  image={CDNURL + "/" + image.name}
+                />
+                
+                <CardContent> 
+               
+                      
+                 <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button>                
+              
+          </CardContent>
+             
+              </Card>
+            </Grid>
+            
+          ))}
+        </Grid>  
+      
+        
           <Title>Secondary Current State Statement</Title>
           <TextArea
             placeholder=''
@@ -82,6 +185,11 @@ const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
             onChange={handleChange}
           />
         </Section>
+       
+        
+              
+        
+       
         <Section>
           <Title>What is the problem background? How did we get here?</Title>
           <TextArea

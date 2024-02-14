@@ -10,6 +10,13 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js'
 
+import { v4 as uuidv4 } from 'uuid';
+import {  Button, Grid, Card, CardMedia, CardContent } from '@mui/material';
+
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/lessons/";
+
+
+
 const LessonsblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const customSnackbarRef = useRef(null)
   const [lessonsblock, setLessonsblock] = useState({})
@@ -92,6 +99,76 @@ const LessonsblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     }
   }
 
+/* Upload Image*/
+
+const [images, setImages] = useState([]);  
+const [selectedFile, setSelectedFile] = useState(null);
+
+async function getImages() {
+  const { data, error } = await supabase
+  
+    .storage
+    .from('images')
+    .list( 'scio/lessons/', {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: "name", order: "asc"}
+    });   
+
+    if(data !== null) {
+      setImages(data);
+    } else {
+      alert("Error loading images");
+      console.log(error);
+    }
+}
+
+useEffect(() => {
+  getImages();    
+}, [])
+
+
+async function uploadImage(e) {
+
+let file = e.target.files[0];  
+
+const { data, error } = await supabase
+  .storage
+  .from('images/scio/lessons/')
+  .upload('/' + uuidv4(), file )
+   
+  if(data) {
+    console.log('Image uploaded successfully')
+  getImages();
+} else {
+  console.log('Error uploading image:', error)
+}
+}
+
+
+async function deleteImage(imageName) {
+const { error } = await supabase
+  .storage
+  .from('images')
+  .remove([ 'scio/lessons/' + imageName])
+
+if(error) {
+  alert(error);
+} else {
+  getImages();
+}
+}
+
+const handleImageClick = () => {
+if (selectedFile)
+{
+  window.open(URL.createObjectURL(selectedFile)); 
+};
+}
+
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <Container onSubmit={handleSubmit}>
@@ -103,6 +180,30 @@ const LessonsblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={lessonsblock.LLS1}
           />
+          <Title>Decision Quality Sliders Scale Graphic</Title>
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+        <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+        <hr />
+        <h3>Your Images</h3>
+        <Grid container spacing={2}>
+          {images.map((image) => (
+            <Grid item key={CDNURL + "/" + image.name}>
+              <Card>
+                <CardMedia  
+                  component="img"
+                  height="150"                
+                  image={CDNURL + "/" + image.name}
+                />
+                <CardContent>   
+                 
+                 <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                 
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>  
+        
           <Title>Secondary Lessons Learned</Title>
           <TextArea
             placeholder=''

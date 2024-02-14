@@ -5,14 +5,9 @@ const MissionPage = () => {
   return (
     <main className='App-main'>
       <section style={{ padding: '32px' }}>
-        <Typography variant='h3'>Our Mission</Typography>
+        <Typography variant='h3'>Touchstone</Typography>
         <Typography variant='body1'>
-          At Our Company, our mission is to provide high-quality
-          products/services that exceed our customers' expectations. We are
-          committed to innovation, integrity, and excellence in all aspects of
-          our business. Through continuous improvement and a customer-centric
-          approach, we aim to make a positive impact on the communities we
-          serve.
+        BC Hydro is a provincial Crown corporation, owned by the government and people of British Columbia, Canada. We generate and deliver electricity to 95% of the population of B.C. and serve over five million people. That's a big responsibility that demands a simple, clear and straightforward mission with a clear vision that's guided by our values.
         </Typography>
       </section>
     </main>

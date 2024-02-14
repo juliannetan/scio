@@ -285,7 +285,7 @@ const A3Canvas = ({ selectedEntryId }) => {
   return (
     <>
       <Container>
-        <MainHeader>A3 Canvas</MainHeader>
+        
         <Header>
           <HeaderItem>
             <HeaderLabel>ID:</HeaderLabel>
