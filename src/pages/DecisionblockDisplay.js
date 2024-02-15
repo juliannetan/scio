@@ -176,7 +176,9 @@ const handleImageClick = () => {
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Decision Statement</Title>
+        <Title>Current State:</Title>
+        <p>Present....</p>    
+
           <TextArea
             placeholder=''
             name='DS1'

@@ -147,12 +147,15 @@ const handleImageClick = () => {
       <Container>
         <Section>
           <Title>Decision Statement</Title>
+          <p>Present a summary of  the final decision, the factors that influenced this choice, and why this  alternative was chosen over others rejected.</p>
           <TextArea
             placeholder=''
             name='DS1'
             required={false}
             onChange={handleChange}
           />
+
+          <Title>Secondary  The Decision Content:</Title>
           <Title>Strategy & Values Alignment Table</Title>
           <p>Use the Choose File button below to upload an image to your gallery</p>
         <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
@@ -201,48 +204,80 @@ const handleImageClick = () => {
         </Grid>  
         </Section>
         <Section>
-          <Title>Identify several compelling creative alternatives.</Title>
+          <Title>WYSIATI:</Title>
+          <p>What you see is all  there is. Is there any relevant considerations outside the presented  problem-solving set that needs to be part of the decision? Did the team miss  or misrepresent something important? Is more work is required in the  problem-solution set?Valid reasons  include: improper framing, lack of creative alternatives, irrelevant or  unreliable information and knowledge sources, improper tradeoff  evaluation, unsuitable modeling, logic  or reasoning errors. Goal-seeking bias for a preferred recommendation is not  a valid reason.</p>
+          <TextArea
+            placeholder=''
+            name='DQ1'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>Collaboration:</Title>
+          <p>Has there been  effective dialogue between problem-solvers, those providing input and  consulted, stakeholders, and the decision-maker? Has everyone weighed in or  agreed who should? Has the best available information and knowledge been  evaluated with sufficient confidence to proceed?</p>
+          <TextArea
+            placeholder=''
+            name='DQ2'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>Yeah… But:</Title>
+          <p>Is there a  "Yeah, but…" reaction? If yes, misaligned motivation can adversely  affect decision-making. Can the conflict cause be identified and resolved  instead of avoiding the decision? What's best for the organization and its  stated goals, strategies, objectives and values?</p>
           <TextArea
             placeholder=''
             name='DQ3'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            What model type is best suited for the right level of evaluation
-            rigor and complexity?
-          </Title>
+         <title>Sound Reasoning:</title>
           <TextArea
             placeholder=''
             name='DQ4'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            What inputs are influential variables? Technical, people, management
-            system?
-          </Title>
+          <Title>Have we guarded against all relevant biases?</Title>
           <TextArea
             placeholder=''
             name='DQ5'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            What are the best knowledge sources: intuition/experience,
-            data/analytics evidence, or a mix? How do we trust human judgment vs
-            ML/AI?
-          </Title>
+          <Title>Have we guarded against all relevant biases?</Title>
           <TextArea
             placeholder=''
             name='DQ6'
             required={false}
             onChange={handleChange}
           />
+
           <Title>Have we guarded against all relevant biases?</Title>
           <TextArea
             placeholder=''
             name='DQ7'
+            required={false}
+            onChange={handleChange}
+          />
+
+          <Title>Have we guarded against all relevant biases?</Title>
+          <TextArea
+            placeholder=''
+            name='DQ8'
+            required={false}
+            onChange={handleChange}
+          />
+
+          <Title>Have we guarded against all relevant biases?</Title>
+          <TextArea
+            placeholder=''
+            name='DQ9'
+            required={false}
+            onChange={handleChange}
+          />
+
+          <Title>Have we guarded against all relevant biases?</Title>
+          <TextArea
+            placeholder=''
+            name='DQ10'
             required={false}
             onChange={handleChange}
           />

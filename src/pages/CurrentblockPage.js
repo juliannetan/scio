@@ -140,7 +140,9 @@ async function deleteImage(imageName) {
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Current State Statement</Title>
+          <Title>Current State:</Title>
+          <p>Present....</p>    
+ 
           <TextArea
             placeholder=''
             name='CS1'
@@ -178,6 +180,8 @@ async function deleteImage(imageName) {
       
         
           <Title>Secondary Current State Statement</Title>
+          <p>Optional content not shown on A3 Canvas</p>  
+          
           <TextArea
             placeholder=''
             name='CS2'
@@ -191,57 +195,47 @@ async function deleteImage(imageName) {
         
        
         <Section>
-          <Title>What is the problem background? How did we get here?</Title>
+          <Title>Problem  Background:</Title>
+          <p>What is the problem  background? How did we get here?</p>
           <TextArea
             placeholder=''
             name='CQ1'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            How are we dealing with the problem now? What are the barriers to
-            solving this problem already?
-          </Title>
+          <Title>Currently  Managing:</Title>
+          <p>How are we currently  dealing with the problem now? Why isn't it working? What are the barriers to  solving this problem already?</p>
           <TextArea
             placeholder=''
             name='CQ2'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            Everything is relative. Relative to what, exactly? What is the
-            baseline view? Wide view? External view? What’s the denominator?
-          </Title>
+          <Title>Current  Context:</Title>
+          <p>Everything is  relative. This is a problem relative to what, exactly? What is the baseline  view? What is the wide global view? What is the external or fresh eyes view?  What is the denominator?</p>
           <TextArea
             placeholder=''
             name='CQ3'
             required={false}
             onChange={handleChange}
           />
-          <Title>What is our confidence/uncertainty?</Title>
+          <Title>Current  Causes:</Title>
+          <p>What are the causes  and root causes of the problem? How quickly is the problem developing?</p>
           <TextArea
             placeholder=''
             name='CQ4'
             required={false}
             onChange={handleChange}
           />
-          <Title>What are the causes, root causes and 5 Whys?</Title>
+          <Title>Current  Confidence:</Title>
+          <p>What is our  confidence or uncertainty in our understanding of the problem? How much error  might be present? What information and knowledge do we possess and is our  confidence low, medium or high? What information and knowledge we do not  possess would be useful? Is it worth pursuing?</p>
           <TextArea
             placeholder=''
             name='CQ5'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            What is the problem scale? Value driver(s)? Impact? Time horizon?
-            Problem type?
-          </Title>
-          <TextArea
-            placeholder=''
-            name='CQ6'
-            required={false}
-            onChange={handleChange}
-          />
+         
         </Section>
         <TitleblockButtons>
           <StyledButton type='submit'>Save</StyledButton>
