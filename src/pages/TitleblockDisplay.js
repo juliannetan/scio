@@ -117,35 +117,35 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
 
 
           <Title>Team Lead:</Title>
-          <Title>Who is the problem-solver? The Lead initiates A3 PSDM record, does most of the analysis & evaluation work, most of the content entry, at discretion of Recommender.</Title>
+          <p>Who is the problem-solver? The Lead initiates A3 PSDM record, does most of the analysis & evaluation work, most of the content entry, at discretion of Recommender.</p>
           <TextArea
             name='ProblemSolvers'
             onChange={handleChange}
             value={titleblock.ProblemSolvers || ''}
           />
           <Title>Input:</Title>
-          <Title>Who provides input to the problem-solution? These people provide technical business expertise, experience and information to shape the problem & solution with input at the discretion of the Inputters.</Title>
+          <p>Who provides input to the problem-solution? These people provide technical business expertise, experience and information to shape the problem & solution with input at the discretion of the Inputters.</p>
           <TextArea
             name='Input'
             onChange={handleChange}
             value={titleblock.Input || ''}
           />
           <Title>Recommend:</Title>
-          <Title>Who makes the recommendation? The Recommender provides technical authority to ensure the problem solution set follows good practice and recommend solution, steps status from Recommender.</Title>
+          <p>Who makes the recommendation? The Recommender provides technical authority to ensure the problem solution set follows good practice and recommend solution, steps status from Recommender.</p>
           <TextArea
             name='Recommend'
             onChange={handleChange}
             value={titleblock.Recommend || ''}
           />
           <Title>Decision:</Title>
-          <Title>Who makes the decision? The Decision-Maker commits the Assurance to action with requisite business authority and resources </Title>
+          <p>Who makes the decision? The Decision-Maker commits the Assurance to action with requisite business authority and resources </p>
           <TextArea
             name='DecisionMakers'
             onChange={handleChange}
             value={titleblock.DecisionMakers || ''}
           />
           <Title>Agree:</Title>
-          <Title>Who implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and dedicated team outside of PSDM canvas.</Title>
+          <p>Who implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and dedicated team outside of PSDM canvas.</p>
           <TextArea
             name='Agree'
             onChange={handleChange}
@@ -153,7 +153,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           />
 
           <Title>Implement:</Title>
-          <Title>Who  implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and  dedicated team outside of PSDM canvas</Title>
+          <p>Who  implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and  dedicated team outside of PSDM canvas</p>
           <TextArea
             name='Implement'
             onChange={handleChange}
@@ -161,7 +161,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           />
 
           <Title>Assurance:</Title>
-          <Title>Who provides assurance? Provides audit and assurance the PSDM follows good practice, evaluates performance metrics and value delivery, facilitates lessons learned.</Title>
+          <p>Who provides assurance? Provides audit and assurance the PSDM follows good practice, evaluates performance metrics and value delivery, facilitates lessons learned.</p>
           <TextArea
             name='Assurance'
             required={false}
@@ -172,7 +172,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
         </Section>
         <Section>
         <Title>Status:</Title>
-        <Title>Select the current PSDM process stage, In progress states: Initiation, Problem, Solution, Decision, Implementation, Value Delivery, Learnings. On Hold Status include: Pause, Pivot. Complete Status includes</Title>
+        <p>Select the current PSDM process stage, In progress states: Initiation, Problem, Solution, Decision, Implementation, Value Delivery, Learnings. On Hold Status include: Pause, Pivot. Complete Status includes</p>
           <TextArea
             name='Status'
             required={false}
@@ -180,7 +180,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Status}
           />
           <Title>Type:</Title>
-          <Title>Select the best fit decision type</Title>
+          <p>Select the best fit decision type</p>
           <TextArea
             name='Type'
             required={false}
@@ -188,7 +188,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Type}
           />
           <Title>Impact:</Title>
-          <Title>Select impact. Impact choices include: Negligible, Minor, Marginal, Major, Critical, Catastrophic</Title>
+          <p>Select impact. Impact choices include: Negligible, Minor, Marginal, Major, Critical, Catastrophic</p>
           <TextArea
             name='Impact'
             required={false}
@@ -196,7 +196,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Impact}
           />
           <Title>Complexity:</Title>
-          <Title>Select complexity on scale 1-7. Rank the complexity (low/medium/high) across the following dimensions: Technical, Organizational, Social, Time Complexities( Specific guidance available)</Title>
+          <p>Select complexity on scale 1-7. Rank the complexity (low/medium/high) across the following dimensions: Technical, Organizational, Social, Time Complexities( Specific guidance available)</p>
           <TextArea
             name='Complexity'
             required={false}
@@ -204,7 +204,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Complexity}
           />
           <Title>Value Drivers:</Title>
-          <Title>Select primary value driver(s) from table</Title>
+          <p>Select primary value driver(s) from table</p>
           <TextArea
             name='ValueDrivers'
             required={false}
@@ -212,7 +212,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.ValueDrivers}
           />
           <Title>Organization:</Title>
-          <Title>Select lowest applicable department from the organizational hierarchy with accountability and resources to effectively manage</Title>
+          <p>Select lowest applicable department from the organizational hierarchy with accountability and resources to effectively manage</p>
           <TextArea
             name='Organization'
             required={false}
@@ -220,7 +220,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Organization}
           />
           <Title>Assets:</Title>
-          <Title>Select the applicable assets at the lowest levels of the organization’s asset hierarchy affected</Title>
+          <p>Select the applicable assets at the lowest levels of the organization’s asset hierarchy affected</p>
           <TextArea
             name='Assets'
             required={false}
@@ -228,7 +228,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             defaultValue={titleblock.Assets}
           />
           <Title>Practice:</Title>
-          <Title>Select most applicable practice. Practices may include: Operations, Maintenance, Reliability Engineering, Asset Strategy, Asset Planning, Asset Information, Shutdown/ Turnaround Outages, Supply Chain, Risk Management. </Title>
+          <p>Select most applicable practice. Practices may include: Operations, Maintenance, Reliability Engineering, Asset Strategy, Asset Planning, Asset Information, Shutdown/ Turnaround Outages, Supply Chain, Risk Management. </p>
           <TextArea
             name='Practice'
             required={false}
