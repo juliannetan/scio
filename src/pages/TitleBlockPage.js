@@ -177,138 +177,126 @@ const TitleblockPage = ({
             required={false}
             onChange={handleChange}
           />
-          <Title>Problem-Solvers: Input, Recommend</Title>
+          <Title>Team Selection Guidance:</Title>
+          <Title>Using the RAPID model, who has the roles on the PSDM team? Are all team members competent with requisite experience, tract record and authority for their assigned roles?</Title>
+          
+          <Title>Team Lead:</Title>
+          <Title>Who is the problem-solver? The Lead initiates A3 PSDM record, does most of the analysis & evaluation work, most of the content entry, at discretion of Recommender.</Title>
           <TextArea
             placeholder=''
             name='ProblemSolvers'
             required={false}
             onChange={handleChange}
           />
-          <Title>Decision-Makers: Decide, Agree</Title>
+          <Title>Input:</Title>
+          <Title>Who provides input to the problem-solution? These people provide technical business expertise, experience and information to shape the problem & solution with input at the discretion of the Inputters.</Title>
+          <TextArea
+            placeholder=''
+            name='Input'
+            required={false}
+            onChange={handleChange}
+          />
+          <Title>Recommend:</Title>
+          <Title>Who makes the recommendation? The Recommender provides technical authority to ensure the problem solution set follows good practice and recommend solution, steps status from Recommender.</Title>
+          <TextArea
+            placeholder=''
+            name='Recommend'
+            required={false}
+            onChange={handleChange}
+          />
+
+          <Title>Decision:</Title>
+          <Title>Who makes the decision? The Decision-Maker commits the organization to action with requisite business authority and resources </Title>
           <TextArea
             placeholder=''
             name='DecisionMakers'
             required={false}
             onChange={handleChange}
           />
-          <Title>Implementation: Action Plan Execution</Title>
+         
+          <Title>Implement:</Title>
+          <Title>Who  implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and  dedicated team outside of PSDM canvas</Title>
           <TextArea
             placeholder=''
-            name='Implementation'
+            name='Implement'
             required={false}
             onChange={handleChange}
           />
-          <Title>Assurance: Monitor Action, Performance, Value</Title>
+
+
+
+          <Title>Assurance:</Title>
+          <Title>Who provides assurance? Provides audit and assurance the PSDM follows good practice, evaluates performance metrics and value delivery, facilitates lessons learned.</Title>
           <TextArea
             placeholder=''
             name='Assurance'
             required={false}
             onChange={handleChange}
           />
-          <Title>Delivery: Lessons Learned</Title>
-          <TextArea
-            placeholder=''
-            name='Delivery'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>Organization: Lowest org level accountability</Title>
-          <TextArea
-            placeholder=''
-            name='Organization'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>Assets: Lowest asset level applicability</Title>
-          <TextArea
-            placeholder=''
-            name='Assets'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>Practice: Asset management practice</Title>
-          <TextArea
-            placeholder=''
-            name='Practice'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>Value: Primary Value Driver and Impact category</Title>
-          <TextArea
-            placeholder=''
-            name='Value'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>
-            Status: Initiation, Problem, Solution, Decision, Implementation,
-            Value Delivery, Lessons Learned, Complete, On Hold, Cancelled (not
-            worth solving)
-          </Title>
+          
+        </Section>
+        <Section>
+          <Title>Status:</Title>
+          <Title>Select the current PSDM process stage, In progress states: Initiation, Problem, Solution, Decision, Implementation, Value Delivery, Learnings. On Hold Status include: Pause, Pivot. Complete Status includes</Title>
           <TextArea
             placeholder=''
             name='Status'
             required={false}
             onChange={handleChange}
           />
-        </Section>
-        <Section>
-          <Title>What are the PSDM Identifiers?</Title>
+          <Title>Type:</Title>
+          <Title>Select the best fit decision type</Title>
           <TextArea
             placeholder=''
-            name='TQ1'
+            name='Type'
             required={false}
             onChange={handleChange}
           />
-          <Title>What is the PSDM Status?</Title>
+          <Title>Impact:</Title>
+          <Title>Select impact. Impact choices include: Negligible, Minor, Marginal, Major, Critical, Catastrophic</Title>
           <TextArea
             placeholder=''
-            name='TQ2'
+            name='Impact'
             required={false}
             onChange={handleChange}
           />
-          <Title>Who are the Problem-Solvers?</Title>
+          <Title>Complexity:</Title>
+          <Title>Select complexity on scale 1-7. Rank the complexity (low/medium/high) across the following dimensions: Technical, Organizational, Social, Time Complexities( Specific guidance available)</Title>
           <TextArea
             placeholder=''
-            name='TQ3'
+            name='Complexity'
             required={false}
             onChange={handleChange}
           />
-          <Title>Who are the Decision-Makers?</Title>
+          <Title>Value Drivers:</Title>
+          <Title>Select primary value driver(s) from table</Title>
           <TextArea
             placeholder=''
-            name='TQ4'
+            name='ValueDrivers'
             required={false}
             onChange={handleChange}
           />
-          <Title>Who does Implementation?</Title>
+          <Title>Organization:</Title>
+          <Title>Select lowest applicable department from the organizational hierarchy with accountability and resources to effectively manage</Title>
           <TextArea
             placeholder=''
-            name='TQ5'
+            name='Organization'
             required={false}
             onChange={handleChange}
           />
-          <Title>Who monitors progress, performance and value delivery?</Title>
+          <Title>Assets:</Title>
+          <Title>Select the applicable assets at the lowest levels of the organization’s asset hierarchy affected</Title>
           <TextArea
             placeholder=''
-            name='TQ6'
+            name='Assets'
             required={false}
             onChange={handleChange}
           />
-          <Title>Who leads lessons learned?</Title>
+          <Title>Practice:</Title>
+          <Title>Select most applicable practice. Practices may include: Operations, Maintenance, Reliability Engineering, Asset Strategy, Asset Planning, Asset Information, Shutdown/ Turnaround Outages, Supply Chain, Risk Management. </Title>
           <TextArea
             placeholder=''
-            name='TQ7'
-            required={false}
-            onChange={handleChange}
-          />
-          <Title>
-            Do all team members have the requisite competencies and authorities
-            for their assigned role?
-          </Title>
-          <TextArea
-            placeholder=''
-            name='TQ8'
+            name='Practice'
             required={false}
             onChange={handleChange}
           />
