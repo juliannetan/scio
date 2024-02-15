@@ -367,7 +367,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               ))}
           </HeaderGrid>
           <StyledButton onClick={openTitleModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayTitleModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayTitleModal}>
             <TitleblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -384,7 +384,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayModal}>
             <ProblemblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -404,7 +404,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openDecisionModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displayDecisionModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayDecisionModal}>
             <DecisionblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -422,7 +422,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openCurrentModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayCurrentModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayCurrentModal}>
             <CurrentblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -442,7 +442,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openImplementationModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displayImplementationModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayImplementationModal}>
             <ImplementationblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -460,7 +460,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openFutureModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayFutureModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayFutureModal}>
             <FutureblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -478,7 +478,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openValueModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayValueModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayValueModal}>
             <ValueblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -498,7 +498,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openSolutionModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displaySolutionModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displaySolutionModal}>
             <SolutionblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -516,7 +516,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openLessonsModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayLessonsModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayLessonsModal}>
             <LessonsblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
