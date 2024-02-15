@@ -229,20 +229,23 @@ const handleImageClick = () => {
             onChange={handleChange}
           />
          <title>Sound Reasoning:</title>
+         <p>Is there sound  reasoning applied at the decision stage? Does the solution align with the  organization's strategy and objectives, and its value framework? Is there confidence the benefits outweigh  the organization's effort (time, energy, cost, resources) by an considerable  margin to be worth it? Are the tradeoffs acceptable to the organization? Is  timing of the decision, the implementation and the value delivery period  acceptable to the organization?</p>
           <TextArea
             placeholder=''
             name='DQ4'
             required={false}
             onChange={handleChange}
           />
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Executable:</Title>
+          <p>Can the action plan  be implemented successfully with the stated planning quality to set reasonable  expectations for scope, schedule and  budget? Is there assigned implementer accountability and responsibility. Is  there dedicated or secured in-house or contract resources?</p>
           <TextArea
             placeholder=''
             name='DQ5'
             required={false}
             onChange={handleChange}
           />
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Risk Tolerance:</Title>
+          <p>Does the decision to  act, or not, fall within the organization's shared risk tolerance? Is the  minimum acceptable likelihood of success exceeded to proceed with the  decision and action? Said in the negative, is the expected likelihood of  failure acceptable? What if it is the wrong decision? Can the  organization accept the worst  plausible consequences? Is it reversible? Is a poor outcome from this  decision acceptable to the organization? Quality decisions can have poor  outcomes and the organization should expect and be tolerant of that, to a  limit.</p>
           <TextArea
             placeholder=''
             name='DQ6'
@@ -250,7 +253,8 @@ const handleImageClick = () => {
             onChange={handleChange}
           />
 
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Commit to  Action:</Title>
+          <p>What is the  confidence the action plan is achievable, will solve the problem and deliver  expected results? Implementation turns  potential into realized value. What resources might be reallocated to make  this happen? What active leadership can be demonstrated through visible  ownership and participation. How do we measure 1) we did what we said we'd  do, and 2) we got the expected results? How doe we ensure</p>
           <TextArea
             placeholder=''
             name='DQ7'
@@ -258,7 +262,8 @@ const handleImageClick = () => {
             onChange={handleChange}
           />
 
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Change Management:</Title>
+          <p>Will the organization  support the decision, commit to execution and sustainment? Will there be  resistance, from whom and why? Can the  required changes in the organization be successfully carried out within the  current culture, resources and capabilities? Does this present a large change  to the status quo requiring new activities, habits and behaviours?</p>
           <TextArea
             placeholder=''
             name='DQ8'
@@ -266,7 +271,8 @@ const handleImageClick = () => {
             onChange={handleChange}
           />
 
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Make The Decision:</Title>
+          <p>Now is the time - the  problem-solving and decision deliberations are over. What is the final  decision and the factors that influenced this choice? Why this alternative  was chosen over others rejected? This is especially important if the  recommended decision does not match the recommended solution.</p>
           <TextArea
             placeholder=''
             name='DQ9'
@@ -274,7 +280,8 @@ const handleImageClick = () => {
             onChange={handleChange}
           />
 
-          <Title>Have we guarded against all relevant biases?</Title>
+          <Title>Decision Contingencies:</Title>
+          <p>Are there any  guardrails identified to trigger a re-evaluation of the  problem-solution-decision set or contingency actions? When new info/knowledge to certain  problem-solution inputs or assumptions becomes available or become invalid? When implementation scope,  schedule, cost or resource commitments go significantly off plan? When  certain performance metrics or value delivery is not met? What contingency  actions should take place. Be as specific as possible.</p>
           <TextArea
             placeholder=''
             name='DQ10'

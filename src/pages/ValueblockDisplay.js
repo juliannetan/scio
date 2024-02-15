@@ -173,7 +173,9 @@ if (selectedFile)
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Performance Graphic</Title>
+        <Title>Value  Delivery Statement:</Title>
+        <p>Present a summary of  the performance change and value delivery as expected from the action plan.</p>
+          <Title>Performance Metrics Graphic</Title>
           <p>Use the Choose File button below to upload an image to your gallery</p>
           <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
           <hr />
@@ -196,7 +198,7 @@ if (selectedFile)
               </Grid>
             ))}
           </Grid>  
-          <Title>Value Delivery Chart</Title>
+          <Title>Value Realization Chart</Title>
           <p>Use the Choose File button below to upload an image to your gallery</p>
           <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
           <hr />
@@ -229,10 +231,8 @@ if (selectedFile)
           />
         </Section>
         <Section>
-          <Title>
-            Is what we did having the desired effect within the expected time
-            frame?
-          </Title>
+        <Title>Performance Metrics:</Title>
+        <p>What operational  metrics are affected by the action plan? How much are these metrics being  affected against success criteria?</p>
           <TextArea
             placeholder=''
             name='VDQ1'
@@ -240,10 +240,8 @@ if (selectedFile)
             onChange={handleChange}
             value={valueblock.VDQ1}
           />
-          <Title>
-            Identify and track leading performance metrics to lagging business
-            outcomes?
-          </Title>
+          <Title>Value  Drivers:</Title>
+          <p>What are the Value  Drivers at play? How are we measuring value delivery against these drivers?</p>
           <TextArea
             placeholder=''
             name='VDQ2'
@@ -251,7 +249,8 @@ if (selectedFile)
             onChange={handleChange}
             value={valueblock.VDQ2}
           />
-          <Title>Monitor value realization?</Title>
+          <Title>Value  Timeline:</Title>
+          <p>Is the value being  delivered within the expected time frame according to success criteria?</p>
           <TextArea
             placeholder=''
             name='VDQ3'
@@ -259,7 +258,8 @@ if (selectedFile)
             onChange={handleChange}
             value={valueblock.VDQ3}
           />
-          <Title>Performance map to show value delivery progress</Title>
+          <Title>Value Realization:</Title>
+          <p>How are we monitoring  and reporting on value realization against success criteria?</p>
           <TextArea
             placeholder=''
             name='VDQ4'

@@ -147,7 +147,9 @@ const handleImageClick = () => {
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Action Plan Milestone Chart</Title>
+        <Title>Action  Plan Statement:</Title>
+        <p>Present a summary of  the action plan with scope, schedule, cost and resources.</p>
+          <Title>Action Plan  Tracking Chart</Title>
           <p>Use the Choose File button below to upload an image to your gallery</p>
         <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
         <hr />
@@ -170,58 +172,115 @@ const handleImageClick = () => {
             </Grid>
           ))}
         </Grid>  
-          <Title>Secondary Action Plan Milestone</Title>
+          <Title>Secondary Action Plan Content</Title>
+          <p>Action Plan  Risks Table</p>
           <TextArea
             placeholder=''
-            name='IPQ2'
+            name='IPS2'
             required={false}
             onChange={handleChange}
           />
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <hr />
+          <h3>Your Images</h3>
+          <Grid container spacing={2}>
+            {images.map((image) => (
+              <Grid item key={CDNURL + "/" + image.name}>
+                <Card>
+                  <CardMedia  
+                    component="img"
+                    height="150"                
+                    image={CDNURL + "/" + image.name}
+                  />
+                  <CardContent>   
+                   
+                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                   
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>  
+
         </Section>
         <Section>
-          <Title>Set of activities assigned to the selected solution?</Title>
+        <Title>Plan Activities:</Title>
+        <p>What set of  activities make up the action plan?</p>
+          <TextArea
+            placeholder=''
+            name='IPQ1'
+            required={false}
+            onChange={handleChange}
+          />
+
+        <Title>Planning  Quality:</Title>
+        <p>What additional  planning must be done to make an executable action plan? What is the  estimation accuracy target? Choices are 1) Order of Magnitude +/-100%,  Conceptual +/-50%, Budgetary +/-35%, Detailed +/-15%, Control +/-5%.</p>
+        <TextArea
+          placeholder=''
+          name='IPQ2'
+          required={false}
+          onChange={handleChange}
+        />
+
+          <Title>Plan Scope:</Title>
+          <p>What is in the action  plan scope? Notify the decision-maker if the execution scope to the action plan changes significantly, add  to plan risks.</p>
           <TextArea
             placeholder=''
             name='IPQ3'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            Plan. Include plan scope, schedule, cost and resources, and MOC/org
-            change?
-          </Title>
+          <Title>Plan Schedule:</Title>
+          <p>What is the action  plan schedule? What are the major milestones? Notify the decision-maker if  plan timelines are insufficient to execute the action plan, add to plan  risks.</p>
           <TextArea
             placeholder=''
             name='IPQ4'
             required={false}
             onChange={handleChange}
           />
-          <Title>Do. Commit to execution. Track implementation?</Title>
+          <Title>Plan Cost:</Title>
+          <p>What is the action  plan cost? Include total cost, CapEx and/or OpEx. Include all resources:  labour and materials, internal and contract labour, in directs and overheads,  tools and technologies. Notify decision-maker if actual costs exceed planned  costs, add to plan risks.</p>
           <TextArea
             placeholder=''
             name='IPQ5'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            Check. Monitor on track within preset guardrails and safeguards?
-          </Title>
+          <Title>Plan Resources:</Title>
+          <p>What people and  financial resources are required to execute the action plan? Who is on the  implementation team? Where is the funding coming from? Notify the  decision-maker if resources are insufficient to execute the action plan,  add to plan risks.</p>
           <TextArea
             placeholder=''
             name='IPQ6'
             required={false}
             onChange={handleChange}
           />
-          <Title>
-            Act. Modify and adjust action plan based with preset contingency
-            plans?
-          </Title>
+          <Title>Plan  Tracking:</Title>
+          <p>Where is the  implementation progress to date? Update periodically from the project plans  to communicate to the PSDM Team.</p>
           <TextArea
             placeholder=''
             name='IPQ7'
             required={false}
             onChange={handleChange}
           />
+          <Title>Plan Contingencies:</Title>
+          <p>What contingency  plans are available or in place to adjust or modify the original action plan  should implementation exceed certain guardrail thresholds?</p>
+        <TextArea
+          placeholder=''
+          name='IPQ8'
+          required={false}
+          onChange={handleChange}
+        />
+        <Title>Plan Readiness:</Title>
+        <p>Does the  implementation plan include changes to be managed affecting people, policies,  processes, procedures, technology and assets to ensure success and  sustainment? What are they? Has the change been communicated to all affected  stakeholders? Do they accept and can they manage the change before, during  and after implementation?</p>
+      <TextArea
+        placeholder=''
+        name='IPQ9'
+        required={false}
+        onChange={handleChange}
+      />
+
+
         </Section>
         <TitleblockButtons>
           <StyledButton type='submit'>Save</StyledButton>

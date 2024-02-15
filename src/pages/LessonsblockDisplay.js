@@ -173,7 +173,8 @@ if (selectedFile)
     <form onSubmit={handleSubmit}>
       <Container onSubmit={handleSubmit}>
         <Section>
-          <Title>Shared Learnings Text Bullets</Title>
+        <Title>Shared  Learnings Statement:</Title>
+        <p>Present a summary of  the lessons learned and shared from this problem-solution decision-making  set.</p>
           <TextArea
             placeholder=''
             name='LLS1'
@@ -204,7 +205,7 @@ if (selectedFile)
           ))}
         </Grid>  
         
-          <Title>Secondary Lessons Learned</Title>
+        <Title>Secondary Shared Learnings Content:</Title>
           <TextArea
             placeholder=''
             name='LLS2'
@@ -213,49 +214,73 @@ if (selectedFile)
           />
         </Section>
         <Section>
-          <Title>Overall Decision/Result</Title>
+        <Title>Decision Appraisal:</Title>
+        <p>Was it a quality  decision, good or bad? What was the outcome, good or bad?</p>
           <TextArea
             placeholder=''
             name='LLQ1'
             onChange={handleChange}
             value={lessonsblock.LLQ1}
           />
-          <Title>Additional sustainment activities required?</Title>
+          <Title>Appropriate Frame:</Title>
+          <p>Was an appropriate  problem frame well suited to the situation (not too narrow, not too broad)?  Score 0-100%?</p>
           <TextArea
             placeholder=''
             name='LLQ2'
             onChange={handleChange}
             value={lessonsblock.LLQ2}
           />
-          <Title>Audit</Title>
+          <Title>Creative Alternatives:</Title>
+          <p>Were a rich set of  alternatives created each with distinct actions, costs and benefits? A  decision can't be better than the best alternative. Score 0-100%?</p>
           <TextArea
             placeholder=''
             name='LLQ3'
             onChange={handleChange}
             value={lessonsblock.LLQ3}
           />
-          <Title>Lessons learned? Lessons shared?</Title>
+          <Title>Relevant  Knowledge:</Title>
+          <p>Was relevant and  reliable information and the best available knowledge applied from trusted  sources? Were the significant inputs and assumptions tested? Was it worth  getting more info/knowledge to reduce uncertainty around the decision? Score  0-100%?</p>
           <TextArea
             placeholder=''
             name='LLQ4'
             onChange={handleChange}
             value={lessonsblock.LLQ4}
           />
-          <Title>
-            Future opportunities for continuous improvement? Innovation?
-          </Title>
+          
+          <Title>Values  & Tradeoffs:</Title>
+          <p>Did the evaluation of  the solution alternatives properly weigh tradeoffs consistent with the  organization's strategies & objectives, and values? Score 0-100%?</p>
           <TextArea
             placeholder=''
             name='LLQ5'
             onChange={handleChange}
             value={lessonsblock.LLQ5}
           />
-          <Title>Provide a Decision Quality Sliders graphic</Title>
+          <Title>Sound  Reasoning:</Title>
+          <p>Did the  evaluation apply sound reasoning with  a suitable solution model? Were the relative uncertainties between  alternatives assessed? Were attempts made to minimize biases and blind spots? Score 0-100%?</p>
           <TextArea
             placeholder=''
             name='LLQ6'
             onChange={handleChange}
             value={lessonsblock.LLQ6}
+          />
+
+          <Title>Commitment  to Action:</Title>
+          <p>Did the alternative  with the best value proposition become clear? Was the decision to action  clear and concise? Did the organization secure resources, show active  leadership and see it through? Were any guardrails exceeded and contingency  plans implemented? Score 0-100%?</p>
+          <TextArea
+            placeholder=''
+            name='LLQ7'
+            onChange={handleChange}
+            value={lessonsblock.LLQ7}
+          />
+
+          
+          <Title>Improvement, Innovation:</Title>
+          <p>What opportunities  for continuous improvement or innovation can be made in future  problem-solving & decision-making? List them.</p>
+          <TextArea
+            placeholder=''
+            name='LLQ8'
+            onChange={handleChange}
+            value={lessonsblock.LLQ8}
           />
         </Section>
       </Container>
