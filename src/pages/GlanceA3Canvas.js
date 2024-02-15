@@ -38,7 +38,7 @@ const Title = styled.h2`
 `
 
 const Header = styled.div`
-  padding: 0 20px 20px;
+  padding: 0 20px;
   border-radius: 8px;
   width: 100%; /* Set width to 100% */
   display: flex;
@@ -51,21 +51,28 @@ const Header = styled.div`
   border-radius: 8px;
 `
 
+const HeaderGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  border-radius: 8px;
+  width: 100%;
+  margin: 10px;
+`
+
 const HeaderItem = styled.div`
-  margin-bottom: -20px;
-  width: 100%; /* Set width to 100% */
   display: flex;
-  align-items: center;
+  flex-direction: column;
 `
 
-const HeaderLabel = styled(Title)`
-  margin-right: 10px;
+const HeaderLabel = styled.span`
+  font-weight: bold;
+  padding-right: 5px;
 `
 
-const MainHeader = styled.h1`
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 20px;
+const HeaderLine = styled.div`
+  display: flex;
+  align-items: flex-start; /* Align items at the start of the container */
 `
 
 const StyledButton = styled(Button)`
@@ -285,41 +292,82 @@ const A3Canvas = ({ selectedEntryId }) => {
   return (
     <>
       <Container>
-        
         <Header>
-          <HeaderItem>
-            <HeaderLabel>ID:</HeaderLabel>
-            <Typography variant='subtitle1'>{selectedEntryId}</Typography>
-          </HeaderItem>
-          {titleContent &&
-            titleContent.map((content) => (
-              <React.Fragment key={content.id}>
-                <HeaderItem>
-                  <HeaderLabel>Description:</HeaderLabel>
-                  <Typography variant='subtitle1'>
-                    {content.Description}
-                  </Typography>
-                </HeaderItem>
-                <HeaderItem>
-                  <HeaderLabel>Team Problem Solver:</HeaderLabel>
-                  <Typography variant='subtitle1'>
-                    {content.ProblemSolvers}
-                  </Typography>
-                </HeaderItem>
-                <HeaderItem>
-                  <HeaderLabel>Team Decision Maker:</HeaderLabel>
-                  <Typography variant='subtitle1'>
-                    {content.DecisionMakers}
-                  </Typography>
-                </HeaderItem>
-                <HeaderItem>
-                  <HeaderLabel>Status:</HeaderLabel>
-                  <Typography variant='subtitle1'>{content.TQ2}</Typography>
-                </HeaderItem>
-              </React.Fragment>
-            ))}
+          <HeaderGrid>
+            {titleContent &&
+              titleContent.map((content) => (
+                <React.Fragment key={content.id}>
+                  <HeaderItem>
+                    <HeaderLine>
+                      <HeaderLabel>ID:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {selectedEntryId}
+                      </Typography>
+                    </HeaderLine>
+                    <HeaderLine>
+                      <HeaderLabel>Description:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content && content.Description}
+                      </Typography>
+                    </HeaderLine>
+                    <HeaderLine>
+                      <HeaderLabel>Date:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content &&
+                          new Date(content.Created_Date).toLocaleString()}
+                      </Typography>
+                    </HeaderLine>
+                  </HeaderItem>
+                  <HeaderItem>
+                    <HeaderLine>
+                      <HeaderLabel>Team:</HeaderLabel>
+                      <ul
+                        style={{ listStyleType: 'none', margin: 0, padding: 0 }}
+                      >
+                        {content &&
+                          content.ProblemSolvers.split(/[\n,]/).map(
+                            (member, index) => (
+                              <Typography key={index} variant='subtitle1'>
+                                {member.trim()}
+                              </Typography>
+                            ),
+                          )}
+                      </ul>
+                    </HeaderLine>
+                  </HeaderItem>
+                  <HeaderItem>
+                    <HeaderLine>
+                      <HeaderLabel>Status:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content && content.Status}
+                      </Typography>
+                    </HeaderLine>
+                    <HeaderLine>
+                      <HeaderLabel>Impact:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content && content.Impact}
+                      </Typography>
+                    </HeaderLine>
+                  </HeaderItem>
+                  <HeaderItem>
+                    <HeaderLine>
+                      <HeaderLabel>Type:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content && content.Type}
+                      </Typography>
+                    </HeaderLine>
+                    <HeaderLine>
+                      <HeaderLabel>Complexity:</HeaderLabel>
+                      <Typography variant='subtitle1'>
+                        {content && content.Complexity}
+                      </Typography>
+                    </HeaderLine>
+                  </HeaderItem>
+                </React.Fragment>
+              ))}
+          </HeaderGrid>
           <StyledButton onClick={openTitleModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayTitleModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayTitleModal}>
             <TitleblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -336,7 +384,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayModal}>
             <ProblemblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -356,7 +404,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openDecisionModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displayDecisionModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayDecisionModal}>
             <DecisionblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -374,7 +422,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openCurrentModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayCurrentModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayCurrentModal}>
             <CurrentblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -394,7 +442,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openImplementationModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displayImplementationModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayImplementationModal}>
             <ImplementationblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -412,7 +460,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openFutureModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayFutureModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayFutureModal}>
             <FutureblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -430,7 +478,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openValueModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayValueModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayValueModal}>
             <ValueblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -450,7 +498,7 @@ const A3Canvas = ({ selectedEntryId }) => {
           <StyledButton onClick={openSolutionModal}>
             {moreInfoText}
           </StyledButton>
-          <Modal open={displaySolutionModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displaySolutionModal}>
             <SolutionblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
@@ -468,7 +516,7 @@ const A3Canvas = ({ selectedEntryId }) => {
               </React.Fragment>
             ))}
           <StyledButton onClick={openLessonsModal}>{moreInfoText}</StyledButton>
-          <Modal open={displayLessonsModal}>
+          <Modal sx={{overflowY: 'scroll'}} disableScrollLock={false} open={displayLessonsModal}>
             <LessonsblockDisplay
               selectedEntryId={selectedEntryId}
               selectedId={selectedId}
