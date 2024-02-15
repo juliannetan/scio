@@ -10,6 +10,13 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js'
 
+import { v4 as uuidv4 } from 'uuid';
+import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
+
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/current/";
+
+
+
 const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [currentblock, setCurrentblock] = useState({})
   const customSnackbarRef = useRef(null)
@@ -93,19 +100,116 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     }
   }
 
+
+  /* Upload Image*/
+  const [images, setImages] = useState([]);  
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  async function getImages() {
+    const { data, error } = await supabase
+    
+      .storage
+      .from('images')
+      .list( 'scio/current/', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: "name", order: "asc"}
+      });   
+
+      if(data !== null) {
+        setImages(data);
+      } else {
+        alert("Error loading images");
+        console.log(error);
+      }
+  }
+
+  useEffect(() => {
+    getImages();    
+}, [])
+
+
+async function uploadImage(e) {
+
+  let file = e.target.files[0];  
+
+  const { data, error } = await supabase
+    .storage
+    .from('images/scio/current/')
+    .upload('/' + uuidv4(), file )
+     
+    if(data) {
+      console.log('Image uploaded successfully')
+    getImages();
+  } else {
+    console.log('Error uploading image:', error)
+  }
+}
+
+
+async function deleteImage(imageName) {
+  const { error } = await supabase
+    .storage
+    .from('images')
+    .remove([ 'scio/providedId/current/' + imageName])
+  
+  if(error) {
+    alert(error);
+  } else {
+    getImages();
+  }
+}
+
+const handleImageClick = () => {
+  if (selectedFile)
+  {
+    window.open(URL.createObjectURL(selectedFile)); 
+};
+}
+
+
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Current State Statement</Title>
-          <TextArea
-            placeholder=''
-            name='CS1'
-            required={false}
-            onChange={handleChange}
-            value={currentblock.CS1 || ''}
-          />
+        <Title>Current State:</Title>
+        <p>Present....</p>
+
+        <TextArea
+        placeholder=''
+        name='CS1'
+        required={false}
+        onChange={handleChange}
+      />
+
+
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+        <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+        <hr />
+        <h3>Your Images</h3>
+        <Grid container spacing={2}>
+          {images.map((image) => (
+            <Grid item key={CDNURL + "/" + image.name}>
+              <Card>
+                <CardMedia  
+                  component="img"
+                  height="150"                
+                  image={CDNURL + "/" + image.name}
+                />
+                <CardContent>   
+                 
+                 <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                 
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>  
           <Title>Secondary Current State Statement</Title>
+          <p>Optional content not shown on A3 Canvas</p>  
           <TextArea
             placeholder=''
             name='CS2'
@@ -115,7 +219,8 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           />
         </Section>
         <Section>
-          <Title>What is the problem background? How did we get here?</Title>
+        <Title>Problem  Background:</Title>
+        <p>What is the problem  background? How did we get here?</p>
           <TextArea
             placeholder=''
             name='CQ1'
@@ -123,10 +228,8 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={currentblock.CQ1 || ''}
           />
-          <Title>
-            How are we dealing with the problem now? What are the barriers to
-            solving this problem already?
-          </Title>
+          <Title>Currently  Managing:</Title>
+          <p>How are we currently  dealing with the problem now? Why isn't it working? What are the barriers to  solving this problem already?</p>
           <TextArea
             placeholder=''
             name='CQ2'
@@ -134,10 +237,8 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={currentblock.CQ2 || ''}
           />
-          <Title>
-            Everything is relative. Relative to what, exactly? What is the
-            baseline view? Wide view? External view? What’s the denominator?
-          </Title>
+          <Title>Current  Context:</Title>
+          <p>Everything is  relative. This is a problem relative to what, exactly? What is the baseline  view? What is the wide global view? What is the external or fresh eyes view?  What is the denominator?</p>
           <TextArea
             placeholder=''
             name='CQ3'
@@ -145,7 +246,8 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={currentblock.CQ3 || ''}
           />
-          <Title>What is our confidence/uncertainty?</Title>
+          <Title>Current  Causes:</Title>
+          <p>What are the causes  and root causes of the problem? How quickly is the problem developing?</p>
           <TextArea
             placeholder=''
             name='CQ4'
@@ -153,7 +255,8 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={currentblock.CQ4 || ''}
           />
-          <Title>What are the causes, root causes and 5 Whys?</Title>
+          <Title>Current  Confidence:</Title>
+          <p>What is our  confidence or uncertainty in our understanding of the problem? How much error  might be present? What information and knowledge do we possess and is our  confidence low, medium or high? What information and knowledge we do not  possess would be useful? Is it worth pursuing?</p>
           <TextArea
             placeholder=''
             name='CQ5'
@@ -161,17 +264,7 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={currentblock.CQ5 || ''}
           />
-          <Title>
-            What is the problem scale? Value driver(s)? Impact? Time horizon?
-            Problem type?
-          </Title>
-          <TextArea
-            placeholder=''
-            name='CQ6'
-            required={false}
-            onChange={handleChange}
-            value={currentblock.CQ6 || ''}
-          />
+          
         </Section>
         <TitleblockButtons>
           <StyledButton type='submit'>Save</StyledButton>

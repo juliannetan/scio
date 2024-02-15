@@ -10,6 +10,14 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js'
 
+
+import { v4 as uuidv4 } from 'uuid';
+import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
+
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/future/";
+
+
+
 const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [futureblock, setFuturebblock] = useState({})
   const customSnackbarRef = React.useRef(null)
@@ -93,21 +101,113 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     }
   }
 
+/* Upload Image*/
+const [images, setImages] = useState([]);  
+const [selectedFile, setSelectedFile] = useState(null);
+
+async function getImages() {
+  const { data, error } = await supabase
+  
+    .storage
+    .from('images')
+    .list( 'scio/future/', {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: "name", order: "asc"}
+    });   
+
+    if(data !== null) {
+      setImages(data);
+    } else {
+      alert("Error loading images");
+      console.log(error);
+    }
+}
+
+useEffect(() => {
+  getImages();    
+}, [])
+
+
+async function uploadImage(e) {
+
+let file = e.target.files[0];  
+
+const { data, error } = await supabase
+  .storage
+  .from('images/scio/future/')
+  .upload('/' + uuidv4(), file )
+   
+  if(data) {
+    console.log('Image uploaded successfully')
+  getImages();
+} else {
+  console.log('Error uploading image:', error)
+}
+}
+
+
+async function deleteImage(imageName) {
+const { error } = await supabase
+  .storage
+  .from('images')
+  .remove([ 'scio/future/' + imageName])
+
+if(error) {
+  alert(error);
+} else {
+  getImages();
+}
+}
+
+const handleImageClick = () => {
+if (selectedFile)
+{
+  window.open(URL.createObjectURL(selectedFile)); 
+};
+}
+
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-          <Title>Future State Gap Statement with bullets</Title>
-          <TextArea
-            placeholder=''
-            name='FS1'
-            required={false}
-            onChange={handleChange}
-            defaultValue={futureblock.FS1}
-          />
-          <Title>Future State Chart/Graphic</Title>
+        <Title>Future State:</Title>
+        <p>Present.....</p>
+        <TextArea
+          placeholder=''
+          name='FS1'
+          required={false}
+          onChange={handleChange}
+        />
+          <p>Use the Choose File button below to upload an image to your gallery</p>
+          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <hr />
+          <h3>Your Images</h3>
+          <Grid container spacing={2}>
+            {images.map((image) => (
+              <Grid item key={CDNURL + "/" + image.name}>
+                <Card>
+                  <CardMedia  
+                    component="img"
+                    height="150"                
+                    image={CDNURL + "/" + image.name}
+                  />
+                  <CardContent>   
+                   
+                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
+                   
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>  
+          <Title>Secondary Future State Content:</Title>
+          <p>Optional content not shown on A3 Canvas</p>
           <div />
-          <Title>Secondary Content</Title>
+         
           <TextArea
             placeholder=''
             name='FS2'
@@ -117,10 +217,8 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           />
         </Section>
         <Section>
-          <Title>
-            What are the expected targets from Future business goals &
-            objectives?
-          </Title>
+        <Title>Future Targets:</Title>
+        <p>What are the expected  targets from current business goals and objectives?</p>
           <TextArea
             placeholder=''
             name='FQ1'
@@ -128,7 +226,8 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ1}
           />
-          <Title>What is the gap between Future and future state?</Title>
+          <Title>Future Gap:</Title>
+          <p>What is the variance  between current state and expected future state?</p>
           <TextArea
             placeholder=''
             name='FQ2'
@@ -136,10 +235,8 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ2}
           />
-          <Title>
-            Can the real or perceived constraints in this situation be
-            challenged?
-          </Title>
+          <Title> Future  Controllable: </Title>
+          <p>How much of the gap  is controllable? Can some or all of the gap be closed? Is there opportunity  to exceed expectations?</p>
           <TextArea
             placeholder=''
             name='FQ3'
@@ -147,7 +244,8 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ3}
           />
-          <Title>What are the conditions of satisfaction for success?</Title>
+          <Title>Future  Success:</Title>
+          <p>What are the  conditions of satisfaction or optimization that ensure success?</p>
           <TextArea
             placeholder=''
             name='FQ4'
@@ -155,7 +253,8 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ4}
           />
-          <Title>How much of the gap is controllable?</Title>
+          <Title>Future  Tolerance:</Title>
+          <p>What is our tolerance  for failure from an undesired outcome? Is it acceptable if satisfactions for  conditions for success are not fully met? Is there a minimum requirement that  must be met to move forward with a solution?</p>
           <TextArea
             placeholder=''
             name='FQ5'
@@ -163,16 +262,7 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             defaultValue={futureblock.FQ5}
           />
-          <Title>
-            What is our tolerance for failure or an undesired outcome?
-          </Title>
-          <TextArea
-            placeholder=''
-            name='FQ6'
-            required={false}
-            onChange={handleChange}
-            defaultValue={futureblock.FQ6}
-          />
+         
         </Section>
       </Container>
       <TitleblockButtons>
