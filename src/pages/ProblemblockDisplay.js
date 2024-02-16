@@ -106,10 +106,25 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
       <Container>
         <Section>
           <Title>Problem Statement</Title>
-          <p><strong>Present a clear and concise paragraph characterizing the following:</strong> </p>                                                     
-          <p>1. Gap - The challenge, issue or pain we currently face</p>                                                               <p>2. Context - When and where the problem was found and what makes it a problem</p>                                
-          <p>3. Impact - Measure of the problem's potential consequences to the organization </p>
-          <p>4. Importance - Why this problem matters to the organization, its stakeholders, and is worth solving</p>           
+          <p>
+            <strong>
+              Present a clear and concise paragraph characterizing the
+              following:
+            </strong>{' '}
+          </p>
+          <p>1. Gap - The challenge, issue or pain we currently face</p>{' '}
+          <p>
+            2. Context - When and where the problem was found and what makes it
+            a problem
+          </p>
+          <p>
+            3. Impact - Measure of the problem's potential consequences to the
+            organization{' '}
+          </p>
+          <p>
+            4. Importance - Why this problem matters to the organization, its
+            stakeholders, and is worth solving
+          </p>
           <TextArea
             placeholder=''
             name='PS1'
@@ -118,7 +133,7 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={problemblock.PS1 || ''}
           />
           <Title>Secondary Content</Title>
-          <p>Optional content not shown on A3 Canvas </p> 
+          <p>Optional content not shown on A3 Canvas </p>
           <TextArea
             placeholder=''
             name='PS2'
@@ -128,8 +143,13 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           />
         </Section>
         <Section>
-        <Title> What is the Problem? </Title>
-        <p> Problem Brief describes the initial understanding of the problem, also called 'a priority'. This statement will be refined after answering the questions below. </p>
+          <Title> What is the Problem? </Title>
+          <p>
+            {' '}
+            Problem Brief describes the initial understanding of the problem,
+            also called 'a priority'. This statement will be refined after
+            answering the questions below.{' '}
+          </p>
           <TextArea
             placeholder=''
             name='PQ1'
@@ -137,8 +157,11 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={problemblock.PQ1 || ''}
           />
-          <Title>How was  the Problem Discovered?</Title>
-          <p>When was this problem discovered? Who? How? Did we deliberately look for and find the problem, or was it unintentional?</p>
+          <Title>How was the Problem Discovered?</Title>
+          <p>
+            When was this problem discovered? Who? How? Did we deliberately look
+            for and find the problem, or was it unintentional?
+          </p>
           <TextArea
             placeholder=''
             name='PQ2'
@@ -146,8 +169,12 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={problemblock.PQ2 || ''}
           />
-          <Title>What is at  Stake?</Title>
-          <p>What is the threat or opportunity to the organization's goals, objectives, strategies or plans? How much value is at stake against the organization's value framework?</p>
+          <Title>What is at Stake?</Title>
+          <p>
+            What is the threat or opportunity to the organization's goals,
+            objectives, strategies or plans? How much value is at stake against
+            the organization's value framework?
+          </p>
           <TextArea
             placeholder=''
             name='PQ3'
@@ -155,8 +182,12 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={problemblock.PQ3 || ''}
           />
-          <Title> What is  Affected?</Title>
-          <p>Who? What  organizational people or groups and external stakeholders are affected? What  business processes or technologies? What assets cost, performance and risk are  affected?</p>
+          <Title> What is Affected?</Title>
+          <p>
+            Who? What organizational people or groups and external stakeholders
+            are affected? What business processes or technologies? What assets
+            cost, performance and risk are affected?
+          </p>
           <TextArea
             placeholder=''
             name='PQ4'
@@ -164,8 +195,13 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={problemblock.PQ4 || ''}
           />
-          <Title> Which  Frame? </Title>
-          <p>Which frame(s) can we  apply as lens to see the problem. An  appropriate frame addresses the problem purpose, scope and perspective.  Consider alternative frames from diverse perspectives. What frame is the best  fit for use here?</p>
+          <Title> Which Frame? </Title>
+          <p>
+            Which frame(s) can we apply as lens to see the problem. An
+            appropriate frame addresses the problem purpose, scope and
+            perspective. Consider alternative frames from diverse perspectives.
+            What frame is the best fit for use here?
+          </p>
           <TextArea
             placeholder=''
             name='PQ5'
@@ -173,8 +209,12 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             onChange={handleChange}
             value={problemblock.PQ5 || ''}
           />
-          <Title>Problem  Worth Solving?</Title>
-          <p>What is this a  problem worth solving and a decision worth making? What is the gap between  what we want versus what we expect or achieve if the problem is not  addressed?</p>
+          <Title>Problem Worth Solving?</Title>
+          <p>
+            What is this a problem worth solving and a decision worth making?
+            What is the gap between what we want versus what we expect or
+            achieve if the problem is not addressed?
+          </p>
           <TextArea
             placeholder=''
             name='PQ6'
@@ -183,16 +223,19 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={problemblock.PQ6 || ''}
           />
 
-          <Title>Clarify  the Problem Statement</Title>
-          <p>Clarify the Problem  Brief in light of information presented above. Update responses above as new  information and knowledge becomes available. </p>
-        <TextArea
-          placeholder=''
-          name='PQ7'
-          required={false}
-          onChange={handleChange}
-          value={problemblock.PQ7 || ''}
-        />
-        
+          <Title>Clarify the Problem Statement</Title>
+          <p>
+            Clarify the Problem Brief in light of information presented above.
+            Update responses above as new information and knowledge becomes
+            available.{' '}
+          </p>
+          <TextArea
+            placeholder=''
+            name='PQ7'
+            required={false}
+            onChange={handleChange}
+            value={problemblock.PQ7 || ''}
+          />
         </Section>
         <TitleblockButtons>
           <StyledButton type='submit'>Save</StyledButton>

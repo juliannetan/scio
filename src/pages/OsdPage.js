@@ -49,7 +49,6 @@ const convertToBulletPoints = (content) => {
   })
 }
 
-
 const OsdPage = () => {
   const [items, setItems] = useState([])
 
