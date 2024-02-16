@@ -228,7 +228,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             content is not shown in the A3 Canvas view.
           </p>
 
-          <strong>Solution Alterative Set A</strong>
+          <strong>Solution Alternative Set A</strong>
           <TextArea
             placeholder=''
             name='SAA'
@@ -237,7 +237,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={solutionblock.SAA || ''}
           />
 
-          <strong>Solution Alterative Set B</strong>
+          <strong>Solution Alternative Set B</strong>
           <TextArea
             placeholder=''
             name='SAB'
@@ -246,7 +246,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={solutionblock.SAB || ''}
           />
 
-          <strong>Solution Alterative Set C</strong>
+          <strong>Solution Alternative Set C</strong>
           <TextArea
             placeholder=''
             name='SAC'
@@ -255,7 +255,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={solutionblock.SAC || ''}
           />
 
-          <strong>Solution Alterative Set D</strong>
+          <strong>Solution Alternative Set D</strong>
           <TextArea
             placeholder=''
             name='SAD'
@@ -264,7 +264,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={solutionblock.SAD || ''}
           />
 
-          <strong>Solution Alterative Set E</strong>
+          <strong>Solution Alternative Set E</strong>
           <TextArea
             placeholder=''
             name='SAE'
@@ -273,7 +273,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             value={solutionblock.SAE || ''}
           />
 
-          <strong>Solution Alterative Set F</strong>
+          <strong>Solution Alternative Set F</strong>
           <TextArea
             placeholder=''
             name='SAF'
