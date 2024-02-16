@@ -54,7 +54,7 @@ const OsdPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from('items').select('*')
+      const { data, error } = await supabase.from('items').select('*').order('order_id')
       if (error) {
         console.error('Error fetching data:', error.message)
       } else {
