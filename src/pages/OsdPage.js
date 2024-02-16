@@ -34,8 +34,21 @@ const convertToBulletPoints = (content) => {
     point.replace(/\n+$/, ''),
   )
 
-  return sanitizedPoints.map((point, index) => <li key={index}>{point}</li>)
+  return sanitizedPoints.map((point, index) => {
+    const isItalic = point.startsWith('*') && point.endsWith('*')
+    const sanitizedPoint = point.replace(/\*+/g, '')
+    if (isItalic) {
+      return (
+        <ul key={index} style={{ padding: 0 }}>
+          <em>{sanitizedPoint}</em>
+        </ul>
+      )
+    } else {
+      return <li key={index}>{point}</li>
+    }
+  })
 }
+
 
 const OsdPage = () => {
   const [items, setItems] = useState([])
@@ -59,7 +72,7 @@ const OsdPage = () => {
         <WidgetContainer key={index}>
           <WidgetTitle>{item.title}</WidgetTitle>
           <Box sx={{ width: '100%' }}>
-            <ul>{convertToBulletPoints(item.content)}</ul>
+            {convertToBulletPoints(item.content)}
           </Box>
         </WidgetContainer>
       ))}
