@@ -191,7 +191,7 @@ const handleImageClick = () => {
           onChange={handleChange}
         />    
 
-        <strong>Solution  Alterative Set B</strong>
+        <strong>Solution  Alternative Set B</strong>
         <TextArea
         placeholder=''
         name='SAB'
@@ -200,7 +200,7 @@ const handleImageClick = () => {
       />  
 
       
-      <strong>Solution  Alterative Set C</strong>
+      <strong>Solution  Alternative Set C</strong>
       <TextArea
       placeholder=''
       name='SAC'
@@ -209,7 +209,7 @@ const handleImageClick = () => {
     />  
 
                  
-    <strong>Solution  Alterative Set D</strong>
+    <strong>Solution  Alternative Set D</strong>
       <TextArea
       placeholder=''
       name='SAD'
@@ -218,7 +218,7 @@ const handleImageClick = () => {
     />  
 
                  
-    <strong>Solution  Alterative Set E</strong>
+    <strong>Solution  Alternative Set E</strong>
       <TextArea
       placeholder=''
       name='SAE'
@@ -226,7 +226,7 @@ const handleImageClick = () => {
       onChange={handleChange}
     />  
 
-    <strong>Solution  Alterative Set F</strong>
+    <strong>Solution  Alternative Set F</strong>
       <TextArea
       placeholder=''
       name='SAF'
