@@ -30,6 +30,7 @@ const DifTable = ({
           .select(
             'ID, Description, Created_By, Created_Date, ProblemSolvers, DecisionMakers',
           )
+          .order('Created_Date', { ascending: false })
         if (error) {
           throw error
         }
@@ -131,12 +132,6 @@ const DifTable = ({
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
       },
     },
-    // {
-    //   field: 'modifiedDate',
-    //   headerName: 'Modified Date',
-    //   type: 'date',
-    //   width: 180,
-    // },
     {
       field: 'problemSolvers',
       headerName: 'Problem-Solvers',

@@ -178,10 +178,18 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Team Selection Guidance:</Title>
-          <Title>Using the RAPID model, who has the roles on the PSDM team? Are all team members competent with requisite experience, tract record and authority for their assigned roles?</Title>
-          
+          <Title>
+            Using the RAPID model, who has the roles on the PSDM team? Are all
+            team members competent with requisite experience, tract record and
+            authority for their assigned roles?
+          </Title>
+
           <Title>Team Lead:</Title>
-          <p>Who is the problem-solver? The Lead initiates A3 PSDM record, does most of the analysis & evaluation work, most of the content entry, at discretion of Recommender.</p>
+          <p>
+            Who is the problem-solver? The Lead initiates A3 PSDM record, does
+            most of the analysis & evaluation work, most of the content entry,
+            at discretion of Recommender.
+          </p>
           <TextArea
             placeholder=''
             name='ProblemSolvers'
@@ -189,7 +197,12 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Input:</Title>
-          <p>Who provides input to the problem-solution? These people provide technical business expertise, experience and information to shape the problem & solution with input at the discretion of the Inputters.</p>
+          <p>
+            Who provides input to the problem-solution? These people provide
+            technical business expertise, experience and information to shape
+            the problem & solution with input at the discretion of the
+            Inputters.
+          </p>
           <TextArea
             placeholder=''
             name='Input'
@@ -197,7 +210,11 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Recommend:</Title>
-          <p>Who makes the recommendation? The Recommender provides technical authority to ensure the problem solution set follows good practice and recommend solution, steps status from Recommender.</p>
+          <p>
+            Who makes the recommendation? The Recommender provides technical
+            authority to ensure the problem solution set follows good practice
+            and recommend solution, steps status from Recommender.
+          </p>
           <TextArea
             placeholder=''
             name='Recommend'
@@ -206,16 +223,23 @@ const TitleblockPage = ({
           />
 
           <Title>Decision:</Title>
-          <p>Who makes the decision? The Decision-Maker commits the organization to action with requisite business authority and resources </p>
+          <p>
+            Who makes the decision? The Decision-Maker commits the organization
+            to action with requisite business authority and resources{' '}
+          </p>
           <TextArea
             placeholder=''
             name='DecisionMakers'
             required={false}
             onChange={handleChange}
           />
-         
+
           <Title>Implement:</Title>
-          <p>Who  implements the action plan? Primary responsibility to execute the action plan and reports execution progress to team. Likely has project plans and  dedicated team outside of PSDM canvas</p>
+          <p>
+            Who implements the action plan? Primary responsibility to execute
+            the action plan and reports execution progress to team. Likely has
+            project plans and dedicated team outside of PSDM canvas
+          </p>
           <TextArea
             placeholder=''
             name='Implement'
@@ -223,21 +247,27 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
 
-
-
           <Title>Assurance:</Title>
-          <p>Who provides assurance? Provides audit and assurance the PSDM follows good practice, evaluates performance metrics and value delivery, facilitates lessons learned.</p>
+          <p>
+            Who provides assurance? Provides audit and assurance the PSDM
+            follows good practice, evaluates performance metrics and value
+            delivery, facilitates lessons learned.
+          </p>
           <TextArea
             placeholder=''
             name='Assurance'
             required={false}
             onChange={handleChange}
           />
-          
         </Section>
         <Section>
           <Title>Status:</Title>
-          <p>Select the current PSDM process stage, In progress states: Initiation, Problem, Solution, Decision, Implementation, Value Delivery, Learnings. On Hold Status include: Pause, Pivot. Complete Status includes</p>
+          <p>
+            Select the current PSDM process stage, In progress states:
+            Initiation, Problem, Solution, Decision, Implementation, Value
+            Delivery, Learnings. On Hold Status include: Pause, Pivot. Complete
+            Status includes
+          </p>
           <TextArea
             placeholder=''
             name='Status'
@@ -253,7 +283,10 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Impact:</Title>
-          <p>Select impact. Impact choices include: Negligible, Minor, Marginal, Major, Critical, Catastrophic</p>
+          <p>
+            Select impact. Impact choices include: Negligible, Minor, Marginal,
+            Major, Critical, Catastrophic
+          </p>
           <TextArea
             placeholder=''
             name='Impact'
@@ -261,7 +294,12 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Complexity:</Title>
-          <p>Select complexity on scale 1-7. Rank the complexity (low/medium/high) across the following dimensions: Technical, Organizational, Social, Time Complexities( Specific guidance available)</p>
+          <p>
+            Select complexity on scale 1-7. Rank the complexity
+            (low/medium/high) across the following dimensions: Technical,
+            Organizational, Social, Time Complexities( Specific guidance
+            available)
+          </p>
           <TextArea
             placeholder=''
             name='Complexity'
@@ -277,7 +315,10 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Organization:</Title>
-          <p>Select lowest applicable department from the organizational hierarchy with accountability and resources to effectively manage</p>
+          <p>
+            Select lowest applicable department from the organizational
+            hierarchy with accountability and resources to effectively manage
+          </p>
           <TextArea
             placeholder=''
             name='Organization'
@@ -285,7 +326,10 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Assets:</Title>
-          <p>Select the applicable assets at the lowest levels of the organization’s asset hierarchy affected</p>
+          <p>
+            Select the applicable assets at the lowest levels of the
+            organization’s asset hierarchy affected
+          </p>
           <TextArea
             placeholder=''
             name='Assets'
@@ -293,7 +337,12 @@ const TitleblockPage = ({
             onChange={handleChange}
           />
           <Title>Practice:</Title>
-          <p>Select most applicable practice. Practices may include: Operations, Maintenance, Reliability Engineering, Asset Strategy, Asset Planning, Asset Information, Shutdown/ Turnaround Outages, Supply Chain, Risk Management. </p>
+          <p>
+            Select most applicable practice. Practices may include: Operations,
+            Maintenance, Reliability Engineering, Asset Strategy, Asset
+            Planning, Asset Information, Shutdown/ Turnaround Outages, Supply
+            Chain, Risk Management.{' '}
+          </p>
           <TextArea
             placeholder=''
             name='Practice'

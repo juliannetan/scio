@@ -10,13 +10,11 @@ import {
   TitleblockButtons,
 } from './TitleBlockPage.js'
 
+import { v4 as uuidv4 } from 'uuid'
+import { Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material'
 
-import { v4 as uuidv4 } from 'uuid';
-import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
-
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
-
-
+const CDNURL =
+  'https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/'
 
 const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const [futureblock, setFuturebblock] = useState({})
@@ -101,114 +99,126 @@ const FutureblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     }
   }
 
-/* Upload Image*/
-const [images, setImages] = useState([]);  
-const [selectedFile, setSelectedFile] = useState(null);
+  /* Upload Image*/
+  const [images, setImages] = useState([])
+  const [selectedFile, setSelectedFile] = useState(null)
 
-async function getImages() {
-  const { data, error } = await supabase
-  
-    .storage
-    .from('images')
-    .list( 'scio/'+ selectedEntryId + '/future', {
-      limit: 100,
-      offset: 0,
-      sortBy: { column: "name", order: "asc"}
-    });   
+  async function getImages() {
+    const { data, error } = await supabase.storage
+      .from('images')
+      .list('scio/' + selectedEntryId + '/future', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: 'name', order: 'asc' },
+      })
 
-    if(data !== null) {
-      setImages(data);
+    if (data !== null) {
+      setImages(data)
     } else {
-      alert("Error loading images");
-      console.log(error);
+      alert('Error loading images')
+      console.log(error)
     }
-}
+  }
 
-useEffect(() => {
-  getImages();    
-}, [])
+  useEffect(() => {
+    getImages()
+  }, [])
 
+  async function uploadImage(e) {
+    let file = e.target.files[0]
 
-async function uploadImage(e) {
+    const { data, error } = await supabase.storage
+      .from('images/scio/' + selectedEntryId + '/future')
+      .upload('/' + uuidv4(), file)
 
-let file = e.target.files[0];  
+    if (data) {
+      console.log('Image uploaded successfully')
+      getImages()
+    } else {
+      console.log('Error uploading image:', error)
+    }
+  }
 
-const { data, error } = await supabase
-  .storage
-  .from('images/scio/'+ selectedEntryId + '/future')
-  .upload('/' + uuidv4(), file )
-   
-  if(data) {
-    console.log('Image uploaded successfully')
-  getImages();
-} else {
-  console.log('Error uploading image:', error)
-}
-}
+  async function deleteImage(imageName) {
+    const { error } = await supabase.storage
+      .from('images')
+      .remove(['scio/' + selectedEntryId + '/future/' + imageName])
 
+    if (error) {
+      alert(error)
+    } else {
+      getImages()
+    }
+  }
 
-async function deleteImage(imageName) {
-const { error } = await supabase
-  .storage
-  .from('images')
-  .remove(['scio/'+ selectedEntryId + '/future/' + imageName])
-
-if(error) {
-  alert(error);
-} else {
-  getImages();
-}
-}
-
-const handleImageClick = () => {
-if (selectedFile)
-{
-  window.open(URL.createObjectURL(selectedFile)); 
-};
-}
-
-
-
+  const handleImageClick = () => {
+    if (selectedFile) {
+      window.open(URL.createObjectURL(selectedFile))
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <Container>
         <Section>
-        <Title>Future State:</Title>
-        <p>Present.....</p>
-        <TextArea
-          placeholder=''
-          name='FS1'
-          required={false}
-          onChange={handleChange}
-          defaultValue={futureblock.FS1}
-        />
-          <p>Use the Choose File button below to upload an image to your gallery</p>
-          <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
+          <Title>Future State:</Title>
+          <p>Present.....</p>
+          <TextArea
+            placeholder=''
+            name='FS1'
+            required={false}
+            onChange={handleChange}
+            defaultValue={futureblock.FS1}
+          />
+          <p>
+            Use the Choose File button below to upload an image to your gallery
+          </p>
+          <input
+            type='file'
+            accept='.png, .jpg, .jpeg, '
+            onChange={(e) => uploadImage(e)}
+          />
           <hr />
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + selectedEntryId + "/" +  'future'+ "/" + image.name}>
+              <Grid
+                item
+                key={
+                  CDNURL + selectedEntryId + '/' + 'future' + '/' + image.name
+                }
+              >
                 <Card>
-                  <CardMedia  
-                    component="img"
-                    height="150"                
-                    image={CDNURL + selectedEntryId + "/" +  'future'+ "/" + image.name}
+                  <CardMedia
+                    component='img'
+                    height='150'
+                    image={
+                      CDNURL +
+                      selectedEntryId +
+                      '/' +
+                      'future' +
+                      '/' +
+                      image.name
+                    }
                   />
-                  <CardContent>   
-                   
-                   <Button size="small" variant="contained" color="error" onClick={() => deleteImage(image.name)}>Delete Image</Button> 
-                   
+                  <CardContent>
+                    <Button
+                      size='small'
+                      variant='contained'
+                      color='error'
+                      onClick={() => deleteImage(image.name)}
+                    >
+                      Delete Image
+                    </Button>
                   </CardContent>
                 </Card>
               </Grid>
             ))}
-          </Grid>  
+          </Grid>
           <Title>Secondary Future State Content:</Title>
           <p>Optional content not shown on A3 Canvas</p>
           <div />
-         
+
           <TextArea
             placeholder=''
             name='FS2'
@@ -218,8 +228,11 @@ if (selectedFile)
           />
         </Section>
         <Section>
-        <Title>Future Targets:</Title>
-        <p>What are the expected  targets from current business goals and objectives?</p>
+          <Title>Future Targets:</Title>
+          <p>
+            What are the expected targets from current business goals and
+            objectives?
+          </p>
           <TextArea
             placeholder=''
             name='FQ1'
@@ -228,7 +241,10 @@ if (selectedFile)
             defaultValue={futureblock.FQ1}
           />
           <Title>Future Gap:</Title>
-          <p>What is the variance  between current state and expected future state?</p>
+          <p>
+            What is the variance between current state and expected future
+            state?
+          </p>
           <TextArea
             placeholder=''
             name='FQ2'
@@ -236,8 +252,11 @@ if (selectedFile)
             onChange={handleChange}
             defaultValue={futureblock.FQ2}
           />
-          <Title> Future  Controllable: </Title>
-          <p>How much of the gap  is controllable? Can some or all of the gap be closed? Is there opportunity  to exceed expectations?</p>
+          <Title> Future Controllable: </Title>
+          <p>
+            How much of the gap is controllable? Can some or all of the gap be
+            closed? Is there opportunity to exceed expectations?
+          </p>
           <TextArea
             placeholder=''
             name='FQ3'
@@ -245,8 +264,11 @@ if (selectedFile)
             onChange={handleChange}
             defaultValue={futureblock.FQ3}
           />
-          <Title>Future  Success:</Title>
-          <p>What are the  conditions of satisfaction or optimization that ensure success?</p>
+          <Title>Future Success:</Title>
+          <p>
+            What are the conditions of satisfaction or optimization that ensure
+            success?
+          </p>
           <TextArea
             placeholder=''
             name='FQ4'
@@ -254,8 +276,13 @@ if (selectedFile)
             onChange={handleChange}
             defaultValue={futureblock.FQ4}
           />
-          <Title>Future  Tolerance:</Title>
-          <p>What is our tolerance  for failure from an undesired outcome? Is it acceptable if satisfactions for  conditions for success are not fully met? Is there a minimum requirement that  must be met to move forward with a solution?</p>
+          <Title>Future Tolerance:</Title>
+          <p>
+            What is our tolerance for failure from an undesired outcome? Is it
+            acceptable if satisfactions for conditions for success are not fully
+            met? Is there a minimum requirement that must be met to move forward
+            with a solution?
+          </p>
           <TextArea
             placeholder=''
             name='FQ5'
@@ -263,7 +290,6 @@ if (selectedFile)
             onChange={handleChange}
             defaultValue={futureblock.FQ5}
           />
-         
         </Section>
       </Container>
       <TitleblockButtons>
