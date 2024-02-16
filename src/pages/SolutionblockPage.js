@@ -192,7 +192,7 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
             resources and cost requirements with associated benefits. This
             content is not shown in the A3 Canvas view.
           </p>
-          <strong>Solution Alterative Set A</strong>
+          <strong>Solution Alternative Set A</strong>
           <TextArea
             placeholder=''
             name='SAA'
