@@ -13,7 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/solution/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 
@@ -84,7 +84,7 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
     
       .storage
       .from('images')
-      .list( 'scio/solution/', {
+      .list( 'scio/' + providedId + '/solution', {
         limit: 100,
         offset: 0,
         sortBy: { column: "name", order: "asc"}
@@ -109,7 +109,7 @@ async function uploadImage(e) {
 
   const { data, error } = await supabase
     .storage
-    .from('images/scio/solution/')
+    .from('images/scio/'+ providedId + '/solution' )
     .upload('/' + uuidv4(), file )
      
     if(data) {
@@ -125,7 +125,7 @@ async function deleteImage(imageName) {
   const { error } = await supabase
     .storage
     .from('images')
-    .remove([ 'scio/solution/' + imageName])
+    .remove(['scio/'+ providedId + '/solution/' + imageName])
   
   if(error) {
     alert(error);
@@ -164,12 +164,12 @@ const handleImageClick = () => {
           <h3>Your Files</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL +  providedId + "/" +  'solution'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + providedId + "/" +  'solution' + "/" + image.name}
                   />
                   <CardContent>   
                    
@@ -243,12 +243,12 @@ const handleImageClick = () => {
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL +  providedId + "/" +  'solution'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL +  providedId + "/" +  'solution'+ "/" + image.name}
                   />
                   <CardContent>   
                    

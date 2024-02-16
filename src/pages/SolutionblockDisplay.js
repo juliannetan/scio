@@ -13,7 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/solution/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 
@@ -111,7 +111,7 @@ const SolutionblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     
       .storage
       .from('images')
-      .list( 'scio/solution/', {
+      .list( 'scio/'+ selectedEntryId + '/solution', {
         limit: 100,
         offset: 0,
         sortBy: { column: "name", order: "asc"}
@@ -136,7 +136,7 @@ async function uploadImage(e) {
 
   const { data, error } = await supabase
     .storage
-    .from('images/scio/solution/')
+    .from('images/scio/'+ selectedEntryId + '/solution')
     .upload('/' + uuidv4(), file )
      
     if(data) {
@@ -152,7 +152,7 @@ async function deleteImage(imageName) {
   const { error } = await supabase
     .storage
     .from('images')
-    .remove([ 'scio/solution/' + imageName])
+    .remove(['scio/'+ selectedEntryId + '/solution/' + imageName])
   
   if(error) {
     alert(error);
@@ -181,6 +181,7 @@ const handleImageClick = () => {
         name='SS1'
         required={false}
         onChange={handleChange}
+        value={solutionblock.SS1 || ''}
       />
            
           <Title>Alternative vs. Objectives Table</Title>
@@ -190,12 +191,12 @@ const handleImageClick = () => {
           <h3>Your Files</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL + selectedEntryId + "/" +  'solution'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + selectedEntryId + "/" +  'solution'+ "/" + image.name}
                   />
                   <CardContent>   
                    
@@ -208,13 +209,15 @@ const handleImageClick = () => {
           </Grid>  
           <Title>Solution Alternatives</Title>
           <p>Provide a brief  description of each alternative and summarize resources and cost requirements  with associated benefits. This content is not shown in the A3 Canvas view.</p>
-          <strong>Solution  Alterative Set A</strong>
-          <TextArea
-          placeholder=''
-          name='SAA'
-          required={false}
-          onChange={handleChange}
-        />    
+
+         <strong>Solution  Alterative Set A</strong>
+        <TextArea
+        placeholder=''
+        name='SAA'
+        required={false}
+        onChange={handleChange}
+        value={solutionblock.SAA || ''}
+      />   
 
         <strong>Solution  Alterative Set B</strong>
         <TextArea
@@ -222,6 +225,7 @@ const handleImageClick = () => {
         name='SAB'
         required={false}
         onChange={handleChange}
+        value={solutionblock.SAB || ''}
       />  
 
       
@@ -230,7 +234,8 @@ const handleImageClick = () => {
       placeholder=''
       name='SAC'
       required={false}
-      onChange={handleChange}
+      onChange={handleChange}  
+      value={solutionblock.SAC || ''}
     />  
 
                  
@@ -240,6 +245,7 @@ const handleImageClick = () => {
       name='SAD'
       required={false}
       onChange={handleChange}
+      value={solutionblock.SAD || ''}
     />  
 
                  
@@ -249,6 +255,7 @@ const handleImageClick = () => {
       name='SAE'
       required={false}
       onChange={handleChange}
+      value={solutionblock.SAE || ''}
     />  
 
     <strong>Solution  Alterative Set F</strong>
@@ -257,13 +264,12 @@ const handleImageClick = () => {
       name='SAF'
       required={false}
       onChange={handleChange}
+      value={solutionblock.SAF || ''}
     />  
 
     <Title>Secondary Solution Evaluation Content:</Title>
           <Title>Indicated Recommended and Selected Solution</Title>
-          <TextArea placeholder='' />
-
-
+          
           <Title>Model Graphic like a decision tree, influence diagram, or other</Title>
           <p>Use the Choose File button below to upload an image to your gallery</p>
           <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
@@ -271,12 +277,12 @@ const handleImageClick = () => {
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL + selectedEntryId + "/" +  'solution'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + selectedEntryId + "/" +  'solution'+ "/" + image.name}
                   />
                   <CardContent>   
                    

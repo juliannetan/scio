@@ -14,7 +14,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/value/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
@@ -110,7 +110,7 @@ async function getImages() {
   
     .storage
     .from('images')
-    .list( 'scio/value/', {
+    .list( 'scio/'+ selectedEntryId + '/value', {
       limit: 100,
       offset: 0,
       sortBy: { column: "name", order: "asc"}
@@ -135,7 +135,7 @@ let file = e.target.files[0];
 
 const { data, error } = await supabase
   .storage
-  .from('images/scio/value/')
+  .from('images/scio/'+ selectedEntryId + '/value')
   .upload('/' + uuidv4(), file )
    
   if(data) {
@@ -151,7 +151,7 @@ async function deleteImage(imageName) {
 const { error } = await supabase
   .storage
   .from('images')
-  .remove([ 'scio/value/' + imageName])
+  .remove(['scio/'+ selectedEntryId + '/value/' + imageName])
 
 if(error) {
   alert(error);
@@ -182,12 +182,12 @@ if (selectedFile)
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL + selectedEntryId + "/" +  'value'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + selectedEntryId + "/" +  'value'+ "/" + image.name}
                   />
                   <CardContent>   
                    
@@ -205,12 +205,12 @@ if (selectedFile)
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL + selectedEntryId + "/" +  'value'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + selectedEntryId + "/" +  'value'+ "/" + image.name}
                   />
                   <CardContent>   
                    

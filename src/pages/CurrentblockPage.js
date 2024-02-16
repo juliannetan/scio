@@ -15,7 +15,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/current/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
@@ -82,7 +82,7 @@ const CurrentblockPage = ({ generatedId, providedId, setNextPage }) => {
     
       .storage
       .from('images')
-      .list( 'scio/current/', {
+      .list( 'scio/'+ providedId + '/current', {
         limit: 100,
         offset: 0,
         sortBy: { column: "name", order: "asc"}
@@ -107,8 +107,8 @@ async function uploadImage(e) {
 
   const { data, error } = await supabase
     .storage
-    .from('images/scio/current/')
-    .upload('/' + uuidv4(), file )
+    .from('images/scio/'+ providedId + '/current' )
+    .upload('/'+ uuidv4() , file )
      
     if(data) {
       console.log('Image uploaded successfully')
@@ -123,7 +123,7 @@ async function deleteImage(imageName) {
   const { error } = await supabase
     .storage
     .from('images')
-    .remove([ 'scio/current/' + imageName])
+    .remove(['scio/'+ providedId + '/current/' + imageName])
   
   if(error) {
     alert(error);
@@ -157,12 +157,12 @@ async function deleteImage(imageName) {
         <h3>Your Images</h3>
         <Grid container spacing={2}>
           {images.map((image) => (
-            <Grid item key={CDNURL + "/" + image.name}>
+            <Grid item key={CDNURL +  providedId + "/" +  'current'+ "/" + image.name}>
               <Card>
                 <CardMedia  
                   component="img"
                   height="150"                
-                  image={CDNURL + "/" + image.name}
+                  image={CDNURL + providedId + "/" +  'current' + "/" + image.name}
                 />
                 
                 <CardContent> 

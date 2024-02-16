@@ -13,7 +13,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/current/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 
@@ -110,7 +110,7 @@ const CurrentblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     
       .storage
       .from('images')
-      .list( 'scio/current/', {
+      .list( 'scio/'+ selectedEntryId + '/current', {
         limit: 100,
         offset: 0,
         sortBy: { column: "name", order: "asc"}
@@ -135,7 +135,7 @@ async function uploadImage(e) {
 
   const { data, error } = await supabase
     .storage
-    .from('images/scio/current/')
+    .from('images/scio/'+ selectedEntryId + '/current')
     .upload('/' + uuidv4(), file )
      
     if(data) {
@@ -151,7 +151,7 @@ async function deleteImage(imageName) {
   const { error } = await supabase
     .storage
     .from('images')
-    .remove([ 'scio/providedId/current/' + imageName])
+    .remove(['scio/'+ selectedEntryId + '/current/' + imageName])
   
   if(error) {
     alert(error);
@@ -183,6 +183,7 @@ const handleImageClick = () => {
         name='CS1'
         required={false}
         onChange={handleChange}
+        value={currentblock.CS1 || ''}
       />
 
 
@@ -192,12 +193,12 @@ const handleImageClick = () => {
         <h3>Your Images</h3>
         <Grid container spacing={2}>
           {images.map((image) => (
-            <Grid item key={CDNURL + "/" + image.name}>
+            <Grid item key={CDNURL + selectedEntryId + "/" +  'current'+ "/" + image.name}>
               <Card>
                 <CardMedia  
                   component="img"
                   height="150"                
-                  image={CDNURL + "/" + image.name}
+                  image={CDNURL + selectedEntryId + "/" +  'current' + "/" + image.name}
                 />
                 <CardContent>   
                  
