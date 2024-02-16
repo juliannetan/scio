@@ -200,45 +200,48 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
             onChange={handleChange}
           />
 
-          <strong>Solution Alterative Set B</strong>
-          <TextArea
-            placeholder=''
-            name='SAB'
-            required={false}
-            onChange={handleChange}
-          />
+        <strong>Solution  Alternative Set B</strong>
+        <TextArea
+        placeholder=''
+        name='SAB'
+        required={false}
+        onChange={handleChange}
+      />  
 
-          <strong>Solution Alterative Set C</strong>
-          <TextArea
-            placeholder=''
-            name='SAC'
-            required={false}
-            onChange={handleChange}
-          />
+      
+      <strong>Solution  Alternative Set C</strong>
+      <TextArea
+      placeholder=''
+      name='SAC'
+      required={false}
+      onChange={handleChange}
+    />  
 
-          <strong>Solution Alterative Set D</strong>
-          <TextArea
-            placeholder=''
-            name='SAD'
-            required={false}
-            onChange={handleChange}
-          />
+                 
+    <strong>Solution  Alternative Set D</strong>
+      <TextArea
+      placeholder=''
+      name='SAD'
+      required={false}
+      onChange={handleChange}
+    />  
 
-          <strong>Solution Alterative Set E</strong>
-          <TextArea
-            placeholder=''
-            name='SAE'
-            required={false}
-            onChange={handleChange}
-          />
+                 
+    <strong>Solution  Alternative Set E</strong>
+      <TextArea
+      placeholder=''
+      name='SAE'
+      required={false}
+      onChange={handleChange}
+    />  
 
-          <strong>Solution Alterative Set F</strong>
-          <TextArea
-            placeholder=''
-            name='SAF'
-            required={false}
-            onChange={handleChange}
-          />
+    <strong>Solution  Alternative Set F</strong>
+      <TextArea
+      placeholder=''
+      name='SAF'
+      required={false}
+      onChange={handleChange}
+    />  
 
           <Title>Secondary Solution Evaluation Content:</Title>
 
