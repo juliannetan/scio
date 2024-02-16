@@ -14,7 +14,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/future/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 
@@ -110,7 +110,7 @@ async function getImages() {
   
     .storage
     .from('images')
-    .list( 'scio/future/', {
+    .list( 'scio/'+ selectedEntryId + '/future', {
       limit: 100,
       offset: 0,
       sortBy: { column: "name", order: "asc"}
@@ -135,7 +135,7 @@ let file = e.target.files[0];
 
 const { data, error } = await supabase
   .storage
-  .from('images/scio/future/')
+  .from('images/scio/'+ selectedEntryId + '/future')
   .upload('/' + uuidv4(), file )
    
   if(data) {
@@ -151,7 +151,7 @@ async function deleteImage(imageName) {
 const { error } = await supabase
   .storage
   .from('images')
-  .remove([ 'scio/future/' + imageName])
+  .remove(['scio/'+ selectedEntryId + '/future/' + imageName])
 
 if(error) {
   alert(error);
@@ -181,6 +181,7 @@ if (selectedFile)
           name='FS1'
           required={false}
           onChange={handleChange}
+          defaultValue={futureblock.FS1}
         />
           <p>Use the Choose File button below to upload an image to your gallery</p>
           <input type="file" accept=".png, .jpg, .jpeg, " onChange={(e) => uploadImage(e)} />
@@ -188,12 +189,12 @@ if (selectedFile)
           <h3>Your Images</h3>
           <Grid container spacing={2}>
             {images.map((image) => (
-              <Grid item key={CDNURL + "/" + image.name}>
+              <Grid item key={CDNURL + selectedEntryId + "/" +  'future'+ "/" + image.name}>
                 <Card>
                   <CardMedia  
                     component="img"
                     height="150"                
-                    image={CDNURL + "/" + image.name}
+                    image={CDNURL + selectedEntryId + "/" +  'future'+ "/" + image.name}
                   />
                   <CardContent>   
                    

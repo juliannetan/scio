@@ -14,7 +14,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 import { v4 as uuidv4 } from 'uuid';
 import {  Button, Grid, Card, CardMedia, CardContent } from '@mui/material';
 
-const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/lessons/";
+const CDNURL = "https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/";
 
 
 
@@ -83,7 +83,7 @@ const LessonsblockPage = ({ generatedId, providedId, setNextPage }) => {
     
       .storage
       .from('images')
-      .list( 'scio/lessons/', {
+      .list(  'scio/'+ providedId + '/lessons', {
         limit: 100,
         offset: 0,
         sortBy: { column: "name", order: "asc"}
@@ -108,7 +108,7 @@ async function uploadImage(e) {
 
   const { data, error } = await supabase
     .storage
-    .from('images/scio/lessons/')
+    .from('images/scio/'+ providedId + '/lessons')
     .upload('/' + uuidv4(), file )
      
     if(data) {
@@ -124,7 +124,7 @@ async function deleteImage(imageName) {
   const { error } = await supabase
     .storage
     .from('images')
-    .remove([ 'scio/lessons/' + imageName])
+    .remove(['scio/'+ providedId + '/lessons/' + imageName])
   
   if(error) {
     alert(error);
@@ -160,12 +160,12 @@ const handleImageClick = () => {
         <h3>Your Images</h3>
         <Grid container spacing={2}>
           {images.map((image) => (
-            <Grid item key={CDNURL + "/" + image.name}>
+            <Grid item key={CDNURL +  providedId + "/" +  'lessons'+ "/" + image.name}>
               <Card>
                 <CardMedia  
                   component="img"
                   height="150"                
-                  image={CDNURL + "/" + image.name}
+                  image={CDNURL +  providedId + "/" +  'lessons'+ "/" + image.name}
                 />
                 <CardContent>   
                  

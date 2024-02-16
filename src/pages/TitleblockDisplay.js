@@ -166,7 +166,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             name='Assurance'
             required={false}
             onChange={handleChange}
-            defaultValue={titleblock.Assurance}
+            value={titleblock.Assurance || ''}
           />
          
         </Section>
@@ -233,7 +233,7 @@ const TitleblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
             name='Practice'
             required={false}
             onChange={handleChange}
-            defaultValue={titleblock.TQ8}
+            defaultValue={titleblock.Practice}
           />
         </Section>
         <Section>

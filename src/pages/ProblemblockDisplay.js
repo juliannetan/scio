@@ -190,6 +190,7 @@ const ProblemblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           name='PQ7'
           required={false}
           onChange={handleChange}
+          value={problemblock.PQ7 || ''}
         />
         
         </Section>
