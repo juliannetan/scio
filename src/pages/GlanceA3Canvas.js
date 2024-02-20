@@ -324,7 +324,7 @@ const A3Canvas = ({ selectedEntryId }) => {
                       <ul
                         style={{ listStyleType: 'none', margin: 0, padding: 0 }}
                       >
-                        {content &&
+                        {content && content.ProblemSolvers &&
                           content.ProblemSolvers.split(/[\n,]/).map(
                             (member, index) => (
                               <Typography key={index} variant='subtitle1'>
