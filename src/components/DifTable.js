@@ -190,8 +190,6 @@ const DifTable = ({
     <Box sx={{ width: '100%', overflowX: 'auto' }}>
       <Paper elevation={3}>
         <Box sx={{ minWidth: 600 }}>
-          {' '}
-          {/* Set minimum width to prevent content from shrinking too much */}
           <DataGrid
             rows={rows}
             columns={columns}

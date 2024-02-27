@@ -13,8 +13,7 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 import { Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material'
 
-const CDNURL =
-  'https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/'
+const CDNURL = process.env.REACT_APP_CDN_URL
 
 const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   const customSnackbarRef = useRef(null)

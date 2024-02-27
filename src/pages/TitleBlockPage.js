@@ -99,6 +99,7 @@ const TitleblockPage = ({
       const { data, error } = await supabase
         .from('Titlecontent_duplicate')
         .select('*')
+        .order('Created_Date', { ascending: true })
       if (error) {
         throw error
       }

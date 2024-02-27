@@ -13,8 +13,7 @@ import CustomSnackbar from '../components/CustomSnackbar.js'
 import { v4 as uuidv4 } from 'uuid'
 import { Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material'
 
-const CDNURL =
-  'https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/'
+const CDNURL = process.env.REACT_APP_CDN_URL
 
 const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
@@ -200,48 +199,45 @@ const SolutionblockPage = ({ generatedId, providedId, setNextPage }) => {
             onChange={handleChange}
           />
 
-        <strong>Solution  Alternative Set B</strong>
-        <TextArea
-        placeholder=''
-        name='SAB'
-        required={false}
-        onChange={handleChange}
-      />  
+          <strong>Solution Alternative Set B</strong>
+          <TextArea
+            placeholder=''
+            name='SAB'
+            required={false}
+            onChange={handleChange}
+          />
 
-      
-      <strong>Solution  Alternative Set C</strong>
-      <TextArea
-      placeholder=''
-      name='SAC'
-      required={false}
-      onChange={handleChange}
-    />  
+          <strong>Solution Alternative Set C</strong>
+          <TextArea
+            placeholder=''
+            name='SAC'
+            required={false}
+            onChange={handleChange}
+          />
 
-                 
-    <strong>Solution  Alternative Set D</strong>
-      <TextArea
-      placeholder=''
-      name='SAD'
-      required={false}
-      onChange={handleChange}
-    />  
+          <strong>Solution Alternative Set D</strong>
+          <TextArea
+            placeholder=''
+            name='SAD'
+            required={false}
+            onChange={handleChange}
+          />
 
-                 
-    <strong>Solution  Alternative Set E</strong>
-      <TextArea
-      placeholder=''
-      name='SAE'
-      required={false}
-      onChange={handleChange}
-    />  
+          <strong>Solution Alternative Set E</strong>
+          <TextArea
+            placeholder=''
+            name='SAE'
+            required={false}
+            onChange={handleChange}
+          />
 
-    <strong>Solution  Alternative Set F</strong>
-      <TextArea
-      placeholder=''
-      name='SAF'
-      required={false}
-      onChange={handleChange}
-    />  
+          <strong>Solution Alternative Set F</strong>
+          <TextArea
+            placeholder=''
+            name='SAF'
+            required={false}
+            onChange={handleChange}
+          />
 
           <Title>Secondary Solution Evaluation Content:</Title>
 

@@ -1,7 +1,6 @@
 import { Button, Modal, Typography } from '@mui/material'
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { supabase } from '../components/supabase'
 import CustomSnackbar from '../components/CustomSnackbar'
 import ProblemblockDisplay from './ProblemblockDisplay'
@@ -324,7 +323,8 @@ const A3Canvas = ({ selectedEntryId }) => {
                       <ul
                         style={{ listStyleType: 'none', margin: 0, padding: 0 }}
                       >
-                        {content && content.ProblemSolvers &&
+                        {content &&
+                          content.ProblemSolvers &&
                           content.ProblemSolvers.split(/[\n,]/).map(
                             (member, index) => (
                               <Typography key={index} variant='subtitle1'>

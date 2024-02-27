@@ -11,10 +11,9 @@ import {
 import CustomSnackbar from '../components/CustomSnackbar.js'
 
 import { v4 as uuidv4 } from 'uuid'
-import { Button, Grid, Card, CardMedia, CardContent, Box } from '@mui/material'
+import { Button, Grid, Card, CardMedia, CardContent } from '@mui/material'
 
-const CDNURL =
-  'https://vrkrxuzxtdbtcwyhcaiq.supabase.co/storage/v1/object/public/images/scio/'
+const CDNURL = process.env.REACT_APP_CDN_URL
 
 const FutureblockPage = ({ generatedId, providedId, setNextPage }) => {
   const customSnackbarRef = useRef(null)
