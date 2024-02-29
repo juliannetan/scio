@@ -97,22 +97,21 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
     }
   }
 
-  /* Upload Image*/
+  /* Upload Image1*/
 
-  const [images, setImages] = useState([])
-  const [selectedFile, setSelectedFile] = useState(null)
-
-  async function getImages() {
+  const [images1, setImages1] = useState([])
+  
+  async function getImages1() {
     const { data, error } = await supabase.storage
       .from('images')
-      .list('scio/' + selectedEntryId + '/value', {
+      .list('scio/' + selectedEntryId + '/value' + '/file1'    , {
         limit: 100,
         offset: 0,
         sortBy: { column: 'name', order: 'asc' },
       })
 
     if (data !== null) {
-      setImages(data)
+      setImages1(data)
     } else {
       alert('Error loading images')
       console.log(error)
@@ -120,36 +119,90 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
   }
 
   useEffect(() => {
-    getImages()
+    getImages1()
   }, [])
 
-  async function uploadImage(e) {
+  async function uploadImage1(e) {
     let file = e.target.files[0]
 
     const { data, error } = await supabase.storage
-      .from('images/scio/' + selectedEntryId + '/value')
+      .from('images/scio/' + selectedEntryId + '/value' +'/file1'   )
       .upload('/' + uuidv4(), file)
 
     if (data) {
       console.log('Image uploaded successfully')
-      getImages()
+      getImages1()
     } else {
       console.log('Error uploading image:', error)
     }
   }
 
-  async function deleteImage(imageName) {
+  async function deleteImage1(imageName) {
     const { error } = await supabase.storage
       .from('images')
-      .remove(['scio/' + selectedEntryId + '/value/' + imageName])
+      .remove(['scio/' + selectedEntryId + '/value' + '/file1' + '/'   + imageName])
 
     if (error) {
       alert(error)
     } else {
-      getImages()
+      getImages1()
     }
   }
 
+   /* Upload Image2*/
+
+   const [images2, setImages2] = useState([])
+   const [selectedFile, setSelectedFile] = useState(null)
+ 
+   async function getImages2() {
+     const { data, error } = await supabase.storage
+       .from('images')
+       .list('scio/' + selectedEntryId + '/value' + '/file2' , {
+         limit: 100,
+         offset: 0,
+         sortBy: { column: 'name', order: 'asc' },
+       })
+ 
+     if (data !== null) {
+       setImages2(data)
+     } else {
+       alert('Error loading images')
+       console.log(error)
+     }
+   }
+ 
+   useEffect(() => {
+     getImages2()
+   }, [])
+ 
+   async function uploadImage2(e) {
+     let file = e.target.files[0]
+ 
+     const { data, error } = await supabase.storage
+       .from('images/scio/' + selectedEntryId + '/value' + '/file2'  )
+       .upload('/' + uuidv4(), file)
+ 
+     if (data) {
+       console.log('Image uploaded successfully')
+       getImages2()
+     } else {
+       console.log('Error uploading image:', error)
+     }
+   }
+ 
+   async function deleteImage2(imageName) {
+     const { error } = await supabase.storage
+       .from('images')
+       .remove(['scio/' + selectedEntryId + '/value'  + '/file2' + '/'  + imageName])
+ 
+     if (error) {
+       alert(error)
+     } else {
+       getImages2()
+     }
+   }
+ 
+  
   const handleImageClick = () => {
     if (selectedFile) {
       window.open(URL.createObjectURL(selectedFile))
@@ -172,16 +225,16 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           <input
             type='file'
             accept='.png, .jpg, .jpeg, '
-            onChange={(e) => uploadImage(e)}
+            onChange={(e) => uploadImage1(e)}
           />
           <hr />
           <h3>Your Images</h3>
           <Grid container spacing={2}>
-            {images.map((image) => (
+            {images1.map((image) => (
               <Grid
                 item
                 key={
-                  CDNURL + selectedEntryId + '/' + 'value' + '/' + image.name
+                  CDNURL + selectedEntryId + '/value' + '/file1' + '/' + image.name
                 }
               >
                 <Card>
@@ -189,11 +242,8 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
                     component='img'
                     height='150'
                     image={
-                      CDNURL +
-                      selectedEntryId +
-                      '/' +
-                      'value' +
-                      '/' +
+                      CDNURL + selectedEntryId +'/value' +
+                      '/file1' + '/'   +
                       image.name
                     }
                   />
@@ -202,7 +252,7 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
                       size='small'
                       variant='contained'
                       color='error'
-                      onClick={() => deleteImage(image.name)}
+                      onClick={() => deleteImage1(image.name)}
                     >
                       Delete Image
                     </Button>
@@ -218,16 +268,16 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
           <input
             type='file'
             accept='.png, .jpg, .jpeg, '
-            onChange={(e) => uploadImage(e)}
+            onChange={(e) => uploadImage2(e)}
           />
           <hr />
           <h3>Your Images</h3>
           <Grid container spacing={2}>
-            {images.map((image) => (
+            {images2.map((image) => (
               <Grid
                 item
                 key={
-                  CDNURL + selectedEntryId + '/' + 'value' + '/' + image.name
+                  CDNURL + selectedEntryId + '/value' + '/file2' + '/' + image.name
                 }
               >
                 <Card>
@@ -237,9 +287,9 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
                     image={
                       CDNURL +
                       selectedEntryId +
-                      '/' +
-                      'value' +
-                      '/' +
+                      
+                      '/value' +
+                      '/file2' + '/' +
                       image.name
                     }
                   />
@@ -248,7 +298,7 @@ const ValueblockDisplay = ({ selectedEntryId, selectedId, onClose }) => {
                       size='small'
                       variant='contained'
                       color='error'
-                      onClick={() => deleteImage(image.name)}
+                      onClick={() => deleteImage2(image.name)}
                     >
                       Delete Image
                     </Button>
