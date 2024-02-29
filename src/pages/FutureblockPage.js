@@ -68,7 +68,7 @@ const FutureblockPage = ({ generatedId, providedId, setNextPage }) => {
     }
   }
 
-  /* Upload Image*/
+  /* Upload Image1*/
   const [images, setImages] = useState([])
   const [selectedFile, setSelectedFile] = useState(null)
 
@@ -119,7 +119,7 @@ const FutureblockPage = ({ generatedId, providedId, setNextPage }) => {
       getImages()
     }
   }
-
+  
   const handleImageClick = () => {
     if (selectedFile) {
       window.open(URL.createObjectURL(selectedFile))
